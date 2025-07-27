@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-public class Health : MonoBehaviour
+public class Health : MonoBehaviour, IDamageable
 {
     [field: SerializeField] public int MaxHealth { get; private set; } = 100;
     public int HealthAmount { get; private set; } = 0;
@@ -14,7 +14,29 @@ public class Health : MonoBehaviour
     {
         // On start, health is set to max
         HealthAmount = MaxHealth;
-    } 
+    }
+
+    private void OnEnable()
+    {
+        // Check for body parts
+        foreach (BodyPart bodyPart in GetComponentsInChildren<BodyPart>()) 
+        {
+            bodyPart.onBodyPartHit += OnBodyPartHit;
+        }
+    }
+
+    private void OnDisable()
+    {
+        foreach (BodyPart bodyPart in GetComponentsInChildren<BodyPart>())
+        {
+            bodyPart.onBodyPartHit -= OnBodyPartHit;
+        }
+    }
+
+    private void OnBodyPartHit(float resultDamage, Transform damageInstigator)
+    {
+        RemoveHealth((int)resultDamage);
+    }
 
     public void AddHealth(int amount)
     {
@@ -41,11 +63,16 @@ public class Health : MonoBehaviour
     {
         Dead = true;
 
-        foreach (IDead deadInterface in GetComponents<IDead>())
+        foreach (IDead deadInterface in GetComponentsInChildren<IDead>())
         {
             deadInterface.Dead();
         }
 
         onDead?.Invoke();
+    }
+
+    public void Damage(float damageValue, Transform damageInstigator)
+    {
+        RemoveHealth((int)damageValue);
     }
 }

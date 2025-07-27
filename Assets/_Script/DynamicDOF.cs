@@ -21,8 +21,8 @@ public class DynamicDOF : MonoBehaviour
         }
         else 
         {
-            Debug.LogError("Cant find PostProcessVolume, disabling component");
             enabled = false;
+            return;
         }
     }
 

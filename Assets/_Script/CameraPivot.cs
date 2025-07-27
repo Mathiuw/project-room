@@ -4,5 +4,5 @@ public class CameraPivot : MonoBehaviour
 {
     // Class to handle PlayerCamera pivot transform
 
-    public Camera attatchedCamera { get; set; }
+    public Transform attatchedCamera { get; set; }
 }

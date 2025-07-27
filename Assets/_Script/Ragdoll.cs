@@ -6,20 +6,15 @@ public class Ragdoll : MonoBehaviour
    
     void Start() 
     {
-        if (_activateOnStart) RagdollState(true);
-        else RagdollState(false);
+        if (_activateOnStart) SetRagdollState(true);
+        else SetRagdollState(false);
     }   
 
-    public void RagdollState(bool b) 
+    public void SetRagdollState(bool state) 
     {
         foreach (Rigidbody rb in GetComponentsInChildren<Rigidbody>()) 
         {
-            rb.isKinematic = !b;
-        }
-
-        foreach (Collider collider in GetComponentsInChildren<Collider>()) 
-        {
-            collider.isTrigger = !b;
+            rb.isKinematic = !state;
         }
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine.AI;
 using UnityEngine.SocialPlatforms;
 
 [RequireComponent(typeof(EnemyWeaponInteraction), typeof(NavMeshAgent))]
-public class EnemyAi : MonoBehaviour
+public class EnemyAi : MonoBehaviour, IDead
 {
     [Header("AI settings")]
     [SerializeField] float _baseSpeed = 6;
@@ -68,6 +68,27 @@ public class EnemyAi : MonoBehaviour
         Func<bool> HasTarget() => () => Target != null;
         Func<bool> IsInTargetReach() => () => Vector3.Distance(transform.position, Target.position) < attackRange /*&& CanSeeTarget()*/;
         Func<bool> IsNotInTargetReach() => () => Vector3.Distance(transform.position, Target.position) > attackRange;
+
+        foreach (BodyPart bodyPart in GetComponentsInChildren<BodyPart>())
+        {
+            bodyPart.onBodyPartHit += OnBodyPartHit;
+        }
+    }
+
+    private void OnDisable()
+    {
+        foreach (BodyPart bodyPart in GetComponentsInChildren<BodyPart>())
+        {
+            bodyPart.onBodyPartHit -= OnBodyPartHit;
+        }
+    }
+
+    private void OnBodyPartHit(float resultDamage, Transform damageInstigator)
+    {
+        if (!Target)
+        {
+            Target = damageInstigator;
+        }
     }
 
     void Update()
@@ -143,5 +164,13 @@ public class EnemyAi : MonoBehaviour
 
             yield return new WaitForSeconds(_burstInterval);
         }
+    }
+
+    public void Dead()
+    {
+        StopAllCoroutines();
+        _navMeshAgent.enabled = false;
+        GetComponentInChildren<Ragdoll>().SetRagdollState(true);
+        enabled = false;
     }
 }

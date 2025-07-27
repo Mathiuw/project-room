@@ -205,22 +205,19 @@ public class Inventory : MonoBehaviour
             {
                 if (consumables[i].SOItem.GetType() == typeof(SOConsumable))
                 {
-                    consumables[i].UseConsumable(GetComponent<Health>());
-                    Debug.Log(consumables[i].SOItem.name + " used");
+                    if (consumables[i].UseConsumable(GetComponent<Health>()))
+                    {
+                        RemoveConsumable(consumables[i].SOItem);
+                        Debug.Log(consumables[i].SOItem.name + " used");
 
-                    RemoveConsumable(consumables[i].SOItem);
+                        // check if index is valid
+                        ChangeConsumableIndex(0);
 
-                    // check if index is valid
-                    ChangeConsumableIndex(0);
-
-                    OnConsumableUse?.Invoke();
+                        OnConsumableUse?.Invoke();
+                    }
                     break;
                 }
-                else
-                {
-                    Debug.Log("Cant use, itemSO is not consumable");
-                    break;
-                }
+                else break;
             }
         }
     }

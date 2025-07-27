@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,7 +17,7 @@ public class UI_Ammo : MonoBehaviour
         if (playerWeaponInteraction) 
         {
             playerWeaponInteraction.onWeaponPickup += ActivateUISprite;
-            playerWeaponInteraction.onWeaponShot += SetUIAmmoText;
+            playerWeaponInteraction.onWeaponShot += OnWeaponShot;
             playerWeaponInteraction.onWeaponDrop += DisableUISprite;
             playerWeaponInteraction.onReloadEnd += SetUIAmmoText;
 
@@ -36,10 +37,15 @@ public class UI_Ammo : MonoBehaviour
     {
         playerWeaponInteraction.onWeaponPickup -= ActivateUISprite;
         playerWeaponInteraction.onWeaponDrop -= DisableUISprite;
-        playerWeaponInteraction.onWeaponShot -= SetUIAmmoText;
+        playerWeaponInteraction.onWeaponShot -= OnWeaponShot;
         playerWeaponInteraction.onReloadEnd -= SetUIAmmoText;
 
         playerInventory.OnAmmoCountUpdate -= SetUIAmmoText;
+    }
+
+    private void OnWeaponShot(Weapon weapon)
+    {
+        SetUIAmmoText();
     }
 
     void ActivateUISprite(Weapon weapon = null)

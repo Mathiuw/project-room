@@ -55,7 +55,7 @@ public class PlayerCameraAnimationManager : MonoBehaviour
         animator.runtimeAnimatorController = weapon.SOWeapon.animatorOverride;
     }
 
-    private void OnWeaponShot()
+    private void OnWeaponShot(Weapon weapon)
     {
         animator.Play("Shoot", 1);
     }

@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class EnemyWeaponInteraction : WeaponInteraction
+public class EnemyWeaponInteraction : WeaponInteraction, IDead
 {
     private void Start()
     {
@@ -43,5 +43,10 @@ public class EnemyWeaponInteraction : WeaponInteraction
         Weapon = null;
 
         Debug.Log(name + " dropped weapon");
+    }
+
+    public void Dead()
+    {
+        DropWeapon();
     }
 }

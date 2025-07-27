@@ -1,6 +1,5 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Camera))]
 public class CameraMovement : MonoBehaviour
 {
     [Header("Camera Movement")]
@@ -8,7 +7,7 @@ public class CameraMovement : MonoBehaviour
     [SerializeField] float multiplier = 1;
     float mouseX, mouseY;
     float xRotation, yRotation;
-    Transform cameraPivot;
+    CameraPivot cameraPivot;
 
     [Header("Camera Roll")]
     [SerializeField] bool cameraRoll = true;
@@ -29,10 +28,8 @@ public class CameraMovement : MonoBehaviour
         // Get the player camera position
         if (cameraPivot)
         {
-            Camera camera = GetComponent<Camera>();
-
-            this.cameraPivot = cameraPivot.transform;
-            cameraPivot.attatchedCamera = camera;
+            this.cameraPivot = cameraPivot;
+            cameraPivot.attatchedCamera = transform;
         }
         else Debug.LogError("No camera pivot found");
     }
@@ -40,7 +37,7 @@ public class CameraMovement : MonoBehaviour
     void Update()
     {
         // Follows the player camera position
-        transform.position = cameraPivot.position;
+        transform.position = cameraPivot.transform.position;
 
         // Move camera
         CameraMove();

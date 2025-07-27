@@ -90,28 +90,18 @@ public class Weapon : MonoBehaviour, IInteractable, IUIName
         {
             Debug.DrawLine(raycastPos.position, hit.point, Color.green, 1f);
 
-            hit.transform.TryGetComponent(out Health health);
-            hit.transform.TryGetComponent(out EnemyAi enemyAi);
+            IDamageable[] damageables = hit.transform.GetComponents<IDamageable>();
 
-            if (enemyAi && owner != null) enemyAi.Target = owner;
-
-            if (health)
+            if (damageables.Length != 0)
             {
-                if (health.Dead) 
+                foreach (IDamageable damageable in damageables)
                 {
-                    AddForceToRbs(hit.transform, raycastPos, SOWeapon.bulletForce);
-                }
-                else
-                {
-                    health.RemoveHealth(SOWeapon.damage);
-                    hitEvent?.Invoke(hit);
+                    damageable.Damage(SOWeapon.damage, owner);
                 }
 
-                PlayBloodParticle();        
-            }
-            else
-            {
-                AddForceToRbs(hit.transform, raycastPos, SOWeapon.bulletForce);
+                hitEvent?.Invoke(hit);
+                PlayBloodParticle();
+                //AddForceToRbs(hit.transform, raycastPos, SOWeapon.bulletForce);
             }
         }
         else 

@@ -4,34 +4,44 @@ public class CameraShake : MonoBehaviour
 {
     [SerializeField] Vector3 maxRotaion;
     Vector3 rotation;
-    [SerializeField] float speed;
-    Transform cameraTransform;
+
+    [SerializeField] private float speed;
+    [SerializeField] private float growthIntensity = 1;
+    [SerializeField] private float decayIntensity = 1;
 
     float intensity = 0;
-
-    //Perlin noise seed
     float seedX;
     float seedY;
     float seedZ;
 
-    //How much the shake increase/decrease
-    //SerializeField] float growthIntensity = 1;
-    [SerializeField] float decayIntensity = 1;
+    PlayerWeaponInteraction playerWeaponInteraction;
+
+    private void Awake()
+    {
+        seedX = Random.Range(-1000, 1000);
+        seedY = Random.Range(-1000, 1000);
+        seedZ = Random.Range(-1000, 1000);
+    }
 
     void Start()
     {
-        cameraTransform = Camera.main.transform;
+        playerWeaponInteraction = FindFirstObjectByType<PlayerWeaponInteraction>();
 
-        seedX = Random.Range(-1000,1000);
-        seedY = Random.Range(-1000,1000);
-        seedZ = Random.Range(-1000,1000);
+        if (playerWeaponInteraction)
+        {
+            playerWeaponInteraction.onWeaponShot += OnWeaponShot;
+        }
+    }
+
+    private void OnDisable()
+    {
+        playerWeaponInteraction.onWeaponShot -= OnWeaponShot;
     }
 
     void Update()
     {
         // Debug Input
-        //if (Input.GetKey(KeyCode.Space)) intensity += growthIntensity * Time.deltaTime;
-        //else
+        if (Input.GetKey(KeyCode.Space)) intensity += growthIntensity * Time.deltaTime;
 
         intensity -= decayIntensity * Time.deltaTime;
         intensity = Mathf.Clamp01(intensity);
@@ -43,7 +53,15 @@ public class CameraShake : MonoBehaviour
         rotation.y = intensityExponential * maxRotaion.y * PerlinNoise(seedY, time);
         rotation.z = intensityExponential * maxRotaion.z * PerlinNoise(seedZ, time);
 
-        cameraTransform.localRotation = Quaternion.Euler(rotation);
+        transform.localRotation = Quaternion.Euler(rotation);
+    }
+
+    private void OnWeaponShot(Weapon weaponShot)
+    {
+        float intensity = weaponShot.SOWeapon.intensity;
+        float speed = weaponShot.SOWeapon.speed;
+
+        AddCameraShake(intensity, speed);
     }
 
     float PerlinNoise(float x, float y) 
@@ -56,5 +74,4 @@ public class CameraShake : MonoBehaviour
         this.intensity = intensity;
         this.speed = speed;
     }
-
 }

@@ -24,12 +24,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 9993
   crosshair: {fileID: 0}
-  intensity: 1
+  intensity: 2
   speed: 10
   animatorOverride: {fileID: 22100000, guid: 256889344a1820d4f9d9ad130e20a49a, type: 2}
   reloadTime: 1.2
-  reloadItem: {fileID: 11400000, guid: b936a3ffd96c47249a5c826bf08bdfc8, type: 2}
-  muzzleFlash: {fileID: 2004880136692511860, guid: db3a34192a3b02f44ad5c5f4809c75b9, type: 3}
-  wallHit: {fileID: 2553133760792651097, guid: f518402108b099b42bf42ae7231061e5, type: 3}
-  Blood: {fileID: 5750085299204580770, guid: 3a5dae8569d4f374e8c66e8fef3d1f31, type: 3}
   ammoSprite: {fileID: 21300000, guid: bb90bc28b6479c64a8fa4548034fac62, type: 3}

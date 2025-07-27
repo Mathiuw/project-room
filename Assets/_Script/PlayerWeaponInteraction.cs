@@ -18,7 +18,7 @@ public class PlayerWeaponInteraction : WeaponInteraction, IDead
     Transform cameraTransform;
     Inventory inventory;
 
-    public event Action onWeaponShot;
+    public event Action<Weapon> onWeaponShot;
     public event Action<Weapon> onWeaponPickup;
     public event Action<RaycastHit> onWeaponHit;
     public event Action onReloadStart;
@@ -54,7 +54,7 @@ public class PlayerWeaponInteraction : WeaponInteraction, IDead
             {
                 if (Weapon.Shoot(cameraTransform, onWeaponHit))
                 {
-                    onWeaponShot?.Invoke();
+                    onWeaponShot?.Invoke(Weapon);
                 }                          
             }
         }
