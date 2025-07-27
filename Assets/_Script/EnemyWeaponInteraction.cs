@@ -39,17 +39,6 @@ public class EnemyWeaponInteraction : WeaponInteraction
 
     public override void DropWeapon()
     {
-        //Destroy components
-        //Destroy(Weapon.GetComponent<Weapon>());
-
-        //set Ammo drop for player
-        //Item ammoDrop = Weapon.AddComponent<Item>();
-        //ammoDrop.SOItem = weapon.GetReloadItem();
-        //ammoDrop.Amount = 1;
-        // Ammo drop pickup
-        //Weapon.AddComponent<EnemyAmmoDrop>();
-
-        //Sets weapon state and current weapon NULL
         Weapon.SetHoldState(false, null);
         Weapon = null;
 

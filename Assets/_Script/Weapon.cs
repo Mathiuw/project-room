@@ -6,29 +6,22 @@ public class Weapon : MonoBehaviour, IInteractable, IUIName
     [Header("Weapon Scriptable object")]
     [field: SerializeField] public SOWeapon SOWeapon { get; private set; }
 
-    [Header("Weapon Transforms")]
-    [SerializeField] Transform muzzleFlashLocation;
-
     [Header("Particles")]
+    [field: SerializeField] Transform muzzleFlashTransform;
     [SerializeField] ParticleSystem muzzleFlash;
     [SerializeField] ParticleSystem blood;
 
-    AudioSource gunSound;
     public RaycastHit hit;
-    float nextTimeToFire = 0;
+    protected AudioSource gunSound;
+    protected float nextTimeToFire = 0;
 
     public int Ammo { get; private set; } = 0;
-
-    public event Action onShoot;
-    public event Action<Health> onHit;
 
     public Transform owner { get; private set; }
 
     public string ReadName => SOWeapon.weaponName;
 
-    public Vector3 GetMuzzleFlashLocation() { return muzzleFlashLocation.localPosition; }
-
-    void Awake()
+    private void Awake()
     {
         // Set hold state to false
         SetHoldState(false);
@@ -82,21 +75,17 @@ public class Weapon : MonoBehaviour, IInteractable, IUIName
         for (int i = 0; i < colliders.Length; i++) colliders[i].isTrigger = hasOwner;
     }
 
-    // Shooting logic
-    public virtual void Shoot(Transform raycastPos)
+    public virtual bool Shoot(Transform raycastPos, Action<RaycastHit> hitEvent = null)
     {
-        if (Ammo == 0) return;
-        if (!(Time.time > nextTimeToFire)) return;
+        if (Ammo == 0 || !(Time.time > nextTimeToFire)) return false;
 
         // Firerate calculation
         nextTimeToFire = Time.time + (1f / SOWeapon.firerate);
+
         PlayGunSound();
         PlayMuzzleFlashParticle();
         RemoveAmmo(1);
 
-        //CameraShake.AddCameraShake(soWeapon.intensity, soWeapon.speed);
-
-        // Raycast para checar se atingi algo
         if (Physics.Raycast(raycastPos.position, raycastPos.forward, out hit, 1000, SOWeapon.shootMask))
         {
             Debug.DrawLine(raycastPos.position, hit.point, Color.green, 1f);
@@ -108,11 +97,17 @@ public class Weapon : MonoBehaviour, IInteractable, IUIName
 
             if (health)
             {
-                onHit?.Invoke(health);
-                PlayBloodParticle();
-                health.RemoveHealth(SOWeapon.damage);
+                if (health.Dead) 
+                {
+                    AddForceToRbs(hit.transform, raycastPos, SOWeapon.bulletForce);
+                }
+                else
+                {
+                    health.RemoveHealth(SOWeapon.damage);
+                    hitEvent?.Invoke(hit);
+                }
 
-                if (health.GetIsDead()) AddForceToRbs(hit.transform, raycastPos, SOWeapon.bulletForce);
+                PlayBloodParticle();        
             }
             else
             {
@@ -124,18 +119,15 @@ public class Weapon : MonoBehaviour, IInteractable, IUIName
             Debug.DrawRay(raycastPos.position, raycastPos.forward, Color.red, 1f);
         }
 
-        // Invoca o evento de atirar
-        onShoot?.Invoke();
+        return true;
     }
 
-    // Toca som da arma
-    void PlayGunSound()
+    protected void PlayGunSound()
     {
         gunSound.Play();
     }
 
-    // Adiciona forca a Rigidbodys
-    void AddForceToRbs(Transform hitTransform, Transform directionForce, float forceAmount)
+    protected void AddForceToRbs(Transform hitTransform, Transform directionForce, float forceAmount)
     {
         hitTransform.TryGetComponent(out Rigidbody rb);
 
@@ -145,14 +137,12 @@ public class Weapon : MonoBehaviour, IInteractable, IUIName
         }                         
     }
 
-    // Toca a particula de atirar a arma
-    void PlayMuzzleFlashParticle()
+    protected void PlayMuzzleFlashParticle()
     {
-        Instantiate(muzzleFlash, muzzleFlashLocation.position, muzzleFlashLocation.rotation, transform);
+        Instantiate(muzzleFlash, muzzleFlashTransform.position, muzzleFlashTransform.rotation, transform);
     }
 
-    // Toca a particula de sangue
-    void PlayBloodParticle()
+    protected void PlayBloodParticle()
     {
         ParticleSystem particleSystem = Instantiate(blood, hit.point, Quaternion.identity, hit.transform);
         particleSystem.transform.forward = hit.normal;

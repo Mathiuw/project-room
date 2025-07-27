@@ -25,8 +25,8 @@ public class UI_PlayerStats : MonoBehaviour
 
             if (playerHealth)
             {
-                healthBar.maxValue = playerHealth.GetMaxHealth();
-                SetHealthUI(playerHealth.GetHealth());
+                healthBar.maxValue = playerHealth.MaxHealth;
+                SetHealthUI(playerHealth.HealthAmount);
 
                 playerHealth.healthUpdated += SetHealthUI;
             }

@@ -38,7 +38,7 @@ public class EnemyAi : MonoBehaviour
     {
         if (!_path)
         {
-            Debug.LogError("Enemy doesnt have aptch");
+            Debug.LogError("Enemy doesnt have path");
             enabled = false;
             return;
         }
@@ -127,14 +127,18 @@ public class EnemyAi : MonoBehaviour
             {
                 // Shoot Weapon
                 _enemyWeaponInteraction.Weapon.Shoot(_shootRaycastTransform);
+                Debug.Log("Enemy shot weapon");
 
                 // Reload if ammo is over
                 if (_enemyWeaponInteraction.Weapon.Ammo == 0)
                 {
                     StartCoroutine(_enemyWeaponInteraction.ReloadWeapon());
+                    Debug.Log("Enemy reloaded weapon");
                 }
 
                 yield return new WaitForSeconds(1f / _enemyWeaponInteraction.Weapon.SOWeapon.firerate);
+
+                yield return null;
             }
 
             yield return new WaitForSeconds(_burstInterval);

@@ -92,11 +92,11 @@ public class Inventory : MonoBehaviour
                 break;
             case EAmmoType.largeAmmo:
                 LargeAmmoAmount -= amount;
-                LargeAmmoAmount = Mathf.Clamp(SmallAmmoAmount, 0, 999);
+                LargeAmmoAmount = Mathf.Clamp(LargeAmmoAmount, 0, 999);
                 break;
             case EAmmoType.ShellAmmo:
                 ShellAmmoAmount -= amount;
-                ShellAmmoAmount = Mathf.Clamp(SmallAmmoAmount, 0, 999);
+                ShellAmmoAmount = Mathf.Clamp(ShellAmmoAmount, 0, 999);
                 break;
             default:
                 break;
@@ -109,12 +109,8 @@ public class Inventory : MonoBehaviour
     {
         if (item.GetType() == typeof(Consumable))
         {
-            Debug.Log('a');
-
             for (int i = 0; i < consumables.Count; i++)
             {
-                Debug.Log('b');
-
                 // Check if already have the item
                 if (item.SOItem.itemName == consumables[i].SOItem.itemName)
                 {
@@ -123,8 +119,6 @@ public class Inventory : MonoBehaviour
                     {
                         Consumable consumable = (Consumable)item;
 
-                        Debug.Log('c');
-
                         // Increase item quantity
                         consumables[i].Amount += consumable.Amount;
                         OnConsumableAdd?.Invoke(consumables[i]);
@@ -132,7 +126,7 @@ public class Inventory : MonoBehaviour
                     }
                     else
                     {
-                        Debug.Log("You have the max amount of " + consumables[i].SOItem.itemName);
+                        Debug.Log(name + " have the max amount of " + consumables[i].SOItem.itemName);
                         return false;
                     }
                 }
@@ -141,8 +135,7 @@ public class Inventory : MonoBehaviour
             // Add new item
             consumables.Add((Consumable)item);
             OnConsumableAdd?.Invoke((Consumable)item);
-
-            Debug.Log('d');
+;
             return true;
         }
         else if (item.GetType() == typeof(Keycard))
@@ -171,7 +164,7 @@ public class Inventory : MonoBehaviour
             }
         }
 
-        Debug.LogError("Cant Remove Item | Dont Have Item");
+        Debug.LogError("Failed remove item");
         return false;
     }
 

@@ -23,24 +23,12 @@ public class SOWeapon : ScriptableObject
     public float intensity;
     public float speed;
 
-    [Header("Animations")]
+    [Header("Animation")]
     public AnimatorOverrideController animatorOverride;
 
     [Header("Reload")]
     public float reloadTime;
-    public SOItem reloadItem;
 
-    [Header("Particles")]
-    public GameObject muzzleFlash;
-    public GameObject wallHit;
-    public GameObject Blood;
-
-    [Header("UI Sprite")]
+    [Header("UI")]
     public Sprite ammoSprite;
-
-    //[Header("Audio")]
-    //public AudioClip shootAudio;
-    //public AudioSource shootSouce;
-    //public AudioClip noAmmoAudio;
-    //public AudioSource noAmmoSource;
 }

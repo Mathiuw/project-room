@@ -15,8 +15,8 @@ GameObject:
   - component: {fileID: 1470094871284349693}
   - component: {fileID: 5238716514750403170}
   - component: {fileID: 3347376989501621122}
-  - component: {fileID: 5849770200479973316}
   - component: {fileID: 978190496683272881}
+  - component: {fileID: 5849770200479973316}
   m_Layer: 10
   m_Name: Player_Camera
   m_TagString: MainCamera
@@ -173,14 +173,6 @@ MonoBehaviour:
   collsionMask:
     serializedVersion: 2
     m_Bits: 8449
---- !u!81 &5849770200479973316
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1995781272645413912}
-  m_Enabled: 1
 --- !u!114 &978190496683272881
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -241,6 +233,14 @@ MonoBehaviour:
   m_BeforeTransparentBundles: []
   m_BeforeStackBundles: []
   m_AfterStackBundles: []
+--- !u!81 &5849770200479973316
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1995781272645413912}
+  m_Enabled: 1
 --- !u!1 &5767956192542545986
 GameObject:
   m_ObjectHideFlags: 0

@@ -20,10 +20,11 @@ public class StateMachine
         if (transition != null)
         {
             SetState(transition.To);
+            Debug.Log("State machine transitioned to: " + transition.To);
         }
 
-        Debug.Log(_currentState.GetType());
         _currentState?.Tick();
+        Debug.Log("State machine state: " + _currentState.GetType());
     }
 
     public void SetState(IState state)
@@ -77,7 +78,7 @@ public class StateMachine
         {
             if (transition.Condition())
             {
-                Debug.Log("Condition to any transition met");
+                //Debug.Log("Condition to any transition met");
                 return transition;
             }
         }
@@ -86,13 +87,11 @@ public class StateMachine
         {
             if (transition.Condition())
             {
-                Debug.Log("Condition to transition met");
+                //Debug.Log("Condition to transition met");
                 return transition;
                 
             }
         }
-
-        Debug.Log("No condition met");
         return null;
     }
 }

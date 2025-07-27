@@ -23,10 +23,8 @@ public class KeycardReader : MonoBehaviour, IInteractable, IUIName
 
         if (inventory.HaveKeycard(keycardNeeded))
         {
-            inventory.RemoveConsumable(keycardNeeded);
             Used = true;
             ChangeMeshMaterials();
-
             OnAcceptKeycard?.Invoke();
         }
     }

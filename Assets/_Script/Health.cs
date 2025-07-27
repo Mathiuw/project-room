@@ -3,42 +3,35 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    [SerializeField] int maxHealth = 100;
-    int health;
-    bool isDead = false;
+    [field: SerializeField] public int MaxHealth { get; private set; } = 100;
+    public int HealthAmount { get; private set; } = 0;
+    public bool Dead { get; private set; } = false;
 
     public event Action<int> healthUpdated;
     public event Action onDead;
 
-    public int GetHealth() { return health; }
-    public int GetMaxHealth() { return maxHealth; }
-    public bool GetIsDead() { return isDead; }
-
-    void Awake() => maxHealth = health;
-
-    void Start() 
+    void Awake() 
     {
-        healthUpdated?.Invoke(health);
+        // On start, health is set to max
+        HealthAmount = MaxHealth;
     } 
 
-    // Adiciona Vida
     public void AddHealth(int amount)
     {
-        health += amount;
-        health = Mathf.Clamp(health, 0, maxHealth);
-        healthUpdated?.Invoke(health);
+        HealthAmount += amount;
+        HealthAmount = Mathf.Clamp(HealthAmount, 0, MaxHealth);
+        healthUpdated?.Invoke(HealthAmount);
     }
 
-    // Remove Vida e Checa Morte
     public void RemoveHealth(int amount)
     {
-        if (isDead) return;
+        if (Dead) return;
 
-        health -= amount;
-        health = Mathf.Clamp(health, 0, maxHealth);
-        healthUpdated?.Invoke(health);
+        HealthAmount -= amount;
+        HealthAmount = Mathf.Clamp(HealthAmount, 0, MaxHealth);
+        healthUpdated?.Invoke(HealthAmount);
 
-        if (health <= 0)
+        if (HealthAmount <= 0)
         {
             TriggerDeath();
         }
@@ -46,7 +39,7 @@ public class Health : MonoBehaviour
 
     private void TriggerDeath() 
     {
-        isDead = true;
+        Dead = true;
 
         foreach (IDead deadInterface in GetComponents<IDead>())
         {

@@ -18,15 +18,10 @@ public class UI_Ammo : MonoBehaviour
             playerWeaponInteraction.onWeaponPickup += ActivateUISprite;
             playerWeaponInteraction.onWeaponShot += SetUIAmmoText;
             playerWeaponInteraction.onWeaponDrop += DisableUISprite;
+            playerWeaponInteraction.onReloadEnd += SetUIAmmoText;
 
             if (playerWeaponInteraction.Weapon) ActivateUISprite();
             else DisableUISprite();
-        }
-        else
-        {
-            Debug.LogError("Can find PlayerWeaponInteraction on player GameObject");
-            enabled = false;
-            return;
         }
 
         playerInventory = playerWeaponInteraction.GetComponent<Inventory>();
@@ -35,12 +30,6 @@ public class UI_Ammo : MonoBehaviour
         {
             playerInventory.OnAmmoCountUpdate += SetUIAmmoText;
         }
-        else
-        {
-            Debug.LogError("Cant find Inventory on player GameObject");
-            enabled = false;
-            return;
-        }
     }
 
     private void OnDisable()
@@ -48,6 +37,7 @@ public class UI_Ammo : MonoBehaviour
         playerWeaponInteraction.onWeaponPickup -= ActivateUISprite;
         playerWeaponInteraction.onWeaponDrop -= DisableUISprite;
         playerWeaponInteraction.onWeaponShot -= SetUIAmmoText;
+        playerWeaponInteraction.onReloadEnd -= SetUIAmmoText;
 
         playerInventory.OnAmmoCountUpdate -= SetUIAmmoText;
     }
@@ -72,6 +62,10 @@ public class UI_Ammo : MonoBehaviour
             ammoUI.SetText("");
             return;
         }
-        ammoUI.SetText(playerWeaponInteraction.Weapon.Ammo + "/" + playerInventory.GetAmmoAmountByType(playerWeaponInteraction.Weapon.SOWeapon.ammoType));
+
+        int ammo = playerWeaponInteraction.Weapon.Ammo;
+        int ammoStored = playerInventory.GetAmmoAmountByType(playerWeaponInteraction.Weapon.SOWeapon.ammoType);
+
+        ammoUI.SetText(ammo + "/" + ammoStored);
     }  
 }

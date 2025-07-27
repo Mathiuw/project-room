@@ -1,50 +1,45 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
+[RequireComponent(typeof(CanvasGroup), typeof(AudioSource))]
 public class UI_Hit : MonoBehaviour
 {
     AudioSource hitSound;
+    CanvasGroup canvasGroup;
     PlayerWeaponInteraction playerWeaponInteraction;
-    [SerializeField] RectTransform[] hitSprite;
 
-    void Awake() 
+    void Awake()
     {
-        hitSound = GetComponent<AudioSource>();
+        canvasGroup = GetComponent<CanvasGroup>();
+        canvasGroup.alpha = 0;
 
-        SetHitmarkerSprite(false);
+        hitSound = GetComponent<AudioSource>();
     }
 
-    void Start() 
+    void Start()
     {
         playerWeaponInteraction = FindFirstObjectByType<PlayerMovement>().GetComponent<PlayerWeaponInteraction>();
-        playerWeaponInteraction.onWeaponPickup += AddPlayerEvents;
-        playerWeaponInteraction.onWeaponDrop += RemovePlayerEvents;
+
+        if (playerWeaponInteraction)
+        {
+            playerWeaponInteraction.onWeaponHit += OnWeaponHit;
+        }
     }
 
-    public void OnHit(Health health) => StartCoroutine(Hitmarker(health));
-
-    IEnumerator Hitmarker(Health health) 
+    private void OnWeaponHit(RaycastHit hit)
     {
-        if (health.GetIsDead()) yield break;
+        StartCoroutine(HitmarkerCoroutine());
+    }
+
+    private IEnumerator HitmarkerCoroutine()
+    {
+        canvasGroup.alpha = 1;
         hitSound.Play();
-        SetHitmarkerSprite(true);
+
         yield return new WaitForSeconds(hitSound.clip.length);
-        SetHitmarkerSprite(false);
+
+        canvasGroup.alpha = 0;
         yield break;
-    }
-
-    void SetHitmarkerSprite(bool b) 
-    {
-        foreach (RectTransform r in hitSprite) r.gameObject.SetActive(b);
-    }
-
-    void AddPlayerEvents(Weapon weaponPicked) 
-    {
-        playerWeaponInteraction.Weapon.GetComponent<Weapon>().onHit += OnHit;
-    }
-
-    void RemovePlayerEvents() 
-    {
-        playerWeaponInteraction.Weapon.GetComponent<Weapon>().onHit -= OnHit;
     }
 }

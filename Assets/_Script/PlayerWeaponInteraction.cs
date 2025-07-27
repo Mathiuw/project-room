@@ -20,6 +20,7 @@ public class PlayerWeaponInteraction : WeaponInteraction, IDead
 
     public event Action onWeaponShot;
     public event Action<Weapon> onWeaponPickup;
+    public event Action<RaycastHit> onWeaponHit;
     public event Action onReloadStart;
     public event Action onReloadEnd;
     public event Action onWeaponDrop;
@@ -51,8 +52,10 @@ public class PlayerWeaponInteraction : WeaponInteraction, IDead
 
             if (InputShoot())
             {
-                Weapon.Shoot(cameraTransform);
-                onWeaponShot?.Invoke();
+                if (Weapon.Shoot(cameraTransform, onWeaponHit))
+                {
+                    onWeaponShot?.Invoke();
+                }                          
             }
         }
 
@@ -73,7 +76,7 @@ public class PlayerWeaponInteraction : WeaponInteraction, IDead
 
         float elapsedTime = 0f;
         float percentageComplete = 0f;
-
+        
         Vector3 startPosition = weapon.localPosition;
         Quaternion startRotation = weapon.localRotation;
 
@@ -147,40 +150,29 @@ public class PlayerWeaponInteraction : WeaponInteraction, IDead
     {
         if (!Weapon) yield break;
         if (IsReloading) yield break;
-        if (Weapon.Ammo == Weapon.SOWeapon.maxAmmo) 
-        {
-            Debug.Log("Max Ammo");
-            yield break;
-        }
+        if (Weapon.Ammo == Weapon.SOWeapon.maxAmmo) yield break;
+        if (inventory.GetAmmoAmountByType(Weapon.SOWeapon.ammoType) == 0) yield break;
 
-        if (inventory.GetAmmoAmountByType(Weapon.SOWeapon.ammoType) == 0)
-        {
-            Debug.Log("No ammo to reload");
-            yield break;
-        }
+        onReloadStart?.Invoke();
 
         IsReloading = true;
         yield return new WaitForSeconds(Weapon.SOWeapon.reloadTime);
-        onReloadStart?.Invoke();
 
-        // Remove ammo from player inventory
         EAmmoType ammoType = Weapon.SOWeapon.ammoType;
         int amountToReload = 0;
         int inventoryAmmoAmount = inventory.GetAmmoAmountByType(ammoType);
 
-        for (int i = Weapon.Ammo; i <= Weapon.SOWeapon.maxAmmo; i++)
+        // Reload amount logic
+        for (int i = Weapon.Ammo; i < Weapon.SOWeapon.maxAmmo; i++)
         {
             if (inventoryAmmoAmount == 0) break;
 
             inventoryAmmoAmount--;
-
             amountToReload++;
         }
 
-        inventory.RemoveAmmo(ammoType, amountToReload);
-
-        // Add ammo to weapon
         Weapon.AddAmmo(amountToReload);
+        inventory.RemoveAmmo(ammoType, amountToReload);
 
         IsReloading = false;
         onReloadEnd?.Invoke();

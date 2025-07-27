@@ -6,7 +6,7 @@ public class Consumable : Item
 
     public void UseConsumable(Health health) 
     {
-        if (health.GetHealth() < health.GetMaxHealth())
+        if (health.HealthAmount < health.MaxHealth)
         {
             SOConsumable soConsumable = (SOConsumable)SOItem;
 

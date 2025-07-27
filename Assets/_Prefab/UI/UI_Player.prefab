@@ -679,10 +679,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4026776064232211958}
+  - component: {fileID: 4724811675828984403}
   - component: {fileID: 6852721200087917756}
   - component: {fileID: 1979837009051175275}
   m_Layer: 10
-  m_Name: HitMarker
+  m_Name: Hitmarker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -711,6 +712,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &4724811675828984403
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1223742978641653795}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!114 &6852721200087917756
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -723,11 +736,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18e13502e49676746a2cbf6ab7283c3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitSprite:
-  - {fileID: 4379714818920952852}
-  - {fileID: 5520211065493858802}
-  - {fileID: 7973551484195052551}
-  - {fileID: 2739812145064387488}
 --- !u!82 &1979837009051175275
 AudioSource:
   m_ObjectHideFlags: 0
@@ -737,7 +745,7 @@ AudioSource:
   m_GameObject: {fileID: 1223742978641653795}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 93a559875b335c84f86b2a42df5fb19c, type: 2}
   m_audioClip: {fileID: 8300000, guid: 8318c5c5a1b9f5740a01977416fb3acd, type: 3}
   m_Resource: {fileID: 8300000, guid: 8318c5c5a1b9f5740a01977416fb3acd, type: 3}
   m_PlayOnAwake: 0

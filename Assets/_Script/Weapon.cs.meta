@@ -3,7 +3,11 @@ guid: f7c124549f987ce449fa088a7acf2fc3
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - <SOWeapon>k__BackingField: {instanceID: 0}
+  - muzzleFlashTransform: {instanceID: 0}
+  - muzzleFlash: {instanceID: 0}
+  - blood: {fileID: 5750085299204580772, guid: 3a5dae8569d4f374e8c66e8fef3d1f31, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

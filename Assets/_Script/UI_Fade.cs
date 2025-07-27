@@ -9,11 +9,30 @@ public enum EFadeType
 
 public class UI_Fade : MonoBehaviour
 {
+    [SerializeField] bool activateOnStart = false;
+    [field: SerializeField] EFadeType EFadeType { get; set; } = EFadeType.FadeIn;
     [SerializeField] float fadeTime = 1f;
     [SerializeField] AnimationCurve curve;
     Image image;
 
     public float alpha { get; private set; }
+
+    private void Start()
+    {
+        if (!activateOnStart) return;
+
+        switch (EFadeType)
+        {
+            case EFadeType.FadeIn:
+                FadeIn();
+                break;
+            case EFadeType.FadeOut:
+                FadeOut();
+                break;
+            default:
+                break;
+        }
+    }
 
     void Awake() 
     {

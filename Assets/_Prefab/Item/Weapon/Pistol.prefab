@@ -9,10 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 53250435727361312}
-  - component: {fileID: 5016902295995579361}
   - component: {fileID: 2796705434005797875}
   - component: {fileID: 8360839775889383363}
-  - component: {fileID: 7474998426322120007}
   - component: {fileID: 4056158318860744372}
   m_Layer: 12
   m_Name: Pistol
@@ -39,28 +37,6 @@ Transform:
   - {fileID: 5024953459072633552}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &5016902295995579361
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 53250435727361313}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 22100000, guid: 4f547759e1dd5c041b6017e80dc64ee7, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!54 &2796705434005797875
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -101,20 +77,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <SOWeapon>k__BackingField: {fileID: 11400000, guid: ed656ae13e6643b4a868c56b4fad80bf, type: 2}
-  muzzleFlashLocation: {fileID: 5024953459072633552}
+  muzzleFlashTransform: {fileID: 5024953459072633552}
   muzzleFlash: {fileID: 8993078229490907916, guid: be85a34377cf8d241a2ac441893a7ee6, type: 3}
---- !u!114 &7474998426322120007
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 53250435727361313}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 400cbb11d7734e641a586ecdf24d4b8e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  blood: {fileID: 5750085299204580772, guid: 3a5dae8569d4f374e8c66e8fef3d1f31, type: 3}
 --- !u!82 &4056158318860744372
 AudioSource:
   m_ObjectHideFlags: 0

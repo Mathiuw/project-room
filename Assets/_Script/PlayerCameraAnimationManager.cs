@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+[RequireComponent(typeof(Animator))]
 public class PlayerCameraAnimationManager : MonoBehaviour
 {
     PlayerWeaponInteraction playerWeaponInteraction;
@@ -9,21 +10,22 @@ public class PlayerCameraAnimationManager : MonoBehaviour
 
     void Awake() 
     { 
-        animator = GetComponent<Animator>(); 
+        animator = GetComponent<Animator>();
     }
 
     void Start() 
     {
         playerWeaponInteraction = FindFirstObjectByType<PlayerWeaponInteraction>();
+        playerMovement = FindAnyObjectByType<PlayerMovement>();
+        playerRb = playerWeaponInteraction?.GetComponent<Rigidbody>();
 
         if (playerWeaponInteraction)
         {
+            playerWeaponInteraction.onWeaponPickup += OnWeaponPickup;
             playerWeaponInteraction.onWeaponDrop += OnDrop;
+            playerWeaponInteraction.onWeaponShot += OnWeaponShot;
             playerWeaponInteraction.onReloadStart += ReloadStart;
             playerWeaponInteraction.onReloadEnd += ReloadEnd;
-
-            playerMovement = playerWeaponInteraction.GetComponent<PlayerMovement>();
-            playerRb = playerWeaponInteraction.GetComponent<Rigidbody>();
         }
         else 
         {
@@ -32,27 +34,46 @@ public class PlayerCameraAnimationManager : MonoBehaviour
         }
     }
 
+    private void OnDisable()
+    {
+        playerWeaponInteraction.onWeaponPickup -= OnWeaponPickup;
+        playerWeaponInteraction.onWeaponDrop -= OnDrop;
+        playerWeaponInteraction.onWeaponShot -= OnWeaponShot;
+        playerWeaponInteraction.onReloadStart -= ReloadStart;
+        playerWeaponInteraction.onReloadEnd -= ReloadEnd;
+    }
+
     void Update() 
     {
-        animator.SetFloat("Walk Speed", WalkSpeed());
+        animator.SetFloat("Walk Speed", WalkSpeed(playerMovement));
         animator.SetFloat("RbVelocity", playerRb.linearVelocity.magnitude);
-        animator.SetBool("Hold", playerWeaponInteraction.Weapon);
-        
-        if (playerWeaponInteraction.Weapon) 
-        {
-            animator.SetBool("Reload", playerWeaponInteraction.IsReloading);
-        } 
-    } 
+    }
 
-    void ReloadStart() => animator.Play("Start Reload");
-
-    void ReloadEnd() => animator.Play("End Reload");
-
-    void OnDrop() => animator.Rebind();
-
-    float WalkSpeed() 
+    private void OnWeaponPickup(Weapon weapon)
     {
-        if (playerMovement && playerMovement.IsSprinting) return 1.5f;
+        SetShootFirerateTime(weapon);
+        animator.runtimeAnimatorController = weapon.SOWeapon.animatorOverride;
+    }
+
+    private void OnWeaponShot()
+    {
+        animator.Play("Shoot", 1);
+    }
+
+    private void ReloadStart() => animator.Play("Start Reload", 0);
+
+    private void ReloadEnd() => animator.Play("End Reload", 0);
+
+    private void OnDrop() => animator.Rebind();
+
+    private float WalkSpeed(PlayerMovement playerMovement) 
+    {
+        if (playerMovement.IsSprinting) return 1.5f;
         else return 1f;
+    }
+
+    private void SetShootFirerateTime(Weapon weapon)
+    {
+        animator.SetFloat("firerate", weapon.SOWeapon.firerate);
     }
 }

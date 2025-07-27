@@ -14,23 +14,22 @@ public class WeaponAnimationManager : MonoBehaviour
     private void OnEnable()
     {
         weapon = GetComponent<Weapon>();
-        weapon.onShoot += ShootWeaponAnimation;
+        //weapon.onShoot += ShootWeaponAnimation;
 
-        SetAnimationTime();
+        SetShootFirerateTime();
     }
 
     private void OnDisable()
     {
-        weapon.onShoot -= ShootWeaponAnimation;
+        //weapon.onShoot -= ShootWeaponAnimation;
     }
 
-    // Deixa o tempo da animação de acordo com o firerate da arma
-    void SetAnimationTime()
+    void SetShootFirerateTime()
     {
         animator.SetFloat("Time", weapon.SOWeapon.firerate);
     }
 
-    public void ShootWeaponAnimation() 
+    public void PlayShootAnimation() 
     {
         PlayerWeaponInteraction playerWeaponInteraction = weapon.owner.GetComponent<PlayerWeaponInteraction>();
 
