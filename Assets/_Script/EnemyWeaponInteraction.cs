@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class EnemyWeaponInteraction : WeaponInteraction, IDead
+public class EnemyWeaponInteraction : WeaponInteraction
 {
     private void Start()
     {
@@ -17,8 +17,7 @@ public class EnemyWeaponInteraction : WeaponInteraction, IDead
 
         // Set weapon transform in the weapon container
         weapon.transform.SetParent(weaponContainer, false);
-        weapon.transform.position = Vector3.zero;
-        weapon.transform.rotation = Quaternion.Euler(Vector3.zero);
+        weapon.transform.SetPositionAndRotation(Vector3.zero, Quaternion.Euler(Vector3.zero));
         weapon.transform.localScale = Vector3.one;
 
         weapon.SetHoldState(true, transform);
@@ -32,7 +31,7 @@ public class EnemyWeaponInteraction : WeaponInteraction, IDead
     {
         if (!Weapon) yield break;
 
-        Weapon.AddAmmo(Weapon.SOWeapon.maxAmmo);
+        Weapon.AddAmmo(Weapon.WeaponData.maxAmmo);
         
         yield break;
     }

@@ -77,9 +77,9 @@ public class UI_Keycards : MonoBehaviour
 
         for (int i = 0; i < inventory.keycards.Count; i++)
         {
-            if (inventory.keycards[i].SOItem.GetType() == typeof(SOKeycard))
+            if (inventory.keycards[i].PickableItemData.GetType() == typeof(KeycardData))
             {
-                Sprite itemSprite = inventory.keycards[i].SOItem.hotbarSprite;
+                Sprite itemSprite = inventory.keycards[i].PickableItemData.hotbarSprite;
 
                 if (!firstSprite)
                 {

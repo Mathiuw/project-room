@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using MaiNull.Interact;
 
 public class Door : MonoBehaviour, IInteractable, IUIName
 {

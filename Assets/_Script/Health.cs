@@ -7,8 +7,8 @@ public class Health : MonoBehaviour, IDamageable
     public int HealthAmount { get; private set; } = 0;
     public bool Dead { get; private set; } = false;
 
-    public event Action<int> healthUpdated;
-    public event Action onDead;
+    public event Action<int> OnHealthUpdated;
+    public event Action OnDead;
 
     void Awake() 
     {
@@ -21,7 +21,7 @@ public class Health : MonoBehaviour, IDamageable
         // Check for body parts
         foreach (BodyPart bodyPart in GetComponentsInChildren<BodyPart>()) 
         {
-            bodyPart.onBodyPartHit += OnBodyPartHit;
+            bodyPart.OnBodyPartHit += OnBodyPartHit;
         }
     }
 
@@ -29,7 +29,7 @@ public class Health : MonoBehaviour, IDamageable
     {
         foreach (BodyPart bodyPart in GetComponentsInChildren<BodyPart>())
         {
-            bodyPart.onBodyPartHit -= OnBodyPartHit;
+            bodyPart.OnBodyPartHit -= OnBodyPartHit;
         }
     }
 
@@ -42,7 +42,7 @@ public class Health : MonoBehaviour, IDamageable
     {
         HealthAmount += amount;
         HealthAmount = Mathf.Clamp(HealthAmount, 0, MaxHealth);
-        healthUpdated?.Invoke(HealthAmount);
+        OnHealthUpdated?.Invoke(HealthAmount);
     }
 
     public void RemoveHealth(int amount)
@@ -51,7 +51,7 @@ public class Health : MonoBehaviour, IDamageable
 
         HealthAmount -= amount;
         HealthAmount = Mathf.Clamp(HealthAmount, 0, MaxHealth);
-        healthUpdated?.Invoke(HealthAmount);
+        OnHealthUpdated?.Invoke(HealthAmount);
 
         if (HealthAmount <= 0)
         {
@@ -62,13 +62,7 @@ public class Health : MonoBehaviour, IDamageable
     private void TriggerDeath() 
     {
         Dead = true;
-
-        foreach (IDead deadInterface in GetComponentsInChildren<IDead>())
-        {
-            deadInterface.Dead();
-        }
-
-        onDead?.Invoke();
+        OnDead?.Invoke();
     }
 
     public void Damage(float damageValue, Transform damageInstigator)

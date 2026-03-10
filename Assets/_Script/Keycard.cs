@@ -1,14 +1,15 @@
+using MaiNull.Item;
 using UnityEngine;
 
-public class Keycard : Item
+public class Keycard : PickableItem
 {
     [SerializeField] private Material[] materials = new Material[4];
 
     private void Awake()
     {
-        SOKeycard soKeycard = (SOKeycard)SOItem;
+        KeycardData karcardData = (KeycardData)PickableItemData;
         Material[] materials = GetComponentInChildren<MeshRenderer>().materials;
-        switch (soKeycard.keycardColor)
+        switch (karcardData.keycardColor)
         {
             case EKeycardColor.Red:
                 materials[0] = this.materials[0];

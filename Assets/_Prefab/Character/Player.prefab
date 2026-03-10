@@ -202,7 +202,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e5e8b0609600f044b2ac9b83581b90d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 60
+  moveSpeed: 300
   cameraPivot: {fileID: 1385280949413978271}
   canSprint: 1
   <MaxStamina>k__BackingField: 30

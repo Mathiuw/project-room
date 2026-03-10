@@ -18,7 +18,7 @@ public class UI_PlayerStats : MonoBehaviour
             staminaBar.maxValue = playerMovement.MaxStamina;
             SetStaminaUI(playerMovement.Stamina);
 
-            playerMovement.staminaUpdated += SetStaminaUI;
+            playerMovement.OnStaminaUpdated += SetStaminaUI;
 
 
             playerHealth = playerMovement.GetComponent<Health>();
@@ -28,7 +28,7 @@ public class UI_PlayerStats : MonoBehaviour
                 healthBar.maxValue = playerHealth.MaxHealth;
                 SetHealthUI(playerHealth.HealthAmount);
 
-                playerHealth.healthUpdated += SetHealthUI;
+                playerHealth.OnHealthUpdated += SetHealthUI;
             }
             else
             {
@@ -40,8 +40,8 @@ public class UI_PlayerStats : MonoBehaviour
 
     private void OnDisable()
     {
-        playerMovement.staminaUpdated -= SetStaminaUI;
-        playerHealth.healthUpdated -= SetHealthUI;
+        playerMovement.OnStaminaUpdated -= SetStaminaUI;
+        playerHealth.OnHealthUpdated -= SetHealthUI;
     }
 
     void SetStaminaUI(float stamina)

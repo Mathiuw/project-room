@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using MaiNull.Singleton;
+using System.Collections;
 using UnityEngine;
 
 public class SceneEnd : MonoBehaviour

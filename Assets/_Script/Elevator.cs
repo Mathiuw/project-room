@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using MaiNull.Singleton;
+using UnityEngine;
 
 public class Elevator : MonoBehaviour
 {

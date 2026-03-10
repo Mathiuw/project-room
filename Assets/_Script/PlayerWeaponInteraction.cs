@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
+using MaiNull.Item;
 
 [RequireComponent(typeof(Inventory))]
-public class PlayerWeaponInteraction : WeaponInteraction, IDead
+public class PlayerWeaponInteraction : WeaponInteraction
 {
     [Header("Weapon Interation")]
     [SerializeField] float aimTime;
@@ -13,17 +14,17 @@ public class PlayerWeaponInteraction : WeaponInteraction, IDead
     [SerializeField] float swayMultiplier = 4;
 
     public bool IsReloading { get; private set; } = false;
-    public bool isLerping { get; private set; } = false;
+    public bool IsLerping { get; private set; } = false;
 
     Transform cameraTransform;
     Inventory inventory;
 
-    public event Action<Weapon> onWeaponShot;
-    public event Action<Weapon> onWeaponPickup;
-    public event Action<RaycastHit> onWeaponHit;
-    public event Action onReloadStart;
-    public event Action onReloadEnd;
-    public event Action onWeaponDrop;
+    public event Action<Weapon> OnWeaponShot;
+    public event Action<Weapon> OnWeaponPickup;
+    public event Action<RaycastHit> OnWeaponHit;
+    public event Action OnReloadStart;
+    public event Action OnReloadEnd;
+    public event Action OnWeaponDrop;
 
     void Awake() 
     {
@@ -48,13 +49,13 @@ public class PlayerWeaponInteraction : WeaponInteraction, IDead
             SwayWeapon(swayMultiplier);
 
             if (IsReloading) return;
-            if (isLerping) return;
+            if (IsLerping) return;
 
             if (InputShoot())
             {
-                if (Weapon.Shoot(cameraTransform, onWeaponHit))
+                if (Weapon.Shoot(cameraTransform, OnWeaponHit))
                 {
-                    onWeaponShot?.Invoke(Weapon);
+                    OnWeaponShot?.Invoke(Weapon);
                 }                          
             }
         }
@@ -66,7 +67,7 @@ public class PlayerWeaponInteraction : WeaponInteraction, IDead
 
     IEnumerator LerpWeaponCoroutine(float time, Transform weapon, Vector3 desiredPosition, Quaternion desiredRotation, Transform parent = null) 
     {
-        isLerping = true;
+        IsLerping = true;
 
         if (parent != null)
         {
@@ -76,9 +77,11 @@ public class PlayerWeaponInteraction : WeaponInteraction, IDead
 
         float elapsedTime = 0f;
         float percentageComplete = 0f;
-        
-        Vector3 startPosition = weapon.localPosition;
-        Quaternion startRotation = weapon.localRotation;
+
+        Vector3 startPosition;
+        Quaternion startRotation;
+
+        weapon.transform.GetLocalPositionAndRotation(out startPosition, out startRotation);
 
         while (elapsedTime < time)
         {
@@ -90,9 +93,9 @@ public class PlayerWeaponInteraction : WeaponInteraction, IDead
             yield return null;
         }
 
-        weapon.localPosition = desiredPosition;
-        weapon.localRotation = desiredRotation;
-        isLerping = false;
+        weapon.SetLocalPositionAndRotation(desiredPosition, desiredRotation); 
+
+        IsLerping = false;
     }
 
     void SwayWeapon(float swayMultiplier)
@@ -111,7 +114,7 @@ public class PlayerWeaponInteraction : WeaponInteraction, IDead
     public override IEnumerator PickUpWeapon(Weapon weapon)
     {
         if (Weapon) yield break;
-        if (isLerping) yield break;
+        if (IsLerping) yield break;
         if (weapon.owner != null)
         {
             Debug.LogError("Gun already Picked up");
@@ -126,44 +129,41 @@ public class PlayerWeaponInteraction : WeaponInteraction, IDead
         
         // Lerp weapon to player
         StartCoroutine(LerpWeaponCoroutine(0.2f, weapon.transform, Vector3.zero, Quaternion.identity, weaponContainer));
-        while (isLerping) yield return null;
+        while (IsLerping) yield return null;
 
-        onWeaponPickup?.Invoke(Weapon);
+        OnWeaponPickup?.Invoke(Weapon);
 
         Debug.Log("Picked up weapon");
     }
 
-    bool InputShoot() 
+    bool InputShoot()
     {
-        switch (Weapon.SOWeapon.shootType)
+        return Weapon.WeaponData.shootType switch
         {
-            case EShootType.Single:
-                return Input.GetKeyDown(KeyCode.Mouse0);
-            case EShootType.Automatic:
-                return Input.GetKey(KeyCode.Mouse0);
-            default: 
-                return false;
-        }
+            EShootType.Single => Input.GetKeyDown(KeyCode.Mouse0),
+            EShootType.Automatic => Input.GetKey(KeyCode.Mouse0),
+            _ => false,
+        };
     }
 
     public override IEnumerator ReloadWeapon()  
     {
         if (!Weapon) yield break;
         if (IsReloading) yield break;
-        if (Weapon.Ammo == Weapon.SOWeapon.maxAmmo) yield break;
-        if (inventory.GetAmmoAmountByType(Weapon.SOWeapon.ammoType) == 0) yield break;
+        if (Weapon.Ammo == Weapon.WeaponData.maxAmmo) yield break;
+        if (inventory.GetAmmoAmountByType(Weapon.WeaponData.ammoType) == 0) yield break;
 
-        onReloadStart?.Invoke();
+        OnReloadStart?.Invoke();
 
         IsReloading = true;
-        yield return new WaitForSeconds(Weapon.SOWeapon.reloadTime);
+        yield return new WaitForSeconds(Weapon.WeaponData.reloadTime);
 
-        EAmmoType ammoType = Weapon.SOWeapon.ammoType;
+        EAmmoType ammoType = Weapon.WeaponData.ammoType;
         int amountToReload = 0;
         int inventoryAmmoAmount = inventory.GetAmmoAmountByType(ammoType);
 
         // Reload amount logic
-        for (int i = Weapon.Ammo; i < Weapon.SOWeapon.maxAmmo; i++)
+        for (int i = Weapon.Ammo; i < Weapon.WeaponData.maxAmmo; i++)
         {
             if (inventoryAmmoAmount == 0) break;
 
@@ -175,7 +175,7 @@ public class PlayerWeaponInteraction : WeaponInteraction, IDead
         inventory.RemoveAmmo(ammoType, amountToReload);
 
         IsReloading = false;
-        onReloadEnd?.Invoke();
+        OnReloadEnd?.Invoke();
 
         yield break;
     }
@@ -186,7 +186,7 @@ public class PlayerWeaponInteraction : WeaponInteraction, IDead
         if (IsReloading) return;
 
         StopAllCoroutines();
-        onWeaponDrop?.Invoke();
+        OnWeaponDrop?.Invoke();
 
         Transform weaponTransform = Weapon.transform;
         Rigidbody weaponRb = weaponTransform.GetComponent<Rigidbody>();
@@ -197,7 +197,7 @@ public class PlayerWeaponInteraction : WeaponInteraction, IDead
         weaponRb.AddForce(transform.forward * 5, ForceMode.VelocityChange);
         weaponTransform.localScale = Vector3.one;
 
-        isLerping = false;
+        IsLerping = false;
         IsReloading = false;
 
         Weapon = null;

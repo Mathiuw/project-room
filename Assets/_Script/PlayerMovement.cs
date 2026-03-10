@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody))]
-public class PlayerMovement : MonoBehaviour, IDead
+public class PlayerMovement : MonoBehaviour
 {
     // Input class
     public GameActions Input { get; private set; }
@@ -22,12 +22,12 @@ public class PlayerMovement : MonoBehaviour, IDead
     [SerializeField] int staminaCost = 10;
     [SerializeField] int staminaRecover = 8;
     [SerializeField] float sprintingMultiplier = 1.5f;
-    float currentSprintMultiplier = 1;
+    private float currentSprintMultiplier = 1;
     public float Stamina { get; set; } = 0;
     public bool IsSprinting { get; set; } = false;
 
     // Stamina update event
-    public event Action<float> staminaUpdated;
+    public event Action<float> OnStaminaUpdated;
 
     void Awake()
     {
@@ -77,10 +77,9 @@ public class PlayerMovement : MonoBehaviour, IDead
 
     public void Movement(float moveV, float moveH)
     {
-        Vector3 moveDirection;
-
-        moveDirection = transform.forward * moveV + transform.right * moveH;
-        rb.AddForce(moveDirection.normalized * moveSpeed * currentSprintMultiplier * Time.deltaTime, ForceMode.VelocityChange);
+        Vector3 moveDirection = transform.forward * moveV + transform.right * moveH;
+       
+        rb.linearVelocity = moveDirection.normalized * (moveSpeed * currentSprintMultiplier * Time.deltaTime);
     }
 
     public void Sprint(KeyCode RunInput)
@@ -93,7 +92,7 @@ public class PlayerMovement : MonoBehaviour, IDead
 
             currentSprintMultiplier = sprintingMultiplier;
 
-            Stamina = Stamina - (staminaCost * Time.deltaTime);
+            Stamina -= staminaCost * Time.deltaTime;
         }
         else 
         {
@@ -104,13 +103,13 @@ public class PlayerMovement : MonoBehaviour, IDead
         
         if (!UnityEngine.Input.GetKey(RunInput) && !IsSprinting)
         {
-            Stamina = Stamina + (staminaRecover * Time.deltaTime);
+            Stamina += (staminaRecover * Time.deltaTime);
         }
 
         // Clamp stamina value
         Stamina = Math.Clamp(Stamina, 0, MaxStamina);
 
-        staminaUpdated?.Invoke(Stamina);
+        OnStaminaUpdated?.Invoke(Stamina);
     }
 
     public void Dead()

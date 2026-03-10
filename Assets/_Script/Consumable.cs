@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using MaiNull.Item;
+using UnityEngine;
 
-public class Consumable : Item
+public class Consumable : PickableItem
 {
     [field: SerializeField] public int Amount { get; set; } = 1;
 
@@ -8,7 +9,7 @@ public class Consumable : Item
     {
         if (health.HealthAmount < health.MaxHealth)
         {
-            SOConsumable soConsumable = (SOConsumable)SOItem;
+            ConsumableData soConsumable = (ConsumableData)PickableItemData;
 
             health.AddHealth(soConsumable.recoverHealth);
 

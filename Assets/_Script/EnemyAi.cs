@@ -3,19 +3,20 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.SocialPlatforms;
+using MaiNull.StateMachine;
 
 [RequireComponent(typeof(EnemyWeaponInteraction), typeof(NavMeshAgent))]
-public class EnemyAi : MonoBehaviour, IDead
+public class EnemyAi : MonoBehaviour
 {
     [Header("AI settings")]
-    [SerializeField] float _baseSpeed = 6;
-    [SerializeField] float _runningSpeedMultiplier = 1.4f;
+    [SerializeField] private float _baseSpeed = 6;
+    [SerializeField] private float _runningSpeedMultiplier = 1.4f;
 
     [field: Header("Attack")]
-    [field: SerializeField] public Transform _shootRaycastTransform;
-    [SerializeField] float attackRange = 10f;
-    [SerializeField] int _burstCount = 3;
-    [SerializeField] float _burstInterval = 1f;
+    [field: SerializeField] private Transform _shootRaycastTransform;
+    [SerializeField] private float attackRange = 10f;
+    [SerializeField] private int _burstCount = 3;
+    [SerializeField] private float _burstInterval = 1f;
 
     [Header("Patroling")]
     [SerializeField] Path _path;
@@ -53,9 +54,9 @@ public class EnemyAi : MonoBehaviour, IDead
     {
         _stateMachine = new StateMachine();
 
-        Patrolling patrolling = new Patrolling(this, _path, _navMeshAgent);
-        Chase chase = new Chase(this, _navMeshAgent);
-        Attack attack = new Attack(this, _navMeshAgent);
+        Patrolling patrolling = new(this, _path, _navMeshAgent);
+        Chase chase = new (this, _navMeshAgent);
+        Attack attack = new (this, _navMeshAgent);
 
         At(patrolling, chase, HasTarget());
         At(chase, attack, IsInTargetReach());
@@ -71,7 +72,7 @@ public class EnemyAi : MonoBehaviour, IDead
 
         foreach (BodyPart bodyPart in GetComponentsInChildren<BodyPart>())
         {
-            bodyPart.onBodyPartHit += OnBodyPartHit;
+            bodyPart.OnBodyPartHit += OnBodyPartHit;
         }
     }
 
@@ -79,7 +80,7 @@ public class EnemyAi : MonoBehaviour, IDead
     {
         foreach (BodyPart bodyPart in GetComponentsInChildren<BodyPart>())
         {
-            bodyPart.onBodyPartHit -= OnBodyPartHit;
+            bodyPart.OnBodyPartHit -= OnBodyPartHit;
         }
     }
 
@@ -157,7 +158,7 @@ public class EnemyAi : MonoBehaviour, IDead
                     Debug.Log("Enemy reloaded weapon");
                 }
 
-                yield return new WaitForSeconds(1f / _enemyWeaponInteraction.Weapon.SOWeapon.firerate);
+                yield return new WaitForSeconds(1f / _enemyWeaponInteraction.Weapon.WeaponData.firerate);
 
                 yield return null;
             }

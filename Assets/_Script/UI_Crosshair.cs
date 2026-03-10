@@ -22,9 +22,9 @@ public class UI_Crosshair : MonoBehaviour
 
         if (playerWeaponInteraction)
         {
-            playerWeaponInteraction.onWeaponPickup += OnWeaponPickup;
-            playerWeaponInteraction.onWeaponDrop += OnWeaponDrop;
-            playerWeaponInteraction.onReloadStart += OnReloadStart;
+            playerWeaponInteraction.OnWeaponPickup += OnWeaponPickup;
+            playerWeaponInteraction.OnWeaponDrop += OnWeaponDrop;
+            playerWeaponInteraction.OnReloadStart += OnReloadStart;
         }
 
         SetCroshair(dotCrosshair);
@@ -32,14 +32,14 @@ public class UI_Crosshair : MonoBehaviour
 
     private void OnDisable()
     {
-        playerWeaponInteraction.onWeaponPickup -= OnWeaponPickup;
-        playerWeaponInteraction.onWeaponDrop -= OnWeaponDrop;
-        playerWeaponInteraction.onReloadStart -= OnReloadStart;
+        playerWeaponInteraction.OnWeaponPickup -= OnWeaponPickup;
+        playerWeaponInteraction.OnWeaponDrop -= OnWeaponDrop;
+        playerWeaponInteraction.OnReloadStart -= OnReloadStart;
     }
 
     private void OnWeaponPickup(Weapon weapon)
     {
-        SetCroshair(weapon.SOWeapon.crosshair);
+        SetCroshair(weapon.WeaponData.crosshair);
     }
 
     private void OnWeaponDrop()
@@ -49,7 +49,7 @@ public class UI_Crosshair : MonoBehaviour
 
     private void OnReloadStart()
     {
-        float reloadDuration = playerWeaponInteraction.Weapon.SOWeapon.reloadTime;
+        float reloadDuration = playerWeaponInteraction.Weapon.WeaponData.reloadTime;
 
         StartCoroutine(ReloadLerp(reloadDuration));
     }

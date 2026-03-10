@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using MaiNull.Item;
 
 public class WeaponProjectile : Weapon
 {
@@ -12,7 +13,7 @@ public class WeaponProjectile : Weapon
         if (!(Time.time > nextTimeToFire)) return false;
 
         // Firerate calculation
-        nextTimeToFire = Time.time + (1f / SOWeapon.firerate);
+        nextTimeToFire = Time.time + (1f / WeaponData.firerate);
         PlayGunSound();
         PlayMuzzleFlashParticle();
         RemoveAmmo(1);
@@ -20,7 +21,7 @@ public class WeaponProjectile : Weapon
         //CameraShake.AddCameraShake(soWeapon.intensity, soWeapon.speed);
 
         // Raycast para checar se atingi algo
-        if (Physics.Raycast(raycastPos.position, raycastPos.forward, out hit, 1000, SOWeapon.shootMask))
+        if (Physics.Raycast(raycastPos.position, raycastPos.forward, out hit, 1000, WeaponData.shootMask))
         {
             Debug.DrawLine(raycastPos.position, hit.point, Color.green, 1f);
 
@@ -32,13 +33,13 @@ public class WeaponProjectile : Weapon
             if (health)
             {
                 PlayBloodParticle();
-                health.RemoveHealth(SOWeapon.damage/projectileAmount);
+                health.RemoveHealth(WeaponData.damage/projectileAmount);
 
-                if (health.Dead) AddForceToRbs(hit.transform, raycastPos, SOWeapon.bulletForce);
+                if (health.Dead) AddForceToRbs(hit.transform, raycastPos, WeaponData.bulletForce);
             }
             else
             {
-                AddForceToRbs(hit.transform, raycastPos, SOWeapon.bulletForce);
+                AddForceToRbs(hit.transform, raycastPos, WeaponData.bulletForce);
             }
         }
         else

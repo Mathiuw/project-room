@@ -1,19 +1,14 @@
 ﻿using System;
 using UnityEngine;
 
-public class BodyPart : MonoBehaviour, IDamageable, IDead
+public class BodyPart : MonoBehaviour, IDamageable
 {
     [field: SerializeField] public float DamageMultiplier { get; private set; } = 1.0f;
 
-    public event Action<float, Transform> onBodyPartHit;
+    public event Action<float, Transform> OnBodyPartHit;
 
     public void Damage(float damageValue, Transform damageInstigator)
     {
-        onBodyPartHit?.Invoke(damageValue * DamageMultiplier, damageInstigator);
-    }
-
-    public void Dead()
-    {
-        Destroy(this);
+        OnBodyPartHit?.Invoke(damageValue * DamageMultiplier, damageInstigator);
     }
 }

@@ -1,10 +1,12 @@
 ﻿using System;
 using UnityEngine;
+using MaiNull.Interact;
+using MaiNull.Item;
 
 public class Weapon : MonoBehaviour, IInteractable, IUIName
 {
     [Header("Weapon Scriptable object")]
-    [field: SerializeField] public SOWeapon SOWeapon { get; private set; }
+    [field: SerializeField] public WeaponData WeaponData { get; private set; }
 
     [Header("Particles")]
     [field: SerializeField] Transform muzzleFlashTransform;
@@ -19,7 +21,7 @@ public class Weapon : MonoBehaviour, IInteractable, IUIName
 
     public Transform owner { get; private set; }
 
-    public string ReadName => SOWeapon.weaponName;
+    public string ReadName => WeaponData.itemName;
 
     private void Awake()
     {
@@ -27,7 +29,7 @@ public class Weapon : MonoBehaviour, IInteractable, IUIName
         SetHoldState(false);
 
         // Set ammo to max
-        AddAmmo(SOWeapon.maxAmmo);
+        AddAmmo(WeaponData.maxAmmo);
 
         gunSound = GetComponent<AudioSource>();
     }
@@ -45,13 +47,13 @@ public class Weapon : MonoBehaviour, IInteractable, IUIName
     public void AddAmmo(int amount)
     {
         Ammo += amount;
-        Ammo = Mathf.Clamp(Ammo, 0, SOWeapon.maxAmmo);
+        Ammo = Mathf.Clamp(Ammo, 0, WeaponData.maxAmmo);
     }
 
     public void RemoveAmmo(int amount)
     {
         Ammo -= amount;
-        Ammo = Mathf.Clamp(Ammo, 0, SOWeapon.maxAmmo);
+        Ammo = Mathf.Clamp(Ammo, 0, WeaponData.maxAmmo);
     }
  
     public void SetHoldState(bool hasOwner, Transform owner = null) 
@@ -80,13 +82,13 @@ public class Weapon : MonoBehaviour, IInteractable, IUIName
         if (Ammo == 0 || !(Time.time > nextTimeToFire)) return false;
 
         // Firerate calculation
-        nextTimeToFire = Time.time + (1f / SOWeapon.firerate);
+        nextTimeToFire = Time.time + (1f / WeaponData.firerate);
 
         PlayGunSound();
         PlayMuzzleFlashParticle();
         RemoveAmmo(1);
 
-        if (Physics.Raycast(raycastPos.position, raycastPos.forward, out hit, 1000, SOWeapon.shootMask))
+        if (Physics.Raycast(raycastPos.position, raycastPos.forward, out hit, 1000, WeaponData.shootMask))
         {
             Debug.DrawLine(raycastPos.position, hit.point, Color.green, 1f);
 
@@ -96,7 +98,7 @@ public class Weapon : MonoBehaviour, IInteractable, IUIName
             {
                 foreach (IDamageable damageable in damageables)
                 {
-                    damageable.Damage(SOWeapon.damage, owner);
+                    damageable.Damage(WeaponData.damage, owner);
                 }
 
                 hitEvent?.Invoke(hit);

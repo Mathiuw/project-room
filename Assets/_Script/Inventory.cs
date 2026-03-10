@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MaiNull.Item;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -105,17 +106,17 @@ public class Inventory : MonoBehaviour
         OnAmmoCountUpdate?.Invoke();
     }
 
-    public bool AddItem(Item item)
+    public bool AddItem(PickableItem item)
     {
         if (item.GetType() == typeof(Consumable))
         {
             for (int i = 0; i < consumables.Count; i++)
             {
                 // Check if already have the item
-                if (item.SOItem.itemName == consumables[i].SOItem.itemName)
+                if (item.PickableItemData.itemName == consumables[i].PickableItemData.itemName)
                 {
                     // If have the item, check if you have the max amount
-                    if (consumables[i].SOItem.isStackable && consumables[i].Amount < consumables[i].SOItem.maxStack)
+                    if (consumables[i].PickableItemData.isStackable && consumables[i].Amount < consumables[i].PickableItemData.maxStack)
                     {
                         Consumable consumable = (Consumable)item;
 
@@ -126,7 +127,7 @@ public class Inventory : MonoBehaviour
                     }
                     else
                     {
-                        Debug.Log(name + " have the max amount of " + consumables[i].SOItem.itemName);
+                        Debug.Log(name + " have the max amount of " + consumables[i].PickableItemData.itemName);
                         return false;
                     }
                 }
@@ -148,11 +149,11 @@ public class Inventory : MonoBehaviour
         return false;
     }
 
-    public bool RemoveConsumable(SOItem item)
+    public bool RemoveConsumable(PickableItemData item)
     {
         for (int i = 0; i < consumables.Count; i++)
         {
-            if (consumables[i].SOItem.itemName == item.itemName)
+            if (consumables[i].PickableItemData.itemName == item.itemName)
             {
                 consumables[i].Amount--;
 
@@ -203,12 +204,12 @@ public class Inventory : MonoBehaviour
         {
             if (i == consumableIndex)
             {
-                if (consumables[i].SOItem.GetType() == typeof(SOConsumable))
+                if (consumables[i].PickableItemData.GetType() == typeof(ConsumableData))
                 {
                     if (consumables[i].UseConsumable(GetComponent<Health>()))
                     {
-                        RemoveConsumable(consumables[i].SOItem);
-                        Debug.Log(consumables[i].SOItem.name + " used");
+                        RemoveConsumable(consumables[i].PickableItemData);
+                        Debug.Log(consumables[i].PickableItemData.name + " used");
 
                         // check if index is valid
                         ChangeConsumableIndex(0);
@@ -222,11 +223,11 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public bool HaveKeycard(SOKeycard keycard)
+    public bool HaveKeycard(KeycardData keycard)
     {
         foreach (Keycard i in keycards)
         {
-            if (keycard.name == i.SOItem.name)
+            if (keycard.name == i.PickableItemData.name)
             {
                 Debug.Log("Player has " + keycard.itemName);
                 return true;

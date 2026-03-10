@@ -1,4 +1,5 @@
 using UnityEngine;
+using MaiNull.Interact;
 
 public class AmmoDrop : MonoBehaviour, IInteractable, IUIName
 {

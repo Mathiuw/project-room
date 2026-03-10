@@ -26,7 +26,7 @@ public class WeaponAnimationManager : MonoBehaviour
 
     void SetShootFirerateTime()
     {
-        animator.SetFloat("Time", weapon.SOWeapon.firerate);
+        animator.SetFloat("Time", weapon.WeaponData.firerate);
     }
 
     public void PlayShootAnimation() 

@@ -23,7 +23,7 @@ public class UI_Hit : MonoBehaviour
 
         if (playerWeaponInteraction)
         {
-            playerWeaponInteraction.onWeaponHit += OnWeaponHit;
+            playerWeaponInteraction.OnWeaponHit += OnWeaponHit;
         }
     }
 

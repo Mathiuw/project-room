@@ -1,10 +1,11 @@
 ﻿using System;
 using UnityEngine;
+using MaiNull.Interact;
 
 public class KeycardReader : MonoBehaviour, IInteractable, IUIName
 {
     // Keycard item type scriptable object
-    [field: SerializeField] public SOKeycard keycardNeeded { get; private set; }
+    [field: SerializeField] public KeycardData keycardNeeded { get; private set; }
 
     // Keycard reader materials
     [field: SerializeField] public Material offMaterial { get; private set; }

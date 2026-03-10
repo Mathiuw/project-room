@@ -21,11 +21,11 @@ public class PlayerCameraAnimationManager : MonoBehaviour
 
         if (playerWeaponInteraction)
         {
-            playerWeaponInteraction.onWeaponPickup += OnWeaponPickup;
-            playerWeaponInteraction.onWeaponDrop += OnDrop;
-            playerWeaponInteraction.onWeaponShot += OnWeaponShot;
-            playerWeaponInteraction.onReloadStart += ReloadStart;
-            playerWeaponInteraction.onReloadEnd += ReloadEnd;
+            playerWeaponInteraction.OnWeaponPickup += OnWeaponPickup;
+            playerWeaponInteraction.OnWeaponDrop += OnDrop;
+            playerWeaponInteraction.OnWeaponShot += OnWeaponShot;
+            playerWeaponInteraction.OnReloadStart += ReloadStart;
+            playerWeaponInteraction.OnReloadEnd += ReloadEnd;
         }
         else 
         {
@@ -36,11 +36,11 @@ public class PlayerCameraAnimationManager : MonoBehaviour
 
     private void OnDisable()
     {
-        playerWeaponInteraction.onWeaponPickup -= OnWeaponPickup;
-        playerWeaponInteraction.onWeaponDrop -= OnDrop;
-        playerWeaponInteraction.onWeaponShot -= OnWeaponShot;
-        playerWeaponInteraction.onReloadStart -= ReloadStart;
-        playerWeaponInteraction.onReloadEnd -= ReloadEnd;
+        playerWeaponInteraction.OnWeaponPickup -= OnWeaponPickup;
+        playerWeaponInteraction.OnWeaponDrop -= OnDrop;
+        playerWeaponInteraction.OnWeaponShot -= OnWeaponShot;
+        playerWeaponInteraction.OnReloadStart -= ReloadStart;
+        playerWeaponInteraction.OnReloadEnd -= ReloadEnd;
     }
 
     void Update() 
@@ -52,7 +52,7 @@ public class PlayerCameraAnimationManager : MonoBehaviour
     private void OnWeaponPickup(Weapon weapon)
     {
         SetShootFirerateTime(weapon);
-        animator.runtimeAnimatorController = weapon.SOWeapon.animatorOverride;
+        animator.runtimeAnimatorController = weapon.WeaponData.animatorOverride;
     }
 
     private void OnWeaponShot(Weapon weapon)
@@ -74,6 +74,6 @@ public class PlayerCameraAnimationManager : MonoBehaviour
 
     private void SetShootFirerateTime(Weapon weapon)
     {
-        animator.SetFloat("firerate", weapon.SOWeapon.firerate);
+        animator.SetFloat("firerate", weapon.WeaponData.firerate);
     }
 }

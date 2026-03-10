@@ -69,7 +69,7 @@ public class UI_Consumables : MonoBehaviour
         {
             canvasGroup.alpha = 1;
 
-            Sprite selectedSprite = inventory.consumables[inventory.consumableIndex].SOItem.hotbarSprite;
+            Sprite selectedSprite = inventory.consumables[inventory.consumableIndex].PickableItemData.hotbarSprite;
             selectedConsumableImage.sprite = selectedSprite;
             amountText.text = inventory.consumables[inventory.consumableIndex].Amount.ToString();
             Debug.Log("Draw Consumable inventory");

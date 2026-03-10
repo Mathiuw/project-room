@@ -29,13 +29,13 @@ public class CameraShake : MonoBehaviour
 
         if (playerWeaponInteraction)
         {
-            playerWeaponInteraction.onWeaponShot += OnWeaponShot;
+            playerWeaponInteraction.OnWeaponShot += OnWeaponShot;
         }
     }
 
     private void OnDisable()
     {
-        playerWeaponInteraction.onWeaponShot -= OnWeaponShot;
+        playerWeaponInteraction.OnWeaponShot -= OnWeaponShot;
     }
 
     void Update()
@@ -58,8 +58,8 @@ public class CameraShake : MonoBehaviour
 
     private void OnWeaponShot(Weapon weaponShot)
     {
-        float intensity = weaponShot.SOWeapon.intensity;
-        float speed = weaponShot.SOWeapon.speed;
+        float intensity = weaponShot.WeaponData.intensity;
+        float speed = weaponShot.WeaponData.speed;
 
         AddCameraShake(intensity, speed);
     }

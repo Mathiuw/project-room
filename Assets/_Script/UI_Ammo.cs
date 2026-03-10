@@ -16,10 +16,10 @@ public class UI_Ammo : MonoBehaviour
 
         if (playerWeaponInteraction) 
         {
-            playerWeaponInteraction.onWeaponPickup += ActivateUISprite;
-            playerWeaponInteraction.onWeaponShot += OnWeaponShot;
-            playerWeaponInteraction.onWeaponDrop += DisableUISprite;
-            playerWeaponInteraction.onReloadEnd += SetUIAmmoText;
+            playerWeaponInteraction.OnWeaponPickup += ActivateUISprite;
+            playerWeaponInteraction.OnWeaponShot += OnWeaponShot;
+            playerWeaponInteraction.OnWeaponDrop += DisableUISprite;
+            playerWeaponInteraction.OnReloadEnd += SetUIAmmoText;
 
             if (playerWeaponInteraction.Weapon) ActivateUISprite();
             else DisableUISprite();
@@ -35,10 +35,10 @@ public class UI_Ammo : MonoBehaviour
 
     private void OnDisable()
     {
-        playerWeaponInteraction.onWeaponPickup -= ActivateUISprite;
-        playerWeaponInteraction.onWeaponDrop -= DisableUISprite;
-        playerWeaponInteraction.onWeaponShot -= OnWeaponShot;
-        playerWeaponInteraction.onReloadEnd -= SetUIAmmoText;
+        playerWeaponInteraction.OnWeaponPickup -= ActivateUISprite;
+        playerWeaponInteraction.OnWeaponDrop -= DisableUISprite;
+        playerWeaponInteraction.OnWeaponShot -= OnWeaponShot;
+        playerWeaponInteraction.OnReloadEnd -= SetUIAmmoText;
 
         playerInventory.OnAmmoCountUpdate -= SetUIAmmoText;
     }
@@ -51,7 +51,7 @@ public class UI_Ammo : MonoBehaviour
     void ActivateUISprite(Weapon weapon = null)
     {
         ammoUI.enabled = true;
-        ammoSprite.sprite = weapon.SOWeapon.ammoSprite;
+        ammoSprite.sprite = weapon.WeaponData.ammoSprite;
         SetUIAmmoText();
     }
 
@@ -70,7 +70,7 @@ public class UI_Ammo : MonoBehaviour
         }
 
         int ammo = playerWeaponInteraction.Weapon.Ammo;
-        int ammoStored = playerInventory.GetAmmoAmountByType(playerWeaponInteraction.Weapon.SOWeapon.ammoType);
+        int ammoStored = playerInventory.GetAmmoAmountByType(playerWeaponInteraction.Weapon.WeaponData.ammoType);
 
         ammoUI.SetText(ammo + "/" + ammoStored);
     }  

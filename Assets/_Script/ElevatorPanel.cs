@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using MaiNull.Interact;
 
 public class ElevatorPanel : MonoBehaviour, IInteractable, IUIName
 {

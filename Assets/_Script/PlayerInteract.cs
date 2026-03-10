@@ -1,13 +1,14 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using MaiNull.Interact;
 
 public class PlayerInteract : MonoBehaviour
 {
-    [Header("Interact")]
-    [SerializeField] LayerMask interactiveMask;
-    [SerializeField] float rayLength = 5;
-    PlayerMovement playerMovement;
-    Transform playerCamera;
+    [Header("Interact ")]
+    [SerializeField] private LayerMask interactiveMask;
+    [SerializeField] private float rayLength = 5;
+    private PlayerMovement playerMovement;
+    private Transform playerCamera;
 
     void Start()
     {
@@ -22,13 +23,18 @@ public class PlayerInteract : MonoBehaviour
         {
             Debug.Log("Cant find PlayerCamera");
             enabled = false;
+            return;
         }
 
-        playerMovement = GetComponent<PlayerMovement>();
-
-        if (playerMovement)
+        if (TryGetComponent(out playerMovement))
         {
             playerMovement.Input.Player.Interact.started += Interact;
+        }
+        else
+        {
+            Debug.Log("Cant find playerMovement");
+            enabled = false;
+            return;
         }
     }
 
