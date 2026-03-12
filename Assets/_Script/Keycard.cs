@@ -7,7 +7,14 @@ public class Keycard : PickableItem
 
     private void Awake()
     {
+        if (PickableItemData is not KeycardData)
+        {
+            Debug.LogError("Pickable data is the wrong type");
+            return;
+        }
+
         KeycardData karcardData = (KeycardData)PickableItemData;
+
         Material[] materials = GetComponentInChildren<MeshRenderer>().materials;
         switch (karcardData.keycardColor)
         {

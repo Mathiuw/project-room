@@ -705,6 +705,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -954,6 +955,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -2966,17 +2968,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 7880537289374576972}
   m_SourcePrefab: {fileID: 100100000, guid: e4f2b85d33aa29b4f87a1b3f83c2257f, type: 3}
---- !u!114 &1409876416540986389 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2916717174616993370, guid: e4f2b85d33aa29b4f87a1b3f83c2257f, type: 3}
-  m_PrefabInstance: {fileID: 4317441247476441679}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1409876416540986391}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &1409876416540986390 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2916717174616993369, guid: e4f2b85d33aa29b4f87a1b3f83c2257f, type: 3}
@@ -3001,7 +2992,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slider: {fileID: 4331547675888064043}
   multiplier: 100
-  text: {fileID: 1409876416540986389}
 --- !u!1001 &5303925058991023428
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3517,17 +3507,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 931834904145525676}
   m_SourcePrefab: {fileID: 100100000, guid: e4f2b85d33aa29b4f87a1b3f83c2257f, type: 3}
---- !u!114 &6260008225237681837 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2916717174616993370, guid: e4f2b85d33aa29b4f87a1b3f83c2257f, type: 3}
-  m_PrefabInstance: {fileID: 9122681516181383415}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6260008225237681839}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &6260008225237681838 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2916717174616993369, guid: e4f2b85d33aa29b4f87a1b3f83c2257f, type: 3}
@@ -3552,4 +3531,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slider: {fileID: 7046043183035098114}
   multiplier: 1
-  text: {fileID: 6260008225237681837}

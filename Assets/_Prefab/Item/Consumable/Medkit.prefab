@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cd381dbcb0d67f459b858008ed5a858, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <SOItem>k__BackingField: {fileID: 11400000, guid: 7dacdea3156b61d419899740502bbf54, type: 2}
+  <PickableItemData>k__BackingField: {fileID: 11400000, guid: 7dacdea3156b61d419899740502bbf54, type: 2}
   <Amount>k__BackingField: 1
 --- !u!1 &7228712631942508454
 GameObject:

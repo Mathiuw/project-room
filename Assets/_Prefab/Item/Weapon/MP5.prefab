@@ -192,10 +192,10 @@ Rigidbody:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6401145719867435353}
-  serializedVersion: 5
+  serializedVersion: 4
   m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_Drag: 0
+  m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -224,7 +224,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7c124549f987ce449fa088a7acf2fc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <SOWeapon>k__BackingField: {fileID: 11400000, guid: 9e94b170c87fe104c8af6c91b9bd5943, type: 2}
+  <WeaponData>k__BackingField: {fileID: 11400000, guid: 9e94b170c87fe104c8af6c91b9bd5943, type: 2}
   muzzleFlashTransform: {fileID: 1023189051818108254}
   muzzleFlash: {fileID: 4911441779393937281, guid: 6d2f69ef9a8a1884b963eb0c73b29bf0, type: 3}
   blood: {fileID: 5750085299204580772, guid: 3a5dae8569d4f374e8c66e8fef3d1f31, type: 3}
@@ -238,7 +238,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -4675161092127226800, guid: 93a559875b335c84f86b2a42df5fb19c, type: 2}
-  m_audioClip: {fileID: 8300000, guid: 039ad0fbe0f91294b80aa198a8d33e3e, type: 3}
+  m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 039ad0fbe0f91294b80aa198a8d33e3e, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
