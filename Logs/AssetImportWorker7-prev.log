@@ -2215,3 +2215,19 @@ Memory consumption went from 140.2 MB to 134.5 MB.
 Total: 19.773500 ms (FindLiveObjects: 0.953900 ms CreateObjectMapping: 1.788900 ms MarkObjects: 10.954800 ms  DeleteObjects: 6.074800 ms)
 
 Prepare: number of updated asset objects reloaded= 0
+========================================================================
+Received Import Request.
+  Time since last request: 170.151698 seconds.
+  path: Assets/_Scene/Debug.unity
+  artifactKey: Guid(ee890f7d1c029cf459a0e5865b2a86cd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Scene/Debug.unity using Guid(ee890f7d1c029cf459a0e5865b2a86cd) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '17683a9735311e50bdcbe02bcc6362af') in 0.0136549 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 0
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.293013 seconds.
+  path: Assets/_Scene/End.unity
+  artifactKey: Guid(8c69bd14cba1bd84ab68d6fdeaa61699) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Scene/End.unity using Guid(8c69bd14cba1bd84ab68d6fdeaa61699) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '530e5b0bb4c58eace6b9f30c0cfa17a0') in 0.0005761 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 0
+
