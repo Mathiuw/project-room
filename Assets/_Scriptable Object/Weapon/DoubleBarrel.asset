@@ -12,20 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4ffb0a08ab89c3479dbe0ea50f33bbe, type: 3}
   m_Name: DoubleBarrel
   m_EditorClassIdentifier: 
-  itemName: Item Name
-  damage: 0
-  bulletForce: 0
-  maxAmmo: 0
-  firerate: 0
+  itemName: Double Barrel
+  damage: 40
+  knockback: 15
+  maxAmmo: 2
+  firerate: 7
   waitToShoot: 0
   shootType: 0
-  ammoType: 0
+  ammoType: 2
   shootMask:
     serializedVersion: 2
-    m_Bits: 0
-  crosshair: {fileID: 0}
+    m_Bits: 12032
+  crosshair: {fileID: 21300000, guid: 7d0fbc1f02f9c4a4b8c2986ea5de5e89, type: 3}
   intensity: 0
   speed: 0
   animatorOverride: {fileID: 22100000, guid: 256889344a1820d4f9d9ad130e20a49a, type: 2}
   reloadTime: 0
-  ammoSprite: {fileID: 0}
+  ammoSprite: {fileID: 21300000, guid: bb90bc28b6479c64a8fa4548034fac62, type: 3}

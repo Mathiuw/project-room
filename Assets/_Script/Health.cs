@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-public class Health : MonoBehaviour, IDamageable
+public class Health : MonoBehaviour
 {
     [field: SerializeField] public int MaxHealth { get; private set; } = 100;
     public int HealthAmount { get; private set; } = 0;
@@ -63,10 +63,5 @@ public class Health : MonoBehaviour, IDamageable
     {
         Dead = true;
         OnDead?.Invoke();
-    }
-
-    public void Damage(float damageValue, Transform damageInstigator)
-    {
-        RemoveHealth((int)damageValue);
     }
 }

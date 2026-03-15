@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemies:
-  - enemyPrefab: {fileID: 5740542664230864578, guid: 6b951787b6be8ef4e807036494b7614b, type: 3}
+  - enemyPrefab: {fileID: 4305232947633487935, guid: 8faf6bba95890574a909798d46af5e62, type: 3}
     cost: 1
   enemiesToSpawn: []
   spawnLocation:

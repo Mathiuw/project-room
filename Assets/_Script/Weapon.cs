@@ -98,7 +98,7 @@ public class Weapon : MonoBehaviour, IInteractable, IUIName
             {
                 foreach (IDamageable damageable in damageables)
                 {
-                    damageable.Damage(WeaponData.damage, owner);
+                    damageable.Damage(WeaponData.damage, 0, owner);
                 }
 
                 hitEvent?.Invoke(hit);

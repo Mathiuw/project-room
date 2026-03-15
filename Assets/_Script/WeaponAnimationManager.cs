@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using MaiNull.Player;
+using UnityEngine;
 
 public class WeaponAnimationManager : MonoBehaviour
 {

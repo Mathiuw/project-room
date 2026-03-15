@@ -35,11 +35,11 @@ public class WeaponProjectile : Weapon
                 PlayBloodParticle();
                 health.RemoveHealth(WeaponData.damage/projectileAmount);
 
-                if (health.Dead) AddForceToRbs(hit.transform, raycastPos, WeaponData.bulletForce);
+                if (health.Dead) AddForceToRbs(hit.transform, raycastPos, WeaponData.knockback);
             }
             else
             {
-                AddForceToRbs(hit.transform, raycastPos, WeaponData.bulletForce);
+                AddForceToRbs(hit.transform, raycastPos, WeaponData.knockback);
             }
         }
         else

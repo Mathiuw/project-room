@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using MaiNull.Player;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class UI_PlayerStats : MonoBehaviour

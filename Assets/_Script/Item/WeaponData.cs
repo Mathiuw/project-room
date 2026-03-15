@@ -10,7 +10,7 @@ namespace MaiNull.Item
     {
         [Header("Weapon")]
         public int damage;
-        public float bulletForce;
+        public float knockback;
         public int maxAmmo;
         public float firerate;
         public bool waitToShoot;

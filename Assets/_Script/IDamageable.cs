@@ -3,5 +3,5 @@ using UnityEngine;
 
 public interface IDamageable
 {
-    public void Damage(float damageValue, Transform damageInstigator);
+    public void Damage(float damageValue, float knockback, Transform damageInstigator);
 }

@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using MaiNull.Item;
 
 [RequireComponent (typeof(CanvasGroup))]
 public class UI_Consumables : MonoBehaviour

@@ -99,6 +99,8 @@ GameObject:
   - component: {fileID: 9044781060507915744}
   - component: {fileID: 6395241438735668006}
   - component: {fileID: 2389215748561244133}
+  - component: {fileID: 2235135241784412054}
+  - component: {fileID: 4247650764769761683}
   m_Layer: 11
   m_Name: Chaser
   m_TagString: Untagged
@@ -192,3 +194,39 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2235135241784412054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4305232947633487935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9786f0f2e8771548bfe37a0c3d27f55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 10
+  knockback: 3
+  damageCooldown: 1
+--- !u!65 &4247650764769761683
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4305232947633487935}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 0.83958596, z: 0.66328526}
+  m_Center: {x: 0, y: 0.30302575, z: 0.42}

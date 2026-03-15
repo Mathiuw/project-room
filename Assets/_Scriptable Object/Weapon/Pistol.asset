@@ -12,20 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4ffb0a08ab89c3479dbe0ea50f33bbe, type: 3}
   m_Name: Pistol
   m_EditorClassIdentifier: 
-  itemName: Item Name
-  damage: 0
-  bulletForce: 0
-  maxAmmo: 0
-  firerate: 0
-  waitToShoot: 0
+  itemName: Pistol
+  damage: 15
+  knockback: 3
+  maxAmmo: 11
+  firerate: 5
+  waitToShoot: 1
   shootType: 0
   ammoType: 0
   shootMask:
     serializedVersion: 2
-    m_Bits: 0
-  crosshair: {fileID: 0}
+    m_Bits: 12032
+  crosshair: {fileID: 21300000, guid: 964797e12ed3ccb4cbb7dc19d0d9d6fd, type: 3}
   intensity: 0
   speed: 0
   animatorOverride: {fileID: 22100000, guid: 4f547759e1dd5c041b6017e80dc64ee7, type: 2}
-  reloadTime: 0
-  ammoSprite: {fileID: 0}
+  reloadTime: 4
+  ammoSprite: {fileID: 21300000, guid: d5f80fafda73c7a4c96e6ce196a12ede, type: 3}

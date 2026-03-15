@@ -12,20 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4ffb0a08ab89c3479dbe0ea50f33bbe, type: 3}
   m_Name: MP5
   m_EditorClassIdentifier: 
-  itemName: Item Name
-  damage: 0
-  bulletForce: 0
-  maxAmmo: 0
-  firerate: 0
-  waitToShoot: 0
-  shootType: 0
-  ammoType: 0
+  itemName: MP5
+  damage: 10
+  knockback: 2
+  maxAmmo: 21
+  firerate: 2
+  waitToShoot: 1
+  shootType: 1
+  ammoType: 1
   shootMask:
     serializedVersion: 2
-    m_Bits: 0
-  crosshair: {fileID: 0}
+    m_Bits: 12032
+  crosshair: {fileID: 21300000, guid: 964797e12ed3ccb4cbb7dc19d0d9d6fd, type: 3}
   intensity: 0
   speed: 0
-  animatorOverride: {fileID: 0}
-  reloadTime: 0
-  ammoSprite: {fileID: 0}
+  animatorOverride: {fileID: 22100000, guid: a7aba980ea781344aa3c5e73982c883d, type: 2}
+  reloadTime: 3
+  ammoSprite: {fileID: 21300000, guid: edd13380d32c5354d8bf572478e89fa1, type: 3}
