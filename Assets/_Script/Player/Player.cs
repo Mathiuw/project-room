@@ -19,12 +19,6 @@ namespace MaiNull.Player
             playerMovement = GetComponent<PlayerMovement>();
         }
 
-        public void Damage(float damageValue, float knockback, Transform damageInstigator)
-        {
-            health.RemoveHealth((int)damageValue);
-            //Debug.Log("DAMAGE!");
-        }
-
         private void OnDead()
         {
             if (health)
@@ -44,6 +38,22 @@ namespace MaiNull.Player
             }
 
             Debug.Log("Player is dead!!");
+        }
+
+        public void Damage(float damageValue, Knockback knockback, Transform damageInstigator)
+        {
+            if (health)
+            {
+                health.RemoveHealth((int)damageValue);
+            }
+
+            if (playerMovement)
+            {
+                playerMovement.CurrentKnockback = knockback;
+            }
+
+
+            //Debug.Log("DAMAGE!");
         }
     }
 }

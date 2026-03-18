@@ -3,140 +3,144 @@ using UnityEngine;
 using MaiNull.Interact;
 using MaiNull.Item;
 
-public class Weapon : MonoBehaviour, IInteractable, IUIName
+namespace MaiNull
 {
-    [Header("Weapon Scriptable object")]
-    [field: SerializeField] public WeaponData WeaponData { get; private set; }
-
-    [Header("Particles")]
-    [field: SerializeField] Transform muzzleFlashTransform;
-    [SerializeField] ParticleSystem muzzleFlash;
-    [SerializeField] ParticleSystem blood;
-
-    public RaycastHit hit;
-    protected AudioSource gunSound;
-    protected float nextTimeToFire = 0;
-
-    public int Ammo { get; private set; } = 0;
-
-    public Transform owner { get; private set; }
-
-    public string ReadName => WeaponData.itemName;
-
-    private void Awake()
+    public class Weapon : MonoBehaviour, IInteractable, IUIName
     {
-        // Set hold state to false
-        SetHoldState(false);
+        [Header("Weapon Scriptable object")]
+        [field: SerializeField] public WeaponData WeaponData { get; private set; }
 
-        // Set ammo to max
-        AddAmmo(WeaponData.maxAmmo);
+        [Header("Particles")]
+        [field: SerializeField] Transform muzzleFlashTransform;
+        [SerializeField] ParticleSystem muzzleFlash;
+        [SerializeField] ParticleSystem blood;
 
-        gunSound = GetComponent<AudioSource>();
-    }
+        public RaycastHit hit;
+        protected AudioSource gunSound;
+        protected float nextTimeToFire = 0;
 
-    public void Interact(Transform interactor)
-    {
-        interactor.TryGetComponent(out WeaponInteraction weaponInteraction);
+        public int Ammo { get; private set; } = 0;
 
-        if (weaponInteraction)
+        public Transform owner { get; private set; }
+
+        public string ReadName => WeaponData.itemName;
+
+        private void Awake()
         {
-            weaponInteraction.StartCoroutine(weaponInteraction.PickUpWeapon(this));
-        }
-    }
+            // Set hold state to false
+            SetHoldState(false);
 
-    public void AddAmmo(int amount)
-    {
-        Ammo += amount;
-        Ammo = Mathf.Clamp(Ammo, 0, WeaponData.maxAmmo);
-    }
+            // Set ammo to max
+            AddAmmo(WeaponData.maxAmmo);
 
-    public void RemoveAmmo(int amount)
-    {
-        Ammo -= amount;
-        Ammo = Mathf.Clamp(Ammo, 0, WeaponData.maxAmmo);
-    }
- 
-    public void SetHoldState(bool hasOwner, Transform owner = null) 
-    {
-        this.owner = owner;
-
-        Rigidbody rb = GetComponent<Rigidbody>();
-        rb.isKinematic = hasOwner;
-
-        if (hasOwner)
-        {
-            rb.interpolation = RigidbodyInterpolation.None;
-        }
-        else 
-        {
-            rb.interpolation = RigidbodyInterpolation.Interpolate;
-            transform.SetParent(null);
+            gunSound = GetComponent<AudioSource>();
         }
 
-        Collider[] colliders = GetComponentsInChildren<Collider>();
-        for (int i = 0; i < colliders.Length; i++) colliders[i].isTrigger = hasOwner;
-    }
-
-    public virtual bool Shoot(Transform raycastPos, Action<RaycastHit> hitEvent = null)
-    {
-        if (Ammo == 0 || !(Time.time > nextTimeToFire)) return false;
-
-        // Firerate calculation
-        nextTimeToFire = Time.time + (1f / WeaponData.firerate);
-
-        PlayGunSound();
-        PlayMuzzleFlashParticle();
-        RemoveAmmo(1);
-
-        if (Physics.Raycast(raycastPos.position, raycastPos.forward, out hit, 1000, WeaponData.shootMask))
+        public void Interact(Transform interactor)
         {
-            Debug.DrawLine(raycastPos.position, hit.point, Color.green, 1f);
+            interactor.TryGetComponent(out WeaponInteraction weaponInteraction);
 
-            IDamageable[] damageables = hit.transform.GetComponents<IDamageable>();
-
-            if (damageables.Length != 0)
+            if (weaponInteraction)
             {
-                foreach (IDamageable damageable in damageables)
-                {
-                    damageable.Damage(WeaponData.damage, 0, owner);
-                }
-
-                hitEvent?.Invoke(hit);
-                PlayBloodParticle();
-                //AddForceToRbs(hit.transform, raycastPos, SOWeapon.bulletForce);
+                weaponInteraction.StartCoroutine(weaponInteraction.PickUpWeapon(this));
             }
         }
-        else 
+
+        public void AddAmmo(int amount)
         {
-            Debug.DrawRay(raycastPos.position, raycastPos.forward, Color.red, 1f);
+            Ammo += amount;
+            Ammo = Mathf.Clamp(Ammo, 0, WeaponData.maxAmmo);
         }
 
-        return true;
-    }
-
-    protected void PlayGunSound()
-    {
-        gunSound.Play();
-    }
-
-    protected void AddForceToRbs(Transform hitTransform, Transform directionForce, float forceAmount)
-    {
-        hitTransform.TryGetComponent(out Rigidbody rb);
-
-        if (rb) 
+        public void RemoveAmmo(int amount)
         {
-            rb.AddForce(directionForce.forward * forceAmount, ForceMode.Impulse);
-        }                         
-    }
+            Ammo -= amount;
+            Ammo = Mathf.Clamp(Ammo, 0, WeaponData.maxAmmo);
+        }
 
-    protected void PlayMuzzleFlashParticle()
-    {
-        Instantiate(muzzleFlash, muzzleFlashTransform.position, muzzleFlashTransform.rotation, transform);
-    }
+        public void SetHoldState(bool hasOwner, Transform owner = null)
+        {
+            this.owner = owner;
 
-    protected void PlayBloodParticle()
-    {
-        ParticleSystem particleSystem = Instantiate(blood, hit.point, Quaternion.identity, hit.transform);
-        particleSystem.transform.forward = hit.normal;
+            Rigidbody rb = GetComponent<Rigidbody>();
+            rb.isKinematic = hasOwner;
+
+            if (hasOwner)
+            {
+                rb.interpolation = RigidbodyInterpolation.None;
+            }
+            else
+            {
+                rb.interpolation = RigidbodyInterpolation.Interpolate;
+                transform.SetParent(null);
+            }
+
+            Collider[] colliders = GetComponentsInChildren<Collider>();
+            for (int i = 0; i < colliders.Length; i++) colliders[i].isTrigger = hasOwner;
+        }
+
+        public virtual bool Shoot(Transform raycastPos, Action<RaycastHit> hitEvent = null)
+        {
+            if (Ammo == 0 || !(Time.time > nextTimeToFire)) return false;
+
+            // Firerate calculation
+            nextTimeToFire = Time.time + (1f / WeaponData.firerate);
+
+            PlayGunSound();
+            PlayMuzzleFlashParticle();
+            RemoveAmmo(1);
+
+            if (Physics.Raycast(raycastPos.position, raycastPos.forward, out hit, 1000, WeaponData.shootMask))
+            {
+                Debug.DrawLine(raycastPos.position, hit.point, Color.green, 1f);
+
+                IDamageable[] damageables = hit.transform.GetComponents<IDamageable>();
+
+                if (damageables.Length != 0)
+                {
+                    foreach (IDamageable damageable in damageables)
+                    {
+                        damageable.Damage(WeaponData.damage, new Knockback(WeaponData.knockbackForce, WeaponData.knockbackDuration, hit.transform.position - owner.transform.position), owner);
+                    }
+
+                    hitEvent?.Invoke(hit);
+                    PlayBloodParticle();
+                    //AddForceToRbs(hit.transform, raycastPos, SOWeapon.bulletForce);
+                }
+            }
+            else
+            {
+                Debug.DrawRay(raycastPos.position, raycastPos.forward, Color.red, 1f);
+            }
+
+            return true;
+        }
+
+        protected void PlayGunSound()
+        {
+            gunSound.Play();
+        }
+
+        protected void AddForceToRbs(Transform hitTransform, Transform directionForce, float forceAmount)
+        {
+            hitTransform.TryGetComponent(out Rigidbody rb);
+
+            if (rb)
+            {
+                rb.AddForce(directionForce.forward * forceAmount, ForceMode.Impulse);
+            }
+        }
+
+        protected void PlayMuzzleFlashParticle()
+        {
+            Instantiate(muzzleFlash, muzzleFlashTransform.position, muzzleFlashTransform.rotation, transform);
+        }
+
+        protected void PlayBloodParticle()
+        {
+            ParticleSystem particleSystem = Instantiate(blood, hit.point, Quaternion.identity, hit.transform);
+            particleSystem.transform.forward = hit.normal;
+        }
     }
 }
+

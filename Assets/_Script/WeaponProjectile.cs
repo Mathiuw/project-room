@@ -2,51 +2,54 @@
 using UnityEngine;
 using MaiNull.Item;
 
-public class WeaponProjectile : Weapon
+namespace MaiNull
 {
-    [Header("Projectile settings")]
-    [SerializeField] private int projectileAmount = 8;
-
-    public override bool Shoot(Transform raycastPos, Action<RaycastHit> hitEvent = null)
+    public class WeaponProjectile : Weapon
     {
-        if (Ammo == 0) return false;
-        if (!(Time.time > nextTimeToFire)) return false;
+        [Header("Projectile settings")]
+        [SerializeField] private int projectileAmount = 8;
 
-        // Firerate calculation
-        nextTimeToFire = Time.time + (1f / WeaponData.firerate);
-        PlayGunSound();
-        PlayMuzzleFlashParticle();
-        RemoveAmmo(1);
-
-        //CameraShake.AddCameraShake(soWeapon.intensity, soWeapon.speed);
-
-        // Raycast para checar se atingi algo
-        if (Physics.Raycast(raycastPos.position, raycastPos.forward, out hit, 1000, WeaponData.shootMask))
+        public override bool Shoot(Transform raycastPos, Action<RaycastHit> hitEvent = null)
         {
-            Debug.DrawLine(raycastPos.position, hit.point, Color.green, 1f);
+            if (Ammo == 0) return false;
+            if (!(Time.time > nextTimeToFire)) return false;
 
-            hit.transform.TryGetComponent(out Health health);
-            hit.transform.TryGetComponent(out EnemyAi enemyAi);
+            // Firerate calculation
+            nextTimeToFire = Time.time + (1f / WeaponData.firerate);
+            PlayGunSound();
+            PlayMuzzleFlashParticle();
+            RemoveAmmo(1);
 
-            if (enemyAi && owner != null) enemyAi.Target = owner;
+            //CameraShake.AddCameraShake(soWeapon.intensity, soWeapon.speed);
 
-            if (health)
+            // Raycast para checar se atingi algo
+            if (Physics.Raycast(raycastPos.position, raycastPos.forward, out hit, 1000, WeaponData.shootMask))
             {
-                PlayBloodParticle();
-                health.RemoveHealth(WeaponData.damage/projectileAmount);
+                Debug.DrawLine(raycastPos.position, hit.point, Color.green, 1f);
 
-                if (health.Dead) AddForceToRbs(hit.transform, raycastPos, WeaponData.knockback);
+                hit.transform.TryGetComponent(out Health health);
+                hit.transform.TryGetComponent(out EnemyAi enemyAi);
+
+                if (enemyAi && owner != null) enemyAi.Target = owner;
+
+                if (health)
+                {
+                    PlayBloodParticle();
+                    health.RemoveHealth(WeaponData.damage / projectileAmount);
+
+                    if (health.Dead) AddForceToRbs(hit.transform, raycastPos, WeaponData.knockbackForce);
+                }
+                else
+                {
+                    AddForceToRbs(hit.transform, raycastPos, WeaponData.knockbackForce);
+                }
             }
             else
             {
-                AddForceToRbs(hit.transform, raycastPos, WeaponData.knockback);
+                Debug.DrawRay(raycastPos.position, raycastPos.forward, Color.red, 1f);
             }
-        }
-        else
-        {
-            Debug.DrawRay(raycastPos.position, raycastPos.forward, Color.red, 1f);
-        }
 
-        return true;
+            return true;
+        }
     }
 }

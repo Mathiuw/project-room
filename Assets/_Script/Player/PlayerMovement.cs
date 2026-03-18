@@ -2,6 +2,23 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+namespace MaiNull
+{
+    public struct Knockback
+    {
+        public float force; 
+        public float duration;
+        public Vector3 knockbackDirection;
+
+        public Knockback(float force, float duration, Vector3 knockbackDirection)
+        {
+            this.force = force;
+            this.duration = duration;
+            this.knockbackDirection = knockbackDirection;
+        }
+    }                    
+}
+
 namespace MaiNull.Player
 {
     [RequireComponent(typeof(Rigidbody))]
@@ -12,8 +29,12 @@ namespace MaiNull.Player
 
         [Header("Movement")]
         [SerializeField] float moveSpeed = 300f;
+        [SerializeField] float gravity = 40f;
         Vector2 moveVector;
         Rigidbody rb;
+        // Kockback
+        private Knockback currentKnockback;
+        public Knockback CurrentKnockback { get => currentKnockback; set => currentKnockback = value; }
 
         [Header("Rotation")]
         [SerializeField] private CameraPivot cameraPivot;
@@ -28,6 +49,8 @@ namespace MaiNull.Player
         private float currentSprintMultiplier = 1;
         public float Stamina { get; set; } = 0;
         public bool IsSprinting { get; set; } = false;
+
+
 
         // Stamina update event
         public event Action<float> OnStaminaUpdated;
@@ -80,9 +103,25 @@ namespace MaiNull.Player
 
         public void Movement(float moveV, float moveH)
         {
-            Vector3 moveDirection = transform.forward * moveV + transform.right * moveH;
+            Vector3 desiredVelocity;
 
-            rb.linearVelocity = moveDirection.normalized * (moveSpeed * currentSprintMultiplier * Time.deltaTime);
+            if (CurrentKnockback.duration > 0f)
+            {
+                Debug.Log("Knockback");
+                currentKnockback.duration -= Time.deltaTime;
+                desiredVelocity = currentKnockback.knockbackDirection.normalized * currentKnockback.force * Time.deltaTime;
+            }
+            else
+            {
+                Vector3 moveDirection = transform.forward * moveV + transform.right * moveH;
+
+                desiredVelocity = moveDirection.normalized * (moveSpeed * currentSprintMultiplier * Time.deltaTime);
+            }
+
+            // Gravity apply
+            desiredVelocity.y = gravity * Time.deltaTime;
+
+            rb.linearVelocity = desiredVelocity;
         }
 
         public void Sprint(KeyCode RunInput)

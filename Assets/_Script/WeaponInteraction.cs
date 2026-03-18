@@ -1,16 +1,19 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public abstract class WeaponInteraction : MonoBehaviour
+namespace MaiNull
 {
-    [Header("Weapon settings")]
-    [SerializeField] protected Transform weaponContainer;
-    [field: SerializeField] public Weapon Weapon { get; set; }
+    public abstract class WeaponInteraction : MonoBehaviour
+    {
+        [Header("Weapon settings")]
+        [SerializeField] protected Transform weaponContainer;
+        [field: SerializeField] public Weapon Weapon { get; set; }
 
-    public abstract IEnumerator PickUpWeapon(Weapon weapon);
+        public abstract IEnumerator PickUpWeapon(Weapon weapon);
 
-    public abstract IEnumerator ReloadWeapon(); 
+        public abstract IEnumerator ReloadWeapon();
 
-    public abstract void DropWeapon();
+        public abstract void DropWeapon();
 
+    }
 }
