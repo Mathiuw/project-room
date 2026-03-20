@@ -26,19 +26,19 @@ namespace MaiNull.Player
     {
         // Input class
         public GameActions Input { get; private set; }
+        Vector2 moveInputVector;
 
+        // Movement
         [Header("Movement")]
-        [SerializeField] float moveSpeed = 300f;
-        [SerializeField] float gravity = 40f;
-        Vector2 moveVector;
+        [SerializeField] private float moveSpeed = 300f;
+        [SerializeField] private float gravity = 40f;
+        [SerializeField] private float maxSlopeAngle = 40f;
         Rigidbody rb;
-        // Kockback
-        private Knockback currentKnockback;
-        public Knockback CurrentKnockback { get => currentKnockback; set => currentKnockback = value; }
 
         [Header("Rotation")]
         [SerializeField] private CameraPivot cameraPivot;
 
+        // Sprint
         [Header("Sprint")]
         [SerializeField] bool canSprint = true;
         [field: SerializeField] public float MaxStamina { get; set; } = 30;
@@ -49,11 +49,13 @@ namespace MaiNull.Player
         private float currentSprintMultiplier = 1;
         public float Stamina { get; set; } = 0;
         public bool IsSprinting { get; set; } = false;
-
-
-
-        // Stamina update event
+        
         public event Action<float> OnStaminaUpdated;
+
+        // Kockback
+        private Knockback currentKnockback;
+        public Knockback CurrentKnockback { get => currentKnockback; set => currentKnockback = value; }
+
 
         void Awake()
         {
@@ -85,7 +87,7 @@ namespace MaiNull.Player
 
         void FixedUpdate()
         {
-            Movement(moveVector.y, moveVector.x);
+            Movement(moveInputVector.y, moveInputVector.x);
 
             // Rotate body According to attached camera view
             transform.localRotation = Quaternion.Euler(0, cameraPivot.attatchedCamera.transform.eulerAngles.y, 0);
@@ -93,12 +95,12 @@ namespace MaiNull.Player
 
         void OnMovementPerformed(InputAction.CallbackContext value)
         {
-            moveVector = value.ReadValue<Vector2>();
+            moveInputVector = value.ReadValue<Vector2>();
         }
 
         void OnMovementCanceled(InputAction.CallbackContext value)
         {
-            moveVector = Vector2.zero;
+            moveInputVector = Vector2.zero;
         }
 
         public void Movement(float moveV, float moveH)
@@ -114,12 +116,25 @@ namespace MaiNull.Player
             else
             {
                 Vector3 moveDirection = transform.forward * moveV + transform.right * moveH;
+                RaycastHit slopeHit;
+
+                if (OnSlope(out slopeHit))
+                {
+                    moveDirection = GetSlopeMoveDirection(moveDirection, slopeHit.normal);
+                }
 
                 desiredVelocity = moveDirection.normalized * (moveSpeed * currentSprintMultiplier * Time.deltaTime);
             }
 
-            // Gravity apply
-            desiredVelocity.y = gravity * Time.deltaTime;
+            // Gravity
+            if (IsGrounded())
+            {
+                desiredVelocity.y = 0f;
+            }
+            else
+            {
+                desiredVelocity.y = gravity * Time.deltaTime;
+            }
 
             rb.linearVelocity = desiredVelocity;
         }
@@ -128,7 +143,7 @@ namespace MaiNull.Player
         {
             if (!canSprint) return;
 
-            if (Stamina > 0 && moveVector.y > 0 && UnityEngine.Input.GetKey(RunInput))
+            if (Stamina > 0 && moveInputVector.y > 0 && UnityEngine.Input.GetKey(RunInput))
             {
                 IsSprinting = true;
 
@@ -152,6 +167,39 @@ namespace MaiNull.Player
             Stamina = Math.Clamp(Stamina, 0, MaxStamina);
 
             OnStaminaUpdated?.Invoke(Stamina);
+        }
+
+        private bool IsGrounded()
+        {
+            RaycastHit hit;
+            float maxRay = 1.35f;
+
+            return Physics.Raycast(transform.position, Vector3.down, out hit, maxRay);
+        }
+
+        private bool OnSlope(out RaycastHit slopeHit)
+        {
+            float playerHeight = GetComponent<CapsuleCollider>().height;
+            float aditional = 0.35f;
+
+            if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight / 2 + aditional))
+            {
+                float angle = Vector3.Angle(moveInputVector, slopeHit.normal);
+
+                if (angle < maxSlopeAngle && angle != 0)
+                {
+                    Debug.Log($"{transform.name} is on a Slope");
+                }
+
+                return angle < maxSlopeAngle && angle != 0;
+            }
+
+            return false;
+        }
+
+        private Vector3 GetSlopeMoveDirection(Vector3 moveDirection, Vector3 slopeNormal)
+        {
+            return Vector3.ProjectOnPlane(moveDirection, slopeNormal);
         }
     }
 }
