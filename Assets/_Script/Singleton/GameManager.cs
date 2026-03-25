@@ -1,4 +1,3 @@
-using MaiNull.Player;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -30,14 +29,11 @@ namespace MaiNull.Singleton
             fade.FadeOut();
 
             // Restart level when player die
-            PlayerMovement playerMovement = FindAnyObjectByType<PlayerMovement>();
+            Player player = FindFirstObjectByType<Player>();
 
-            if (playerMovement)
+            if (player)
             {
-                if (playerMovement.TryGetComponent(out Health health))
-                {
-                    health.OnDead += RestartLevelTransition;
-                }
+                player.health.OnDie += RestartLevelTransition;
             }
         }
 

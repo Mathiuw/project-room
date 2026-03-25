@@ -137,7 +137,7 @@ public class EnemyAi : MonoBehaviour
 
     public IEnumerator ShootWeapon()
     {
-        if (_enemyWeaponInteraction.Weapon == null) 
+        if (_enemyWeaponInteraction.CurrentWeapon == null) 
         {
             Debug.Log("Enemy doesnt have weapon");
             yield break;
@@ -148,17 +148,17 @@ public class EnemyAi : MonoBehaviour
             for (int i = 0; i < _burstCount; i++)
             {
                 // Shoot Weapon
-                _enemyWeaponInteraction.Weapon.Shoot(_shootRaycastTransform);
+                _enemyWeaponInteraction.CurrentWeapon.Shoot(_shootRaycastTransform);
                 Debug.Log("Enemy shot weapon");
 
                 // Reload if ammo is over
-                if (_enemyWeaponInteraction.Weapon.Ammo == 0)
+                if (_enemyWeaponInteraction.CurrentWeapon.CurrentAmmo == 0)
                 {
-                    StartCoroutine(_enemyWeaponInteraction.ReloadWeapon());
+                    _enemyWeaponInteraction.ReloadWeapon();
                     Debug.Log("Enemy reloaded weapon");
                 }
 
-                yield return new WaitForSeconds(1f / _enemyWeaponInteraction.Weapon.WeaponData.firerate);
+                yield return new WaitForSeconds(1f / _enemyWeaponInteraction.CurrentWeapon.WeaponData.firerate);
 
                 yield return null;
             }

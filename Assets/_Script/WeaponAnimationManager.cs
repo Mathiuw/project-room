@@ -1,4 +1,4 @@
-﻿using MaiNull.Player;
+﻿using MaiNull.Item;
 using UnityEngine;
 
 namespace MaiNull
@@ -34,12 +34,7 @@ namespace MaiNull
 
         public void PlayShootAnimation()
         {
-            PlayerWeaponInteraction playerWeaponInteraction = weapon.owner.GetComponent<PlayerWeaponInteraction>();
-
-            if (playerWeaponInteraction != null)
-            {
-                animator.Play("Shoot", -1, 0f);
-            }
+            animator.Play("Shoot", -1, 0f);
         }
     }
 }

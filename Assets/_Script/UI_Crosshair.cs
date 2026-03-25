@@ -1,4 +1,4 @@
-﻿using MaiNull.Player;
+﻿using MaiNull.Item;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,7 +10,7 @@ namespace MaiNull
         Image crosshair;
         [SerializeField] Sprite dotCrosshair;
         [SerializeField] Image reloadCrosshair;
-        PlayerWeaponInteraction playerWeaponInteraction;
+        PlayerWeaponHolder playerWeaponInteraction;
 
         void Awake()
         {
@@ -21,7 +21,7 @@ namespace MaiNull
 
         void Start()
         {
-            playerWeaponInteraction = FindFirstObjectByType<PlayerWeaponInteraction>();
+            playerWeaponInteraction = FindFirstObjectByType<PlayerWeaponHolder>();
 
             if (playerWeaponInteraction)
             {
@@ -52,7 +52,7 @@ namespace MaiNull
 
         private void OnReloadStart()
         {
-            float reloadDuration = playerWeaponInteraction.Weapon.WeaponData.reloadTime;
+            float reloadDuration = playerWeaponInteraction.CurrentWeapon.WeaponData.reloadTime;
 
             StartCoroutine(ReloadLerp(reloadDuration));
         }

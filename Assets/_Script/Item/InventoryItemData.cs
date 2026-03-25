@@ -2,7 +2,7 @@
 
 namespace MaiNull.Item
 {
-    public abstract class PickableItemData : ItemBaseData
+    public abstract class InventoryItemData : ItemBaseData
     {
         [Header("Sprite and mesh")]
         public Sprite hotbarSprite;

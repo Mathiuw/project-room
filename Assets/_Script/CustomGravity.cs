@@ -3,7 +3,7 @@
 [RequireComponent(typeof(Rigidbody))]
 public class CustomGravity : MonoBehaviour
 {
-    [SerializeField] float force;
+    [SerializeField] float gravityForce = -9.81f;
     Rigidbody rb;
 
     void Awake() 
@@ -19,6 +19,9 @@ public class CustomGravity : MonoBehaviour
 
     void SetGravity()          
     {
-        rb.AddForce(Vector3.down * force * Time.deltaTime, ForceMode.VelocityChange);
+        Vector3 desiredLinearVelocity = rb.linearVelocity;
+        desiredLinearVelocity.y += gravityForce;
+
+        rb.linearVelocity = desiredLinearVelocity;
     }
 }

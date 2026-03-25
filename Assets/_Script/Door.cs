@@ -19,7 +19,7 @@ public class Door : MonoBehaviour, IInteractable, IUIName
 
     public bool open { get; private set; } = false;
 
-    public string ReadName => GetUIName();
+    public string readName => GetUIName();
 
     private void Awake()
     {

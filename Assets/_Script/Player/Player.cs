@@ -1,30 +1,22 @@
 ﻿using UnityEngine;
 
-namespace MaiNull.Player
+namespace MaiNull
 {
 	public class Player : MonoBehaviour, IDamageable
 	{
-        private Health health;
-        private Rigidbody rb;
+        public Health health { get; } = new();
         private PlayerMovement playerMovement;
 
         private void Awake()
         {
-            if (TryGetComponent(out health))
-            {
-                health.OnDead += OnDead;
-            }
+            health.OnDie += OnDead;
 
-            rb = GetComponent<Rigidbody>();
             playerMovement = GetComponent<PlayerMovement>();
         }
 
         private void OnDead()
         {
-            if (health)
-            {
-                health.OnDead += OnDead;
-            }
+            Rigidbody rb = GetComponent<Rigidbody>();
 
             if (rb)
             {
@@ -42,16 +34,12 @@ namespace MaiNull.Player
 
         public void Damage(float damageValue, Knockback knockback, Transform damageInstigator)
         {
-            if (health)
-            {
-                health.RemoveHealth((int)damageValue);
-            }
-
+            health.RemoveHealth((int)damageValue);
+            
             if (playerMovement)
             {
                 playerMovement.CurrentKnockback = knockback;
             }
-
 
             //Debug.Log("DAMAGE!");
         }

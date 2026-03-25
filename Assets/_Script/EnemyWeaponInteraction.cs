@@ -1,48 +1,42 @@
-﻿using MaiNull;
-using System.Collections;
+﻿using MaiNull.Item;
 using UnityEngine;
 
-public class EnemyWeaponInteraction : WeaponInteraction
+public class EnemyWeaponInteraction : WeaponHolder
 {
     private void Start()
     {
-        if (Weapon && !Weapon.owner)
-        {
-            StartCoroutine(PickUpWeapon(Weapon));
-        }
+        //if (CurrentWeapon && !CurrentWeapon.Owner)
+        //{
+        //    SetCurrentWeaponTransform();
+        //}
     }
 
-    public override IEnumerator PickUpWeapon(Weapon weapon)
+    public override void PickUpWeapon(Weapon newWeapon)
     {
-        Weapon = weapon;
-
-        // Set weapon transform in the weapon container
-        weapon.transform.SetParent(weaponContainer, false);
-        weapon.transform.SetPositionAndRotation(Vector3.zero, Quaternion.Euler(Vector3.zero));
-        weapon.transform.localScale = Vector3.one;
-
-        weapon.SetHoldState(true, transform);
-
+        base.PickUpWeapon(newWeapon);
+        //SetCurrentWeaponTransform();
         Debug.Log(transform.name + " picked up gun");
-
-        yield break;
     }
 
-    public override IEnumerator ReloadWeapon()
-    {
-        if (!Weapon) yield break;
+    //private void SetCurrentWeaponTransform()
+    //{
+    //    //newWeapon.transform.SetParent(weaponContainer, false);
+    //    CurrentWeapon.transform.SetPositionAndRotation(Vector3.zero, Quaternion.Euler(Vector3.zero));
+    //    CurrentWeapon.transform.localScale = Vector3.one;
+    //    CurrentWeapon.SetHoldState(true, transform);
+    //}
 
-        Weapon.AddAmmo(Weapon.WeaponData.maxAmmo);
-        
-        yield break;
+    public override void ReloadWeapon()
+    {
+        if (CurrentWeapon != null) return;
+
+        CurrentWeapon.CurrentAmmo += CurrentWeapon.WeaponData.maxAmmo;
     }
 
     public override void DropWeapon()
     {
-        Weapon.SetHoldState(false, null);
-        Weapon = null;
-
-        Debug.Log(name + " dropped weapon");
+        //CurrentWeapon.SetHoldState(false, null);
+        base.DropWeapon();
     }
 
     public void Dead()

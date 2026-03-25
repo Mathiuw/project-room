@@ -167,7 +167,6 @@ GameObject:
   - component: {fileID: 6193650137434883350}
   - component: {fileID: 9044781060507915744}
   - component: {fileID: 2389215748561244133}
-  - component: {fileID: 8481894149731059919}
   - component: {fileID: 6395241438735668006}
   m_Layer: 11
   m_Name: Chaser
@@ -238,19 +237,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8481894149731059919
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4305232947633487935}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed21208b4193ee247bcd10eddf3c4d77, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <MaxHealth>k__BackingField: 40
 --- !u!114 &6395241438735668006
 MonoBehaviour:
   m_ObjectHideFlags: 0

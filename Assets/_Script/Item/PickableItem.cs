@@ -3,13 +3,13 @@ using MaiNull.Interact;
 
 namespace MaiNull.Item
 {
-    public class PickableItem : MonoBehaviour, IInteractable, IUIName
+    public class PickableItem : Pickable
     {
-        [field: SerializeField] public PickableItemData PickableItemData { get; private set; }
+        [field: SerializeField] public InventoryItemData PickableItemData { get; private set; }
 
-        public string ReadName => PickableItemData.itemName;
+        public override string readName => PickableItemData.itemName;
 
-        public void Interact(Transform interactor)
+        public override void Interact(Transform interactor)
         {
             Inventory inventory;
 

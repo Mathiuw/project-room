@@ -1,4 +1,4 @@
-﻿using MaiNull.Player;
+﻿using MaiNull.Item;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,12 +9,12 @@ namespace MaiNull
     {
         [SerializeField] TextMeshProUGUI ammoUI;
         [SerializeField] Image ammoSprite;
-        PlayerWeaponInteraction playerWeaponInteraction;
+        PlayerWeaponHolder playerWeaponInteraction;
         Inventory playerInventory;
 
         void Start()
         {
-            playerWeaponInteraction = FindFirstObjectByType<PlayerWeaponInteraction>();
+            playerWeaponInteraction = FindFirstObjectByType<PlayerWeaponHolder>();
 
             if (playerWeaponInteraction)
             {
@@ -23,7 +23,7 @@ namespace MaiNull
                 playerWeaponInteraction.OnWeaponDrop += DisableUISprite;
                 playerWeaponInteraction.OnReloadEnd += SetUIAmmoText;
 
-                if (playerWeaponInteraction.Weapon) ActivateUISprite();
+                if (playerWeaponInteraction.CurrentWeapon != null) ActivateUISprite();
                 else DisableUISprite();
             }
 
@@ -65,14 +65,14 @@ namespace MaiNull
 
         void SetUIAmmoText()
         {
-            if (!playerWeaponInteraction.Weapon)
+            if (playerWeaponInteraction.CurrentWeapon == null)
             {
                 ammoUI.SetText("");
                 return;
             }
 
-            int ammo = playerWeaponInteraction.Weapon.Ammo;
-            int ammoStored = playerInventory.GetAmmoAmountByType(playerWeaponInteraction.Weapon.WeaponData.ammoType);
+            int ammo = playerWeaponInteraction.CurrentWeapon.CurrentAmmo;
+            int ammoStored = playerInventory.GetAmmoAmountByType(playerWeaponInteraction.CurrentWeapon.WeaponData.ammoType);
 
             ammoUI.SetText(ammo + "/" + ammoStored);
         }

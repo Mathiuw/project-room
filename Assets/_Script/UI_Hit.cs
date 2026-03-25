@@ -1,46 +1,47 @@
-﻿using MaiNull.Player;
-using System;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 
-[RequireComponent(typeof(CanvasGroup), typeof(AudioSource))]
-public class UI_Hit : MonoBehaviour
+namespace MaiNull
 {
-    AudioSource hitSound;
-    CanvasGroup canvasGroup;
-    PlayerWeaponInteraction playerWeaponInteraction;
-
-    void Awake()
+    [RequireComponent(typeof(CanvasGroup), typeof(AudioSource))]
+    public class UI_Hit : MonoBehaviour
     {
-        canvasGroup = GetComponent<CanvasGroup>();
-        canvasGroup.alpha = 0;
+        AudioSource hitSound;
+        CanvasGroup canvasGroup;
+        PlayerWeaponHolder playerWeaponInteraction;
 
-        hitSound = GetComponent<AudioSource>();
-    }
-
-    void Start()
-    {
-        playerWeaponInteraction = FindFirstObjectByType<PlayerMovement>().GetComponent<PlayerWeaponInteraction>();
-
-        if (playerWeaponInteraction)
+        void Awake()
         {
-            playerWeaponInteraction.OnWeaponHit += OnWeaponHit;
+            canvasGroup = GetComponent<CanvasGroup>();
+            canvasGroup.alpha = 0;
+
+            hitSound = GetComponent<AudioSource>();
         }
-    }
 
-    private void OnWeaponHit(RaycastHit hit)
-    {
-        StartCoroutine(HitmarkerCoroutine());
-    }
+        void Start()
+        {
+            playerWeaponInteraction = FindFirstObjectByType<Player>().GetComponent<PlayerWeaponHolder>();
 
-    private IEnumerator HitmarkerCoroutine()
-    {
-        canvasGroup.alpha = 1;
-        hitSound.Play();
+            if (playerWeaponInteraction)
+            {
+                playerWeaponInteraction.OnWeaponHit += OnWeaponHit;
+            }
+        }
 
-        yield return new WaitForSeconds(hitSound.clip.length);
+        private void OnWeaponHit(RaycastHit hit)
+        {
+            StartCoroutine(HitmarkerCoroutine());
+        }
 
-        canvasGroup.alpha = 0;
-        yield break;
+        private IEnumerator HitmarkerCoroutine()
+        {
+            canvasGroup.alpha = 1;
+            hitSound.Play();
+
+            yield return new WaitForSeconds(hitSound.clip.length);
+
+            canvasGroup.alpha = 0;
+            yield break;
+        }
     }
 }

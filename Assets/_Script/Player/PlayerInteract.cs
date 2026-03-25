@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using MaiNull.Interact;
 
-namespace MaiNull.Player
+namespace MaiNull
 {
     public class PlayerInteract : MonoBehaviour
     {

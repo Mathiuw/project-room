@@ -14,7 +14,7 @@ public class KeycardReader : MonoBehaviour, IInteractable, IUIName
 
     public bool Used { get; private set; } = false;
 
-    public string ReadName => SetReadName();
+    public string readName => SetReadName();
 
     public event Action OnAcceptKeycard;
 

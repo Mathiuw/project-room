@@ -1,6 +1,7 @@
+using MaiNull.Item;
 using UnityEngine;
 
-namespace MaiNull.Player
+namespace MaiNull
 {
     public class CameraShake : MonoBehaviour
     {
@@ -16,7 +17,7 @@ namespace MaiNull.Player
         float seedY;
         float seedZ;
 
-        PlayerWeaponInteraction playerWeaponInteraction;
+        PlayerWeaponHolder playerWeaponHolder;
 
         private void Awake()
         {
@@ -27,23 +28,23 @@ namespace MaiNull.Player
 
         void Start()
         {
-            playerWeaponInteraction = FindFirstObjectByType<PlayerWeaponInteraction>();
+            playerWeaponHolder = FindFirstObjectByType<PlayerWeaponHolder>();
 
-            if (playerWeaponInteraction)
+            if (playerWeaponHolder)
             {
-                playerWeaponInteraction.OnWeaponShot += OnWeaponShot;
+                playerWeaponHolder.OnWeaponShot += OnWeaponShot;
             }
         }
 
         private void OnDisable()
         {
-            playerWeaponInteraction.OnWeaponShot -= OnWeaponShot;
+            playerWeaponHolder.OnWeaponShot -= OnWeaponShot;
         }
 
         void Update()
         {
             // Debug Input
-            if (Input.GetKey(KeyCode.Space)) intensity += growthIntensity * Time.deltaTime;
+            //if (Input.GetKey(KeyCode.Space)) intensity += growthIntensity * Time.deltaTime;
 
             intensity -= decayIntensity * Time.deltaTime;
             intensity = Mathf.Clamp01(intensity);

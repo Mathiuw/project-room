@@ -534,7 +534,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &308123233
 Transform:
@@ -793,7 +793,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 636856813}
-  m_VersionIndex: 3326
+  m_VersionIndex: 3327
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -843,6 +843,37 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &334006380
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 334006382}
+  m_Layer: 0
+  m_Name: Weapon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &334006382
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 334006380}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: -7}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &385490626
 GameObject:
   m_ObjectHideFlags: 0
@@ -2103,7 +2134,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 1054093018}
-  m_VersionIndex: 26
+  m_VersionIndex: 27
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -3590,7 +3621,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 489332417}
-  m_VersionIndex: 2884
+  m_VersionIndex: 2885
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -5249,7 +5280,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 485908197}
-  m_VersionIndex: 24
+  m_VersionIndex: 25
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -5315,9 +5346,9 @@ Mesh:
       format: 0
       dimension: 2
     - stream: 0
-      offset: 0
+      offset: 48
       format: 0
-      dimension: 0
+      dimension: 2
     - stream: 0
       offset: 0
       format: 0
@@ -5350,8 +5381,8 @@ Mesh:
       offset: 0
       format: 0
       dimension: 0
-    m_DataSize: 864
-    _typelessdata: 000000400000a0400000000000000000c54e6c3f4fecc4be0000803f0000000000000000000080bf000000406327f63f0000004000000000000040c100000000c54e6c3f4fecc4be0000803f0000000000000000000080bf00000040143b31c10000000000000000000040c100000000c54e6c3f4fecc4be0000803f0000000000000000000080bf00000000143b31c1000000000000a0400000000000000000c54e6c3f4fecc4be0000803f0000000000000000000080bf000000006327f63f000000000000803400000000000000b4000080bfabaaaa32000080bf0000003400000000000080bf00000029abaaaa270000000000000000000040c1000080b3000080bfabaa2a32000080bf0000803300000000000080bf00000000000040c1000000400000000000000000000080b3000080bfabaa2a32000080bf0000803300000000000080bf000000c0abaaaa270000004000000000000040c100000000000080bf00000000000080bf0000000000000000000080bf000000c0000040c10000004000000000000000000000803f000000000000000000000000000000000000803f000080bf00000000000000000000004000000000000040c10000003f0000000000000000000000800000803f000000000000803f000040c100000000000000400000a040000000000000003f0000000000000000000000800000803f000000000000803f000000000000a040000000000000803400000000000000bf000000000000000000000080000080bf000000000000803f0000000000000000000000000000a04000000000000080bf000000000000000000000080000080bf000000000000803f00000000000000000000000000000000000040c1000000bf000000000000000000000080000080bf000000000000803f00000000000040c100000000000080340000000000000000000000000000803f000080bf0000000000000000000080bf000000000000803400000040000000000000000000000000000000000000803f000080bf0000000000000000000080bf000000c000000000000000000000a0400000000000000000000000000000803f000080bf0000000000000000000080bf000000000000a040000000400000a0400000000000000000000000000000803f000080bf0000000000000000000080bf000000c00000a040
+    m_DataSize: 1008
+    _typelessdata: 000000400000a0400000000000000000c54e6c3f4fecc4be0000803f0000000000000000000080bf000000406327f63f8ccc3a3f5248043e0000004000000000000040c100000000c54e6c3f4fecc4be0000803f0000000000000000000080bf00000040143b31c10bd7a33c4a48043e0000000000000000000040c100000000c54e6c3f4fecc4be0000803f0000000000000000000080bf00000000143b31c10bd7a33c0bd7a33c000000000000a0400000000000000000c54e6c3f4fecc4be0000803f0000000000000000000080bf000000006327f63f8ccc3a3f4ad7a33c000000000000803400000000000000b4000080bfabaaaa32000080bf0000003400000000000080bf00000029abaaaa2718d8a33cd55fe23e0000000000000000000040c1000080b3000080bfabaa2a32000080bf0000803300000000000080bf00000000000040c1ded22c3fd55fe23e000000400000000000000000000080b3000080bfabaa2a32000080bf0000803300000000000080bf000000c0abaaaa270bd7a33c46230d3f0000004000000000000040c100000000000080bf00000000000080bf0000000000000000000080bf000000c0000040c1d6d22c3f46230d3f0000004000000000000000000000803f000000000000000000000000000000000000803f000080bf000000000000000028d8a33c34c3183e0000004000000000000040c10000003f0000000000000000000000800000803f000000000000803f000040c100000000ded22c3f34c3183e000000400000a040000000000000003f0000000000000000000000800000803f000000000000803f000000000000a0400bd7a33c6422d83e000000000000803400000000000000bf000000000000000000000080000080bf000000000000803f0000000000000000dad22c3ffe41123f000000000000a04000000000000080bf000000000000000000000080000080bf000000000000803f0000000000000000dad22c3f6122583f0000000000000000000040c1000000bf000000000000000000000080000080bf000000000000803f00000000000040c10bd7a33cfe41123f00000000000080340000000000000000000000000000803f000080bf0000000000000000000080bf0000000000008034fbd1773f34c3183e00000040000000000000000000000000000000000000803f000080bf0000000000000000000080bf000000c000000000fbd1773f5048843e000000000000a0400000000000000000000000000000803f000080bf0000000000000000000080bf000000000000a04097f1313f3ac3183e000000400000a0400000000000000000000000000000803f000080bf0000000000000000000080bf000000c00000a04097f1313f5048843e
   m_CompressedMesh:
     m_Vertices:
       m_NumItems: 0
@@ -5412,7 +5443,7 @@ Mesh:
   m_BakedConvexCollisionMesh: 
   m_BakedTriangleCollisionMesh: 
   'm_MeshMetrics[0]': 1
-  'm_MeshMetrics[1]': 1
+  'm_MeshMetrics[1]': 335.5502
   m_MeshOptimizationFlags: 1
   m_StreamData:
     serializedVersion: 2
@@ -5598,7 +5629,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &694797780
 Transform:
@@ -5961,7 +5992,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 1324382840}
-  m_VersionIndex: 93
+  m_VersionIndex: 94
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -6444,7 +6475,7 @@ GameObject:
   - component: {fileID: 1309697244}
   - component: {fileID: 1309697243}
   - component: {fileID: 1309697242}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6777,7 +6808,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 1239053817}
-  m_VersionIndex: 3075
+  m_VersionIndex: 3076
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -8207,7 +8238,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 693755394}
-  m_VersionIndex: 25
+  m_VersionIndex: 26
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -8226,7 +8257,7 @@ GameObject:
   - component: {fileID: 1599764911}
   - component: {fileID: 1599764910}
   - component: {fileID: 1599764909}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Second Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8559,7 +8590,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 249554043}
-  m_VersionIndex: 6856
+  m_VersionIndex: 6857
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -12235,7 +12266,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 457646456}
-  m_VersionIndex: 23
+  m_VersionIndex: 24
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -12254,7 +12285,7 @@ GameObject:
   - component: {fileID: 2049018938}
   - component: {fileID: 2049018937}
   - component: {fileID: 2049018936}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Second Floor_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12587,7 +12618,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 110648963}
-  m_VersionIndex: 16200
+  m_VersionIndex: 16201
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -12906,7 +12937,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8481894149731059919, guid: 8faf6bba95890574a909798d46af5e62, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -12923,3 +12955,4 @@ SceneRoots:
   - {fileID: 1807189800}
   - {fileID: 875850950}
   - {fileID: 6921571994321925746}
+  - {fileID: 334006382}

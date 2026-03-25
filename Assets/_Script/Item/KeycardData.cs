@@ -10,7 +10,7 @@ public enum EKeycardColor
 }
 
 [CreateAssetMenu(fileName = "KeycardData", menuName = "KeycardData")]
-public class KeycardData : PickableItemData
+public class KeycardData : InventoryItemData
 {
     [Header("Keycard")]
     public EKeycardColor keycardColor;

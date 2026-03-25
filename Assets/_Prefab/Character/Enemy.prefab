@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5740542664230864579}
   - component: {fileID: 8579516166930596788}
-  - component: {fileID: 6788071753360350755}
   - component: {fileID: 5740542664230864576}
   - component: {fileID: 8118201681528325901}
   m_Layer: 11
@@ -59,19 +58,6 @@ NavMeshAgent:
   m_BaseOffset: 1.12
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &6788071753360350755
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5740542664230864578}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed21208b4193ee247bcd10eddf3c4d77, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 100
 --- !u!114 &5740542664230864576
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -110,8 +96,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2df6f0c679b734240af2017b762e7270, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponContainer: {fileID: 3061221887729646363}
-  <Weapon>k__BackingField: {fileID: 0}
 --- !u!1 &9076474785545094196
 GameObject:
   m_ObjectHideFlags: 0
@@ -204,11 +188,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 44b63134b81888e49af4f96d2fe5b24b, type: 3}
---- !u!4 &3061221887729646363 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 256358788345307291, guid: 44b63134b81888e49af4f96d2fe5b24b, type: 3}
-  m_PrefabInstance: {fileID: 3023430355900799872}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3289589459868458744 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 311761902865581432, guid: 44b63134b81888e49af4f96d2fe5b24b, type: 3}

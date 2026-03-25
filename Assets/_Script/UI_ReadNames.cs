@@ -24,7 +24,7 @@ public class UI_ReadNames : MonoBehaviour
 
             if (uiName != null)
             {
-                displayText.SetText(uiName.ReadName);
+                displayText.SetText(uiName.readName);
             }
             else
             {

@@ -1,48 +1,37 @@
 ﻿using System;
 using UnityEngine;
 
-public class Health : MonoBehaviour
+public class Health
 {
-    [field: SerializeField] public int MaxHealth { get; private set; } = 100;
-    public int HealthAmount { get; private set; } = 0;
+    public int MaxHealth { get; private set; }
+
+    public int HealthAmount { get; private set; }
+
     public bool Dead { get; private set; } = false;
 
-    public event Action<int> OnHealthUpdated;
-    public event Action OnDead;
+    public event Action<int> OnHealthChange;
+    public event Action OnDie;
 
-    void Awake() 
+    // Constructors
+    public Health() 
+    { 
+        MaxHealth = 100;
+        HealthAmount = 100;
+        Dead = false;
+    }
+
+    public Health(int MaxHealth)
     {
-        // On start, health is set to max
+        this.MaxHealth = MaxHealth;
         HealthAmount = MaxHealth;
-    }
-
-    private void OnEnable()
-    {
-        // Check for body parts
-        foreach (BodyPart bodyPart in GetComponentsInChildren<BodyPart>()) 
-        {
-            bodyPart.OnBodyPartHit += OnBodyPartHit;
-        }
-    }
-
-    private void OnDisable()
-    {
-        foreach (BodyPart bodyPart in GetComponentsInChildren<BodyPart>())
-        {
-            bodyPart.OnBodyPartHit -= OnBodyPartHit;
-        }
-    }
-
-    private void OnBodyPartHit(float resultDamage, Transform damageInstigator)
-    {
-        RemoveHealth((int)resultDamage);
+        Dead = false;
     }
 
     public void AddHealth(int amount)
     {
         HealthAmount += amount;
         HealthAmount = Mathf.Clamp(HealthAmount, 0, MaxHealth);
-        OnHealthUpdated?.Invoke(HealthAmount);
+        OnHealthChange?.Invoke(HealthAmount);
     }
 
     public void RemoveHealth(int amount)
@@ -51,17 +40,14 @@ public class Health : MonoBehaviour
 
         HealthAmount -= amount;
         HealthAmount = Mathf.Clamp(HealthAmount, 0, MaxHealth);
-        OnHealthUpdated?.Invoke(HealthAmount);
+        OnHealthChange?.Invoke(HealthAmount);
 
-        if (HealthAmount <= 0)
-        {
-            TriggerDeath();
-        }
+        if (HealthAmount <= 0) Die();
     }
 
-    private void TriggerDeath() 
+    private void Die() 
     {
         Dead = true;
-        OnDead?.Invoke();
+        OnDie?.Invoke();
     }
 }

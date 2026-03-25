@@ -149,7 +149,7 @@ public class Inventory : MonoBehaviour
         return false;
     }
 
-    public bool RemoveConsumable(PickableItemData item)
+    public bool RemoveConsumable(InventoryItemData item)
     {
         for (int i = 0; i < consumables.Count; i++)
         {
@@ -204,7 +204,7 @@ public class Inventory : MonoBehaviour
         {
             if (i == consumableIndex)
             {
-                if (consumables[i].PickableItemData.GetType() == typeof(ConsumableData))
+                if (consumables[i].PickableItemData.GetType() == typeof(HealingItemData))
                 {
                     if (consumables[i].UseConsumable(GetComponent<Health>()))
                     {

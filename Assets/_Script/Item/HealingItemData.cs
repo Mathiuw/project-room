@@ -3,9 +3,9 @@ using UnityEngine;
 namespace MaiNull.Item
 {
     [CreateAssetMenu(fileName = "ConsumableData", menuName = "ConsumableData")]
-    public class ConsumableData : PickableItemData
+    public class HealingItemData : InventoryItemData
     {
-        [Header("Consumable effects")]
-        public int recoverHealth;
+        [Header("Healing item effects")]
+        public int recoverHealthAmount = 1;
     }
 }

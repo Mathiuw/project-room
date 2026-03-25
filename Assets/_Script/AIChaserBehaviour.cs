@@ -1,4 +1,3 @@
-using MaiNull.Player;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -17,7 +16,7 @@ namespace MaiNull
 
         private void Start()
         {
-            target = FindFirstObjectByType<PlayerMovement>()?.transform;
+            target = FindFirstObjectByType<Player>()?.transform;
         }
 
         private void Update()

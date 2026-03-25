@@ -17,10 +17,8 @@ namespace MaiNull
             this.knockbackDirection = knockbackDirection;
         }
     }                    
-}
 
-namespace MaiNull.Player
-{
+
     [RequireComponent(typeof(Rigidbody))]
     public class PlayerMovement : MonoBehaviour
     {

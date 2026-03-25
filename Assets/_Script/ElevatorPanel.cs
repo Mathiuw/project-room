@@ -14,7 +14,7 @@ public class ElevatorPanel : MonoBehaviour, IInteractable, IUIName
     [SerializeField] Material offMaterial;
     MeshRenderer mesh;
 
-    public string ReadName => SetReadName();
+    public string readName => SetReadName();
 
     public event Action onButtomPress;
 

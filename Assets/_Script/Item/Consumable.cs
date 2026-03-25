@@ -11,9 +11,9 @@ namespace MaiNull.Item
         {
             if (health.HealthAmount < health.MaxHealth)
             {
-                ConsumableData soConsumable = (ConsumableData)PickableItemData;
+                HealingItemData soConsumable = (HealingItemData)PickableItemData;
 
-                health.AddHealth(soConsumable.recoverHealth);
+                health.AddHealth(soConsumable.recoverHealthAmount);
 
                 return true;
             }

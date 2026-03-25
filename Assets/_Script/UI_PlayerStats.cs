@@ -1,60 +1,61 @@
-﻿using MaiNull.Player;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class UI_PlayerStats : MonoBehaviour
+namespace MaiNull
 {
-    [SerializeField] Slider healthBar;
-    [SerializeField] Slider staminaBar;
-
-    PlayerMovement playerMovement;
-    Health playerHealth;
-
-    void Start() 
+    public class UI_PlayerStats : MonoBehaviour
     {
-        playerMovement = FindFirstObjectByType<PlayerMovement>();
+        [SerializeField] Slider healthBar;
+        [SerializeField] Slider staminaBar;
 
-        if (playerMovement)
+        Player player;
+        PlayerMovement playerMovement;
+
+        void Start()
         {
-            staminaBar.maxValue = playerMovement.MaxStamina;
-            SetStaminaUI(playerMovement.Stamina);
+            player = FindFirstObjectByType<Player>();
 
-            playerMovement.OnStaminaUpdated += SetStaminaUI;
-
-
-            playerHealth = playerMovement.GetComponent<Health>();
-
-            if (playerHealth)
+            if (!player)
             {
-                healthBar.maxValue = playerHealth.MaxHealth;
-                SetHealthUI(playerHealth.HealthAmount);
-
-                playerHealth.OnHealthUpdated += SetHealthUI;
+                Debug.LogError("Cant find Player!");
+                return;
             }
-            else
+
+            healthBar.maxValue = player.health.MaxHealth;
+            player.health.OnHealthChange += SetHealthUI;
+            SetHealthUI(player.health.HealthAmount);
+
+            playerMovement = player.GetComponent<PlayerMovement>();
+            if (playerMovement)
             {
-                Debug.LogError("Cant find player health");
+                staminaBar.maxValue = playerMovement.MaxStamina;
+                SetStaminaUI(playerMovement.Stamina);
+
+                playerMovement.OnStaminaUpdated += SetStaminaUI;
             }
         }
-        else Debug.LogError("Cant find PlayerMovement class");
-    }
 
-    private void OnDisable()
-    {
-        playerMovement.OnStaminaUpdated -= SetStaminaUI;
-        playerHealth.OnHealthUpdated -= SetHealthUI;
-    }
+        private void OnDisable()
+        {
+            if (playerMovement)
+            {
+                playerMovement.OnStaminaUpdated -= SetStaminaUI;
+            }
 
-    void SetStaminaUI(float stamina)
-    {
-        staminaBar.value = stamina;
+            player.health.OnHealthChange -= SetHealthUI;
+        }
 
-        if (staminaBar.value == staminaBar.maxValue) staminaBar.gameObject.SetActive(false);
-        else staminaBar.gameObject.SetActive(true);
-    }
+        void SetStaminaUI(float stamina)
+        {
+            staminaBar.value = stamina;
 
-    void SetHealthUI(int healthAmount)
-    {
-        healthBar.value = healthAmount;
+            if (staminaBar.value == staminaBar.maxValue) staminaBar.gameObject.SetActive(false);
+            else staminaBar.gameObject.SetActive(true);
+        }
+
+        void SetHealthUI(int healthAmount)
+        {
+            healthBar.value = healthAmount;
+        }
     }
 }

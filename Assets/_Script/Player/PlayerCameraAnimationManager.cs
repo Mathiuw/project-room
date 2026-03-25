@@ -1,11 +1,12 @@
-﻿using UnityEngine;
+﻿using MaiNull.Item;
+using UnityEngine;
 
-namespace MaiNull.Player
+namespace MaiNull
 {
     [RequireComponent(typeof(Animator))]
     public class PlayerCameraAnimationManager : MonoBehaviour
     {
-        PlayerWeaponInteraction playerWeaponInteraction;
+        PlayerWeaponHolder playerWeaponInteraction;
         PlayerMovement playerMovement;
         Animator animator;
         Rigidbody playerRb;
@@ -17,7 +18,7 @@ namespace MaiNull.Player
 
         void Start()
         {
-            playerWeaponInteraction = FindFirstObjectByType<PlayerWeaponInteraction>();
+            playerWeaponInteraction = FindFirstObjectByType<PlayerWeaponHolder>();
             playerMovement = FindAnyObjectByType<PlayerMovement>();
             playerRb = playerWeaponInteraction?.GetComponent<Rigidbody>();
 

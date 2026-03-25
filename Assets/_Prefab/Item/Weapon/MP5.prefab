@@ -159,6 +159,7 @@ GameObject:
   - component: {fileID: 7046516514582021817}
   - component: {fileID: -1045476947395622889}
   - component: {fileID: 6945052298925291577}
+  - component: {fileID: 5695690545748321217}
   - component: {fileID: 1326198996104021252}
   m_Layer: 12
   m_Name: MP5
@@ -228,6 +229,19 @@ MonoBehaviour:
   muzzleFlashTransform: {fileID: 1023189051818108254}
   muzzleFlash: {fileID: 4911441779393937281, guid: 6d2f69ef9a8a1884b963eb0c73b29bf0, type: 3}
   blood: {fileID: 5750085299204580772, guid: 3a5dae8569d4f374e8c66e8fef3d1f31, type: 3}
+--- !u!114 &5695690545748321217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6401145719867435353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bf160f22a70fca40a87f5bffcc56b75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  force: -9.81
 --- !u!82 &1326198996104021252
 AudioSource:
   m_ObjectHideFlags: 0
