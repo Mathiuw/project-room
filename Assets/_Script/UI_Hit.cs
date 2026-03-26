@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using MaiNull.Item;
+using System;
+using System.Collections;
 using UnityEngine;
 
 namespace MaiNull
@@ -24,13 +26,21 @@ namespace MaiNull
 
             if (playerWeaponInteraction)
             {
-                playerWeaponInteraction.OnWeaponHit += OnWeaponHit;
+                playerWeaponInteraction.OnWeaponPickup += OnWeaponPickup;
             }
         }
 
-        private void OnWeaponHit(RaycastHit hit)
+        private void OnWeaponPickup(Weapon weapon)
         {
-            StartCoroutine(HitmarkerCoroutine());
+            weapon.OnWeaponShot += OnWeaponShot;
+        }
+
+        private void OnWeaponShot(Weapon weapon, RaycastHit hit)
+        {
+            if (hit.collider != null)
+            {
+                StartCoroutine(HitmarkerCoroutine());
+            }
         }
 
         private IEnumerator HitmarkerCoroutine()

@@ -27,7 +27,7 @@ namespace MaiNull
             {
                 playerWeaponInteraction.OnWeaponPickup += OnWeaponPickup;
                 playerWeaponInteraction.OnWeaponDrop += OnWeaponDrop;
-                playerWeaponInteraction.OnReloadStart += OnReloadStart;
+                //playerWeaponInteraction.OnReloadStart += OnReloadStart;
             }
 
             SetCroshair(dotCrosshair);
@@ -37,7 +37,7 @@ namespace MaiNull
         {
             playerWeaponInteraction.OnWeaponPickup -= OnWeaponPickup;
             playerWeaponInteraction.OnWeaponDrop -= OnWeaponDrop;
-            playerWeaponInteraction.OnReloadStart -= OnReloadStart;
+            //playerWeaponInteraction.OnReloadStart -= OnReloadStart;
         }
 
         private void OnWeaponPickup(Weapon weapon)

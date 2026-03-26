@@ -5,27 +5,27 @@ namespace MaiNull.Item
 {
     public class Weapon
     {
-        public WeaponData WeaponData { get; private set; }
-
-        public RaycastHit hit;
-        protected float nextTimeToFire = 0;
-        private int currentAmmo = 0;
-
-        public int CurrentAmmo
+        public Weapon(WeaponData weaponData)
         {
-            get
-            {
-                return currentAmmo;
-            }
-
-            set
-            {
-                currentAmmo = Mathf.Max(value, 0);
-            }
-
+            WeaponData = weaponData;
+            CurrentAmmo = weaponData.maxAmmo;
         }
 
-        public virtual bool Shoot(Transform raycastPos, Action<RaycastHit> hitEvent = null)
+        public WeaponData WeaponData { get; }
+        
+        public int CurrentAmmo
+        {
+            get => CurrentAmmo;
+            set => CurrentAmmo = Mathf.Max(value, 0); 
+        }
+
+        protected RaycastHit hit;
+        protected float nextTimeToFire = 0;
+
+        public event Action<Weapon, RaycastHit> OnWeaponShot;
+
+
+        public virtual bool Shoot(Transform raycastStartPosition)
         {
             if (CurrentAmmo == 0 || !(Time.time > nextTimeToFire)) return false;
 
@@ -34,9 +34,9 @@ namespace MaiNull.Item
 
             CurrentAmmo -= 1;
 
-            if (Physics.Raycast(raycastPos.position, raycastPos.forward, out hit, 1000, WeaponData.shootMask))
+            if (Physics.Raycast(raycastStartPosition.position, raycastStartPosition.forward, out hit, 1000, WeaponData.shootMask))
             {
-                Debug.DrawLine(raycastPos.position, hit.point, Color.green, 1f);
+                Debug.DrawLine(raycastStartPosition.position, hit.point, Color.green, 1f);
 
                 IDamageable[] damageables = hit.transform.GetComponents<IDamageable>();
 
@@ -44,29 +44,18 @@ namespace MaiNull.Item
                 {
                     foreach (IDamageable damageable in damageables)
                     {
-                        damageable.Damage(WeaponData.damage, new Knockback(WeaponData.knockbackForce, WeaponData.knockbackDuration, hit.transform.position - raycastPos.transform.position), null);
+                        damageable.Damage(WeaponData.damage, new Knockback(WeaponData.knockbackForce, WeaponData.knockbackDuration, hit.transform.position - raycastStartPosition.transform.position), null);
                     }
-
-                    hitEvent?.Invoke(hit);
-                    //AddForceToRbs(hit.transform, raycastPos, SOWeapon.bulletForce);
                 }
             }
             else
             {
-                Debug.DrawRay(raycastPos.position, raycastPos.forward, Color.red, 1f);
+                Debug.DrawRay(raycastStartPosition.position, raycastStartPosition.forward, Color.red, 1f);
             }
+
+            OnWeaponShot?.Invoke(this, hit);
 
             return true;
-        }
-
-        protected void AddForceToRbs(Transform hitTransform, Transform directionForce, float forceAmount)
-        {
-            hitTransform.TryGetComponent(out Rigidbody rb);
-
-            if (rb)
-            {
-                rb.AddForce(directionForce.forward * forceAmount, ForceMode.Impulse);
-            }
         }
     }
 }

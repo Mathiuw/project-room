@@ -1,7 +1,7 @@
 using MaiNull.Item;
 using UnityEngine;
 
-public class Keycard : PickableItem
+public class PickableKeycard : PickableItem
 {
     [SerializeField] private Material[] materials = new Material[4];
 

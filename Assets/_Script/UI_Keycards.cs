@@ -48,7 +48,7 @@ public class UI_Keycards : MonoBehaviour
         inventory.OnKeycardAdd -= OnkeycardAdd;
     }
 
-    private void OnkeycardAdd(Keycard item)
+    private void OnkeycardAdd(PickableKeycard item)
     {
         DrawKeycards();
     }

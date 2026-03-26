@@ -18,13 +18,6 @@ namespace MaiNull
         Transform cameraTransform;
         Inventory inventory;
 
-        public event Action<Weapon> OnWeaponShot;
-        public event Action<Weapon> OnWeaponPickup;
-        public event Action<RaycastHit> OnWeaponHit;
-        public event Action OnReloadStart;
-        public event Action OnReloadEnd;
-        public event Action OnWeaponDrop;
-
         void Awake()
         {
             inventory = GetComponent<Inventory>();
@@ -52,10 +45,7 @@ namespace MaiNull
 
                 if (InputShoot())
                 {
-                    if (CurrentWeapon.Shoot(cameraTransform, OnWeaponHit))
-                    {
-                        OnWeaponShot?.Invoke(CurrentWeapon);
-                    }
+                    CurrentWeapon.Shoot(cameraTransform);
                 }
             }
 
@@ -64,32 +54,7 @@ namespace MaiNull
             if (Input.GetKeyDown(KeyCode.G)) DropWeapon();
         }
 
-        IEnumerator LerpWeaponCoroutine(float time, Transform weapon, Vector3 desiredPosition, Quaternion desiredRotation)
-        {
-            IsLerping = true;
 
-            float elapsedTime = 0f;
-            float percentageComplete = 0f;
-
-            Vector3 startPosition;
-            Quaternion startRotation;
-
-            weapon.transform.GetLocalPositionAndRotation(out startPosition, out startRotation);
-
-            while (elapsedTime < time)
-            {
-                weapon.localPosition = Vector3.Lerp(startPosition, desiredPosition, percentageComplete);
-                weapon.localRotation = Quaternion.Lerp(startRotation, desiredRotation, percentageComplete);
-
-                elapsedTime += Time.deltaTime;
-                percentageComplete = elapsedTime / time;
-                yield return null;
-            }
-
-            weapon.SetLocalPositionAndRotation(desiredPosition, desiredRotation);
-
-            IsLerping = false;
-        }
 
         void SwayWeapon(float swayMultiplier)
         {
@@ -108,7 +73,6 @@ namespace MaiNull
         {
             StartCoroutine(PickUpWeaponCoroutine(weapon));
             base.PickUpWeapon(weapon);
-            OnWeaponPickup?.Invoke(CurrentWeapon);
         }
 
         public IEnumerator PickUpWeaponCoroutine(Weapon weapon)
@@ -156,7 +120,7 @@ namespace MaiNull
             if (CurrentWeapon.CurrentAmmo == CurrentWeapon.WeaponData.maxAmmo) yield break;
             if (inventory.GetAmmoAmountByType(CurrentWeapon.WeaponData.ammoType) == 0) yield break;
 
-            OnReloadStart?.Invoke();
+            //OnReloadStart?.Invoke();
 
             IsReloading = true;
             yield return new WaitForSeconds(CurrentWeapon.WeaponData.reloadTime);
@@ -178,7 +142,7 @@ namespace MaiNull
             inventory.RemoveAmmo(ammoType, amountToReload);
 
             IsReloading = false;
-            OnReloadEnd?.Invoke();
+            //OnReloadEnd?.Invoke();
 
             yield break;
         }

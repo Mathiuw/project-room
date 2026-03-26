@@ -1,4 +1,5 @@
 ﻿using MaiNull.Item;
+using System.Collections;
 using UnityEngine;
 
 namespace MaiNull
@@ -6,7 +7,7 @@ namespace MaiNull
     [RequireComponent(typeof(Animator))]
     public class PlayerCameraAnimationManager : MonoBehaviour
     {
-        PlayerWeaponHolder playerWeaponInteraction;
+        PlayerWeaponHolder playerWeaponHolder;
         PlayerMovement playerMovement;
         Animator animator;
         Rigidbody playerRb;
@@ -18,17 +19,20 @@ namespace MaiNull
 
         void Start()
         {
-            playerWeaponInteraction = FindFirstObjectByType<PlayerWeaponHolder>();
+            playerWeaponHolder = FindFirstObjectByType<PlayerWeaponHolder>();
             playerMovement = FindAnyObjectByType<PlayerMovement>();
-            playerRb = playerWeaponInteraction?.GetComponent<Rigidbody>();
+            playerRb = playerWeaponHolder?.GetComponent<Rigidbody>();
 
-            if (playerWeaponInteraction)
+            if (playerWeaponHolder)
             {
-                playerWeaponInteraction.OnWeaponPickup += OnWeaponPickup;
-                playerWeaponInteraction.OnWeaponDrop += OnDrop;
-                playerWeaponInteraction.OnWeaponShot += OnWeaponShot;
-                playerWeaponInteraction.OnReloadStart += ReloadStart;
-                playerWeaponInteraction.OnReloadEnd += ReloadEnd;
+                playerWeaponHolder.OnWeaponPickup += OnWeaponPickup;
+                playerWeaponHolder.OnWeaponDrop += OnDrop;
+                if (playerWeaponHolder.CurrentWeapon != null)
+                {
+                    playerWeaponHolder.CurrentWeapon.OnWeaponShot += OnWeaponShot;
+                }
+                //playerWeaponHolder.OnReloadStart += ReloadStart;
+                //playerWeaponHolder.OnReloadEnd += ReloadEnd;
             }
             else
             {
@@ -39,11 +43,14 @@ namespace MaiNull
 
         private void OnDisable()
         {
-            playerWeaponInteraction.OnWeaponPickup -= OnWeaponPickup;
-            playerWeaponInteraction.OnWeaponDrop -= OnDrop;
-            playerWeaponInteraction.OnWeaponShot -= OnWeaponShot;
-            playerWeaponInteraction.OnReloadStart -= ReloadStart;
-            playerWeaponInteraction.OnReloadEnd -= ReloadEnd;
+            playerWeaponHolder.OnWeaponPickup -= OnWeaponPickup;
+            playerWeaponHolder.OnWeaponDrop -= OnDrop;
+            if (playerWeaponHolder.CurrentWeapon != null)
+            {
+                playerWeaponHolder.CurrentWeapon.OnWeaponShot -= OnWeaponShot;
+            }
+            //playerWeaponHolder.OnReloadStart -= ReloadStart;
+            //playerWeaponHolder.OnReloadEnd -= ReloadEnd;
         }
 
         void Update()
@@ -58,7 +65,7 @@ namespace MaiNull
             animator.runtimeAnimatorController = weapon.WeaponData.animatorOverride;
         }
 
-        private void OnWeaponShot(Weapon weapon)
+        private void OnWeaponShot(Weapon weapon, RaycastHit hit)
         {
             animator.Play("Shoot", 1);
         }
@@ -78,6 +85,29 @@ namespace MaiNull
         private void SetShootFirerateTime(Weapon weapon)
         {
             animator.SetFloat("firerate", weapon.WeaponData.firerate);
+        }
+
+        IEnumerator LerpWeaponCoroutine(float time, Transform weapon, Vector3 desiredPosition, Quaternion desiredRotation)
+        {
+            float elapsedTime = 0f;
+            float percentageComplete = 0f;
+
+            Vector3 startPosition;
+            Quaternion startRotation;
+
+            weapon.transform.GetLocalPositionAndRotation(out startPosition, out startRotation);
+
+            while (elapsedTime < time)
+            {
+                weapon.localPosition = Vector3.Lerp(startPosition, desiredPosition, percentageComplete);
+                weapon.localRotation = Quaternion.Lerp(startRotation, desiredRotation, percentageComplete);
+
+                elapsedTime += Time.deltaTime;
+                percentageComplete = elapsedTime / time;
+                yield return null;
+            }
+
+            weapon.SetLocalPositionAndRotation(desiredPosition, desiredRotation);
         }
     }
 }

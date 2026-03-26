@@ -36,5 +36,7 @@ namespace MaiNull
         {
             animator.Play("Shoot", -1, 0f);
         }
+
+
     }
 }

@@ -9,25 +9,28 @@ namespace MaiNull
     {
         [SerializeField] TextMeshProUGUI ammoUI;
         [SerializeField] Image ammoSprite;
-        PlayerWeaponHolder playerWeaponInteraction;
+        PlayerWeaponHolder playerWeaponHolder;
         Inventory playerInventory;
 
         void Start()
         {
-            playerWeaponInteraction = FindFirstObjectByType<PlayerWeaponHolder>();
+            playerWeaponHolder = FindFirstObjectByType<PlayerWeaponHolder>();
 
-            if (playerWeaponInteraction)
+            if (playerWeaponHolder)
             {
-                playerWeaponInteraction.OnWeaponPickup += ActivateUISprite;
-                playerWeaponInteraction.OnWeaponShot += OnWeaponShot;
-                playerWeaponInteraction.OnWeaponDrop += DisableUISprite;
-                playerWeaponInteraction.OnReloadEnd += SetUIAmmoText;
+                playerWeaponHolder.OnWeaponPickup += ActivateUISprite;
+                if (playerWeaponHolder.CurrentWeapon != null)
+                {
+                    playerWeaponHolder.CurrentWeapon.OnWeaponShot += OnWeaponShot;
+                }
+                playerWeaponHolder.OnWeaponDrop += DisableUISprite;
+                playerWeaponHolder.OnReloadEnd += SetUIAmmoText;
 
-                if (playerWeaponInteraction.CurrentWeapon != null) ActivateUISprite();
+                if (playerWeaponHolder.CurrentWeapon != null) ActivateUISprite();
                 else DisableUISprite();
             }
 
-            playerInventory = playerWeaponInteraction.GetComponent<Inventory>();
+            playerInventory = playerWeaponHolder.GetComponent<Inventory>();
 
             if (playerInventory)
             {
@@ -37,15 +40,18 @@ namespace MaiNull
 
         private void OnDisable()
         {
-            playerWeaponInteraction.OnWeaponPickup -= ActivateUISprite;
-            playerWeaponInteraction.OnWeaponDrop -= DisableUISprite;
-            playerWeaponInteraction.OnWeaponShot -= OnWeaponShot;
-            playerWeaponInteraction.OnReloadEnd -= SetUIAmmoText;
+            playerWeaponHolder.OnWeaponPickup -= ActivateUISprite;
+            playerWeaponHolder.OnWeaponDrop -= DisableUISprite;
+            if (playerWeaponHolder.CurrentWeapon != null)
+            {
+                playerWeaponHolder.CurrentWeapon.OnWeaponShot -= OnWeaponShot;
+            }
+            playerWeaponHolder.OnReloadEnd -= SetUIAmmoText;
 
             playerInventory.OnAmmoCountUpdate -= SetUIAmmoText;
         }
 
-        private void OnWeaponShot(Weapon weapon)
+        private void OnWeaponShot(Weapon weapon, RaycastHit hit)
         {
             SetUIAmmoText();
         }
@@ -65,14 +71,14 @@ namespace MaiNull
 
         void SetUIAmmoText()
         {
-            if (playerWeaponInteraction.CurrentWeapon == null)
+            if (playerWeaponHolder.CurrentWeapon == null)
             {
                 ammoUI.SetText("");
                 return;
             }
 
-            int ammo = playerWeaponInteraction.CurrentWeapon.CurrentAmmo;
-            int ammoStored = playerInventory.GetAmmoAmountByType(playerWeaponInteraction.CurrentWeapon.WeaponData.ammoType);
+            int ammo = playerWeaponHolder.CurrentWeapon.CurrentAmmo;
+            int ammoStored = playerInventory.GetAmmoAmountByType(playerWeaponHolder.CurrentWeapon.WeaponData.ammoType);
 
             ammoUI.SetText(ammo + "/" + ammoStored);
         }

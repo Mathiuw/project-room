@@ -26,19 +26,51 @@ namespace MaiNull
             seedZ = Random.Range(-1000, 1000);
         }
 
+
+        private void OnEnable()
+        {
+            if (playerWeaponHolder)
+            {
+                playerWeaponHolder.OnWeaponPickup += OnWeaponPickup;
+            }
+        }
+
+
         void Start()
         {
             playerWeaponHolder = FindFirstObjectByType<PlayerWeaponHolder>();
 
             if (playerWeaponHolder)
             {
-                playerWeaponHolder.OnWeaponShot += OnWeaponShot;
+                playerWeaponHolder.OnWeaponPickup += OnWeaponPickup;
             }
         }
 
+        
         private void OnDisable()
         {
-            playerWeaponHolder.OnWeaponShot -= OnWeaponShot;
+            if (playerWeaponHolder)
+            {
+                if (playerWeaponHolder.CurrentWeapon != null)
+                {
+                    playerWeaponHolder.CurrentWeapon.OnWeaponShot -= OnWeaponShot;
+                }
+
+                playerWeaponHolder.OnWeaponPickup -= OnWeaponPickup;
+            }
+        }
+
+        private void OnWeaponPickup(Weapon weapon)
+        {
+            weapon.OnWeaponShot += OnWeaponShot;
+        }
+
+        private void OnWeaponShot(Weapon weapon, RaycastHit hit)
+        {
+            float intensity = weapon.WeaponData.intensity;
+            float speed = weapon.WeaponData.speed;
+
+            AddCameraShake(intensity, speed);
         }
 
         void Update()
@@ -56,15 +88,7 @@ namespace MaiNull
             rotation.y = intensityExponential * maxRotaion.y * PerlinNoise(seedY, time);
             rotation.z = intensityExponential * maxRotaion.z * PerlinNoise(seedZ, time);
 
-            transform.localRotation = Quaternion.Euler(rotation);
-        }
-
-        private void OnWeaponShot(Weapon weaponShot)
-        {
-            float intensity = weaponShot.WeaponData.intensity;
-            float speed = weaponShot.WeaponData.speed;
-
-            AddCameraShake(intensity, speed);
+            transform.localRotation = Quaternion.Euler(rotation);                                                                     
         }
 
         float PerlinNoise(float x, float y)

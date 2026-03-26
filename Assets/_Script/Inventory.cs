@@ -14,7 +14,7 @@ public class Inventory : MonoBehaviour
 {
     [Header("Item Inventory")]
     [field: SerializeField] public List<Consumable> consumables { get; private set; } = new List<Consumable>();
-    [field: SerializeField] public List<Keycard> keycards { get; private set; } = new List<Keycard>();
+    [field: SerializeField] public List<PickableKeycard> keycards { get; private set; } = new List<PickableKeycard>();
     public int consumableIndex { get; set; } = 0;
 
     [Header("Ammo Inventory")]
@@ -26,7 +26,7 @@ public class Inventory : MonoBehaviour
     public event Action OnConsumableUse;
     public event Action<int> OnConsumableIndexUpdate;
 
-    public event Action<Keycard> OnKeycardAdd;
+    public event Action<PickableKeycard> OnKeycardAdd;
 
     public event Action OnAmmoCountUpdate;
 
@@ -139,10 +139,10 @@ public class Inventory : MonoBehaviour
 ;
             return true;
         }
-        else if (item.GetType() == typeof(Keycard))
+        else if (item.GetType() == typeof(PickableKeycard))
         {
-            keycards.Add((Keycard)item);
-            OnKeycardAdd?.Invoke((Keycard)item);
+            keycards.Add((PickableKeycard)item);
+            OnKeycardAdd?.Invoke((PickableKeycard)item);
             return true;
         }
 
@@ -225,7 +225,7 @@ public class Inventory : MonoBehaviour
 
     public bool HaveKeycard(KeycardData keycard)
     {
-        foreach (Keycard i in keycards)
+        foreach (PickableKeycard i in keycards)
         {
             if (keycard.name == i.PickableItemData.name)
             {
