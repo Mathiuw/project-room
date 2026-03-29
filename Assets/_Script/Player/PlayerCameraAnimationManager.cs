@@ -8,7 +8,7 @@ namespace MaiNull
     public class PlayerCameraAnimationManager : MonoBehaviour
     {
         PlayerWeaponHolder playerWeaponHolder;
-        PlayerMovement playerMovement;
+        PlayerMovementRB playerMovement;
         Animator animator;
         Rigidbody playerRb;
 
@@ -20,7 +20,7 @@ namespace MaiNull
         void Start()
         {
             playerWeaponHolder = FindFirstObjectByType<PlayerWeaponHolder>();
-            playerMovement = FindAnyObjectByType<PlayerMovement>();
+            playerMovement = FindAnyObjectByType<PlayerMovementRB>();
             playerRb = playerWeaponHolder?.GetComponent<Rigidbody>();
 
             if (playerWeaponHolder)
@@ -76,7 +76,7 @@ namespace MaiNull
 
         private void OnDrop() => animator.Rebind();
 
-        private float WalkSpeed(PlayerMovement playerMovement)
+        private float WalkSpeed(PlayerMovementRB playerMovement)
         {
             if (playerMovement.IsSprinting) return 1.5f;
             else return 1f;

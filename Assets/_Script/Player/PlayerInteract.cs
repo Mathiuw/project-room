@@ -9,7 +9,7 @@ namespace MaiNull
         [Header("Interact ")]
         [SerializeField] private LayerMask interactiveMask;
         [SerializeField] private float rayLength = 5;
-        private PlayerMovement playerMovement;
+        private PlayerMovementRB playerMovement;
         private Transform playerCamera;
 
         void Start()

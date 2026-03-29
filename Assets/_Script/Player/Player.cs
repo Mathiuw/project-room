@@ -1,17 +1,17 @@
 ﻿using UnityEngine;
 
-namespace MaiNull
+namespace MaiNull.Player
 {
 	public class Player : MonoBehaviour, IDamageable
 	{
         public Health health { get; } = new();
-        private PlayerMovement playerMovement;
+        private PlayerMovementRB playerMovement;
 
         private void Awake()
         {
             health.OnDie += OnDead;
 
-            playerMovement = GetComponent<PlayerMovement>();
+            playerMovement = GetComponent<PlayerMovementRB>();
         }
 
         private void OnDead()

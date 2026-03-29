@@ -20,7 +20,7 @@ namespace MaiNull
 
 
     [RequireComponent(typeof(Rigidbody))]
-    public class PlayerMovement : MonoBehaviour
+    public class PlayerMovementRB : MonoBehaviour
     {
         // Input class
         public GameActions Input { get; private set; }
@@ -29,8 +29,9 @@ namespace MaiNull
         // Movement
         [Header("Movement")]
         [SerializeField] private float moveSpeed = 300f;
-        [SerializeField] private float gravity = 40f;
-        [SerializeField] private float maxSlopeAngle = 40f;
+        [SerializeField] private float gravity = -9.81f;
+        [SerializeField] private float maxSlopeAngle = 35f;
+        [SerializeField] private LayerMask groundMask;
         Rigidbody rb;
 
         [Header("Rotation")]
@@ -39,7 +40,7 @@ namespace MaiNull
         // Sprint
         [Header("Sprint")]
         [SerializeField] bool canSprint = true;
-        [field: SerializeField] public float MaxStamina { get; set; } = 30;
+        [field: SerializeField] public float MaxStamina { get; private set; } = 30;
         [SerializeField] int staminaCost = 10;
         [SerializeField] int staminaRecover = 8;
         [SerializeField] float sprintingMultiplier = 1.5f;
@@ -107,7 +108,7 @@ namespace MaiNull
 
             if (CurrentKnockback.duration > 0f)
             {
-                Debug.Log("Knockback");
+                //Debug.Log("Knockback");
                 currentKnockback.duration -= Time.deltaTime;
                 desiredVelocity = currentKnockback.knockbackDirection.normalized * currentKnockback.force * Time.deltaTime;
             }
@@ -118,6 +119,7 @@ namespace MaiNull
 
                 if (OnSlope(out slopeHit))
                 {
+                    Debug.Log($"{transform.name} is on a Slope");
                     moveDirection = GetSlopeMoveDirection(moveDirection, slopeHit.normal);
                 }
 
@@ -125,16 +127,19 @@ namespace MaiNull
             }
 
             // Gravity
+            Debug.Log($"{transform.name} is gounded: {IsGrounded()}");
             if (IsGrounded())
             {
                 desiredVelocity.y = 0f;
             }
             else
             {
-                desiredVelocity.y = gravity * Time.deltaTime;
+                desiredVelocity.y = rb.linearVelocity.y + (gravity * Time.deltaTime);
             }
 
+
             rb.linearVelocity = desiredVelocity;
+            Debug.Log(rb.linearVelocity);
         }
 
         public void Sprint(KeyCode RunInput)
@@ -169,25 +174,23 @@ namespace MaiNull
 
         private bool IsGrounded()
         {
-            RaycastHit hit;
-            float maxRay = 1.35f;
+            //RaycastHit hit;
+            float groundDistance = 1f;
+            float sphereRadius = 0.15f;
 
-            return Physics.Raycast(transform.position, Vector3.down, out hit, maxRay);
+            
+            //Physics.Raycast(transform.position, Vector3.down, out hit, maxRay);
+            return Physics.CheckSphere(transform.position + Vector3.down * groundDistance, sphereRadius, groundMask);
         }
 
         private bool OnSlope(out RaycastHit slopeHit)
         {
             float playerHeight = GetComponent<CapsuleCollider>().height;
-            float aditional = 0.35f;
+            const float Aditional = 0.1f;
 
-            if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight / 2 + aditional))
+            if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight / 2 + Aditional, groundMask))
             {
                 float angle = Vector3.Angle(moveInputVector, slopeHit.normal);
-
-                if (angle < maxSlopeAngle && angle != 0)
-                {
-                    Debug.Log($"{transform.name} is on a Slope");
-                }
 
                 return angle < maxSlopeAngle && angle != 0;
             }
@@ -198,6 +201,26 @@ namespace MaiNull
         private Vector3 GetSlopeMoveDirection(Vector3 moveDirection, Vector3 slopeNormal)
         {
             return Vector3.ProjectOnPlane(moveDirection, slopeNormal);
+        }
+
+        private void OnDrawGizmos()
+        {
+            if (IsGrounded())
+            {
+                Gizmos.color = Color.red;
+            }
+            else 
+            {
+                Gizmos.color = Color.green;
+            }
+
+            Gizmos.DrawSphere(transform.position + Vector3.down * 1f, 0.15f);
+
+            float playerHeight = GetComponent<CapsuleCollider>().height;
+            float aditional = 0.15f;
+
+            Gizmos.color = Color.blue;
+            Gizmos.DrawRay(transform.position, Vector3.down * (playerHeight / 2 + aditional));
         }
     }
 }

@@ -9,7 +9,7 @@ namespace MaiNull
         [SerializeField] Slider staminaBar;
 
         Player player;
-        PlayerMovement playerMovement;
+        PlayerMovementRB playerMovement;
 
         void Start()
         {
@@ -25,7 +25,7 @@ namespace MaiNull
             player.health.OnHealthChange += SetHealthUI;
             SetHealthUI(player.health.HealthAmount);
 
-            playerMovement = player.GetComponent<PlayerMovement>();
+            playerMovement = player.GetComponent<PlayerMovementRB>();
             if (playerMovement)
             {
                 staminaBar.maxValue = playerMovement.MaxStamina;

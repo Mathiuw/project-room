@@ -24,7 +24,7 @@ namespace MaiNull
                     playerWeaponHolder.CurrentWeapon.OnWeaponShot += OnWeaponShot;
                 }
                 playerWeaponHolder.OnWeaponDrop += DisableUISprite;
-                playerWeaponHolder.OnReloadEnd += SetUIAmmoText;
+                playerWeaponHolder.OnWeaponReload += SetUIAmmoText;
 
                 if (playerWeaponHolder.CurrentWeapon != null) ActivateUISprite();
                 else DisableUISprite();
@@ -46,7 +46,7 @@ namespace MaiNull
             {
                 playerWeaponHolder.CurrentWeapon.OnWeaponShot -= OnWeaponShot;
             }
-            playerWeaponHolder.OnReloadEnd -= SetUIAmmoText;
+            playerWeaponHolder.OnWeaponReload -= SetUIAmmoText;
 
             playerInventory.OnAmmoCountUpdate -= SetUIAmmoText;
         }
