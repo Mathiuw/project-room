@@ -7634,7 +7634,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1995781272645413912, guid: b8bedfecd76e91348953f0b5c7577207, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5518187930278402546, guid: b8bedfecd76e91348953f0b5c7577207, type: 3}
       propertyPath: m_LocalPosition.x
@@ -16072,10 +16072,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player_Controller
       objectReference: {fileID: 0}
-    - target: {fileID: 4348192545665441576, guid: 350bccdf577cf5c41a4bf7aaa1317d52, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6724603544116450940, guid: 350bccdf577cf5c41a4bf7aaa1317d52, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -16114,10 +16110,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6724603544116450940, guid: 350bccdf577cf5c41a4bf7aaa1317d52, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9016440578040651516, guid: 350bccdf577cf5c41a4bf7aaa1317d52, type: 3}
-      propertyPath: m_SlopeLimit
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

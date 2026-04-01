@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.XR;
 
 namespace MaiNull
 {
@@ -11,6 +12,7 @@ namespace MaiNull
         [SerializeField] private Vector3 gravity = new Vector3(0, -9.81f, 0);
         private CameraPivot cameraPivot;
 		private CharacterController characterController;
+        private Vector3 playerVelocity;
         private Vector2 inputMoveVector;
 
         private void Awake()
@@ -56,23 +58,52 @@ namespace MaiNull
         }
 
 
+        //private void Move()
+        //{
+        //    // input move
+        //    Vector3 motion = (transform.forward * inputMoveVector.y) + (transform.right * inputMoveVector.x);
+
+        //    // gravity
+        //    if (characterController.isGrounded)
+        //    {
+        //        motion.y = 0;
+        //    }
+        //    else
+        //    {
+        //        motion.y = gravity.y * (Time.deltaTime);
+        //    }
+
+        //    Debug.Log(motion);
+        //    characterController.Move(motion.normalized * moveSpeed * Time.deltaTime);
+        //}
+
         private void Move()
         {
-            // input move
-            Vector3 motion = (transform.forward * inputMoveVector.y) + (transform.right * inputMoveVector.x);
-
-            // gravity
             if (characterController.isGrounded)
             {
-                motion.y = 0;
-            }
-            else
-            {
-                motion.y = gravity.y * (Time.deltaTime);
+                // Slight downward velocity to keep grounded stable
+                if (playerVelocity.y < -2f)
+                    playerVelocity.y = -2f;
             }
 
-            Debug.Log(motion);
-            characterController.Move(motion.normalized * moveSpeed * Time.deltaTime);
+            Vector3 move = (transform.forward * inputMoveVector.y) + (transform.right * inputMoveVector.x);
+            move = Vector3.ClampMagnitude(move, 1f);
+
+            if (move != Vector3.zero)
+                transform.forward = move;
+
+            // Jump using WasPressedThisFrame()
+            //if (characterController.isGrounded && jumpAction.action.WasPressedThisFrame())
+            //{
+            //    playerVelocity.y = Mathf.Sqrt(jumpHeight * -2f * gravityValue);
+            //}
+
+            // Apply gravity
+            playerVelocity.y += gravity.y * Time.deltaTime;
+
+            // Move
+            Vector3 finalMove = move * moveSpeed + Vector3.up * playerVelocity.y;
+            characterController.Move(finalMove * Time.deltaTime);
         }
 
         private void RotateBody()
