@@ -55,6 +55,8 @@ namespace MaiNull
 
         void Update()
         {
+            if (!playerRb) return;
+
             animator.SetFloat("Walk Speed", WalkSpeed(playerMovement));
             animator.SetFloat("RbVelocity", playerRb.linearVelocity.magnitude);
         }
@@ -78,6 +80,8 @@ namespace MaiNull
 
         private float WalkSpeed(PlayerMovementRB playerMovement)
         {
+            if (!playerMovement) return 1f;
+
             if (playerMovement.IsSprinting) return 1.5f;
             else return 1f;
         }

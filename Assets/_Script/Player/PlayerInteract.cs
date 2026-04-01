@@ -7,10 +7,16 @@ namespace MaiNull
     public class PlayerInteract : MonoBehaviour
     {
         [Header("Interact ")]
+        [SerializeField] private InputActionReference interactAction;
         [SerializeField] private LayerMask interactiveMask;
         [SerializeField] private float rayLength = 5;
-        private PlayerMovementRB playerMovement;
         private Transform playerCamera;
+
+        private void OnEnable()
+        {
+            interactAction.action.started += Interact;
+            interactAction.action.Enable();
+        }
 
         void Start()
         {
@@ -27,26 +33,18 @@ namespace MaiNull
                 enabled = false;
                 return;
             }
-
-            if (TryGetComponent(out playerMovement))
-            {
-                playerMovement.Input.Player.Interact.started += Interact;
-            }
-            else
-            {
-                Debug.Log("Cant find playerMovement");
-                enabled = false;
-                return;
-            }
         }
 
         private void OnDisable()
         {
-            playerMovement.Input.Player.Interact.started -= Interact;
+            interactAction.action.started -= Interact;
+            interactAction.action.Disable();
         }
 
         public void Interact(InputAction.CallbackContext value)
         {
+            Debug.Log("Interaction try");
+
             RaycastHit hit;
 
             if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, rayLength, interactiveMask))

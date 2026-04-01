@@ -7,10 +7,6 @@ namespace MaiNull
     [RequireComponent(typeof(Inventory))]
     public class PlayerWeaponHolder : WeaponHolder
     {
-        [Header("Weapon Sway")]
-        [SerializeField] float smooth = 8;
-        [SerializeField] float swayMultiplier = 4;
-
         public bool IsReloading { get; private set; } = false;
         public bool IsLerping { get; private set; } = false;
 
@@ -37,8 +33,6 @@ namespace MaiNull
         {
             if (CurrentWeapon != null)
             {
-                SwayWeapon(swayMultiplier);
-
                 if (IsReloading) return;
                 if (IsLerping) return;
 
@@ -51,21 +45,6 @@ namespace MaiNull
             if (Input.GetKeyDown(KeyCode.R)) ReloadWeapon();
 
             if (Input.GetKeyDown(KeyCode.G)) DropWeapon();
-        }
-
-
-
-        void SwayWeapon(float swayMultiplier)
-        {
-            float mouseX = Input.GetAxisRaw("Mouse X") * swayMultiplier;
-            float mouseY = Input.GetAxisRaw("Mouse Y") * swayMultiplier;
-
-            Quaternion rotationX = Quaternion.AngleAxis(-mouseY, Vector3.right);
-            Quaternion rotationY = Quaternion.AngleAxis(mouseX, Vector3.up);
-
-            Quaternion targetRotation = rotationX * rotationY;
-
-            //CurrentWeapon.transform.localRotation = Quaternion.Slerp(CurrentWeapon.transform.localRotation, targetRotation, smooth * Time.deltaTime);
         }
 
         public override void PickUpWeapon(Weapon weapon)
