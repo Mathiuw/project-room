@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.XR;
 
@@ -8,7 +9,9 @@ namespace MaiNull
 	public class PlayerCharacterController : MonoBehaviour
 	{
         [SerializeField] private InputActionReference moveInputAction;
+        [SerializeField] private InputActionReference jumpInputAction;
         [SerializeField] private float moveSpeed = 50f;
+        [SerializeField] private float jumpHeight = 100f;
         [SerializeField] private Vector3 gravity = new Vector3(0, -9.81f, 0);
         private CameraPivot cameraPivot;
 		private CharacterController characterController;
@@ -28,8 +31,12 @@ namespace MaiNull
                 moveInputAction.action.performed += OnMovementPerformed;
                 moveInputAction.action.canceled += OnMovementCanceled;
                 moveInputAction.action.Enable();
+
+                jumpInputAction.action.Enable();
             }
         }
+
+
 
         private void Update()
         {
@@ -44,6 +51,8 @@ namespace MaiNull
                 moveInputAction.action.performed -= OnMovementPerformed;
                 moveInputAction.action.canceled -= OnMovementCanceled;
                 moveInputAction.action.Disable();
+
+                jumpInputAction.action.Disable();
             }
         }
 
@@ -93,13 +102,14 @@ namespace MaiNull
                 transform.forward = move;
 
             // Jump using WasPressedThisFrame()
-            //if (characterController.isGrounded && jumpAction.action.WasPressedThisFrame())
-            //{
-            //    playerVelocity.y = Mathf.Sqrt(jumpHeight * -2f * gravityValue);
-            //}
+            if (characterController.isGrounded && jumpInputAction.action.WasPressedThisFrame())
+            {
+                Debug.Log("Jump");
+                playerVelocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity.y);
+            }
 
             // Apply gravity
-            playerVelocity.y += gravity.y * Time.deltaTime;
+            playerVelocity += gravity * Time.deltaTime;
 
             // Move
             Vector3 finalMove = move * moveSpeed + Vector3.up * playerVelocity.y;

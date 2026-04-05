@@ -89,7 +89,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveInputAction: {fileID: 4460534866953578828, guid: 5261bc7792e99e640a82546c0fc724ed, type: 3}
+  jumpInputAction: {fileID: 6340764210115487436, guid: 5261bc7792e99e640a82546c0fc724ed, type: 3}
   moveSpeed: 10
+  jumpHeight: 2
   gravity: {x: 0, y: -9.81, z: 0}
 --- !u!114 &7694520542219493588
 MonoBehaviour:
@@ -134,8 +136,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c866cb8066b415842bc6b16c1d7eb87f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  smooth: 8
-  swayMultiplier: 4
 --- !u!1 &4731053806319821222
 GameObject:
   m_ObjectHideFlags: 0
@@ -197,6 +197,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -218,9 +220,11 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &9086619700224524614
 GameObject:
