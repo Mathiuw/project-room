@@ -146,7 +146,7 @@ namespace MaiNull
                         Debug.Log("Enemy reloaded weapon");
                     }
 
-                    yield return new WaitForSeconds(1f / _enemyWeaponInteraction.CurrentWeapon.WeaponData.firerate);
+                    yield return new WaitForSeconds(1f / _enemyWeaponInteraction.CurrentWeapon.WeaponData.fireRate);
 
                     yield return null;
                 }

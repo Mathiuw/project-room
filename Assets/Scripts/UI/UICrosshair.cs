@@ -1,12 +1,12 @@
-﻿using MaiNull.Item;
-using System.Collections;
+﻿using System.Collections;
+using MaiNull.Item;
 using MaiNull.Player;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace MaiNull
+namespace MaiNull.UI
 {
-    public class UI_Crosshair : MonoBehaviour
+    public class UICrosshair : MonoBehaviour
     {
         Image crosshair;
         [SerializeField] Sprite dotCrosshair;
@@ -53,7 +53,7 @@ namespace MaiNull
 
         private void OnReloadStart()
         {
-            float reloadDuration = playerWeaponInteraction.CurrentWeapon.WeaponData.reloadTime;
+            float reloadDuration = playerWeaponInteraction.CurrentWeapon.WeaponData.reloadCooldown;
 
             StartCoroutine(ReloadLerp(reloadDuration));
         }

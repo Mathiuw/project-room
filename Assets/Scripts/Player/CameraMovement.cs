@@ -11,7 +11,7 @@ namespace MaiNull.Player
         private float _mouseX, _mouseY;
         private float _xRotation, _yRotation;
         private CameraPivot _cameraPivot;
-        private  PlayerCharacterController _playerCharacterController;
+        private  KinematicCharacterController _kinematicCharacterController;
         
         [Header("Camera Roll")]
         [SerializeField] private bool cameraRoll = true;
@@ -34,7 +34,7 @@ namespace MaiNull.Player
                 _cameraPivot = cameraPivot;
                 cameraPivot.attatchedCamera = transform;
                 
-                _playerCharacterController =  cameraPivot.GetComponentInParent<PlayerCharacterController>();
+                _kinematicCharacterController =  cameraPivot.GetComponentInParent<KinematicCharacterController>();
             }
             else Debug.LogError("No camera pivot found in scene");
         }
@@ -68,7 +68,7 @@ namespace MaiNull.Player
 
         private float CameraRollVector()
         {
-            Vector2 moveVector = _playerCharacterController?.InputMoveVector ?? Vector2.zero;
+            Vector2 moveVector = _kinematicCharacterController?.InputMoveVector ?? Vector2.zero;
             
             _angle -= moveVector.x * smooth * Time.deltaTime;
             _angle = Mathf.Clamp(_angle, -angleLimit, angleLimit);

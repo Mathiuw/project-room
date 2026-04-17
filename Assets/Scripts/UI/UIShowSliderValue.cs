@@ -2,10 +2,10 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace MaiNull
+namespace MaiNull.UI
 {
     [RequireComponent(typeof(TextMeshProUGUI))]
-    public class UI_ShowSliderValue : MonoBehaviour
+    public class UIShowSliderValue : MonoBehaviour
     {
         [SerializeField] Slider slider;
         [SerializeField] float multiplier;

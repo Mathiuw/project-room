@@ -8,7 +8,7 @@ namespace MaiNull.Player
     public class PlayerCameraAnimationManager : MonoBehaviour
     {
         PlayerWeaponHolder playerWeaponHolder;
-        PlayerMovementRB playerMovement;
+        PlayerRBMovement _playerRbMovement;
         Animator animator;
         Rigidbody playerRb;
 
@@ -20,7 +20,7 @@ namespace MaiNull.Player
         void Start()
         {
             playerWeaponHolder = FindFirstObjectByType<PlayerWeaponHolder>();
-            playerMovement = FindAnyObjectByType<PlayerMovementRB>();
+            _playerRbMovement = FindAnyObjectByType<PlayerRBMovement>();
             playerRb = playerWeaponHolder?.GetComponent<Rigidbody>();
 
             if (playerWeaponHolder)
@@ -57,7 +57,7 @@ namespace MaiNull.Player
         {
             if (!playerRb) return;
 
-            animator.SetFloat("Walk Speed", WalkSpeed(playerMovement));
+            animator.SetFloat("Walk Speed", WalkSpeed(_playerRbMovement));
             animator.SetFloat("RbVelocity", playerRb.linearVelocity.magnitude);
         }
 
@@ -78,17 +78,17 @@ namespace MaiNull.Player
 
         private void OnDrop() => animator.Rebind();
 
-        private float WalkSpeed(PlayerMovementRB playerMovement)
+        private float WalkSpeed(PlayerRBMovement playerRbMovement)
         {
-            if (!playerMovement) return 1f;
+            if (!playerRbMovement) return 1f;
 
-            if (playerMovement.IsSprinting) return 1.5f;
+            if (playerRbMovement.IsSprinting) return 1.5f;
             else return 1f;
         }
 
         private void SetShootFirerateTime(Weapon weapon)
         {
-            animator.SetFloat("firerate", weapon.WeaponData.firerate);
+            animator.SetFloat("firerate", weapon.WeaponData.fireRate);
         }
 
         IEnumerator LerpWeaponCoroutine(float time, Transform weapon, Vector3 desiredPosition, Quaternion desiredRotation)

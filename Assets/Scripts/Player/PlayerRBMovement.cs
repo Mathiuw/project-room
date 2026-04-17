@@ -20,7 +20,7 @@ namespace MaiNull.Player
 
 
     [RequireComponent(typeof(Rigidbody))]
-    public class PlayerMovementRB : MonoBehaviour
+    public class PlayerRBMovement : MonoBehaviour
     {
         // Input class
         public GameActions Input { get; private set; }

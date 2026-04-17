@@ -3,10 +3,10 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace MaiNull
+namespace MaiNull.UI
 {
     [RequireComponent (typeof(CanvasGroup))]
-    public class UI_Consumables : MonoBehaviour
+    public class UIConsumables : MonoBehaviour
     {
         CanvasGroup canvasGroup;
         Inventory inventory;

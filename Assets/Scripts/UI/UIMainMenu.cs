@@ -2,11 +2,11 @@
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-namespace MaiNull
+namespace MaiNull.UI
 {
     public class MainMenu : MonoBehaviour
     {
-        [SerializeField] private UI_Fade fade;
+        [SerializeField] private UIFade fade;
     
         [Header("Screens")]
         [SerializeField] RectTransform menu;
@@ -22,7 +22,7 @@ namespace MaiNull
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
 
-            UI_Fade fade = Instantiate(this.fade, Vector3.zero, Quaternion.identity);
+            UIFade fade = Instantiate(this.fade, Vector3.zero, Quaternion.identity);
             fade.FadeOut();
 
             menu.gameObject.SetActive(true);

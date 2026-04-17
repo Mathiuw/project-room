@@ -2,15 +2,15 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace MaiNull
+namespace MaiNull.UI
 {
-    public class UI_PlayerStats : MonoBehaviour
+    public class UIPlayerStats : MonoBehaviour
     {
         [SerializeField] Slider healthBar;
         [SerializeField] Slider staminaBar;
 
         Player.Player player;
-        PlayerMovementRB playerMovement;
+        PlayerRBMovement _playerRbMovement;
 
         void Start()
         {
@@ -22,28 +22,28 @@ namespace MaiNull
                 return;
             }
 
-            healthBar.maxValue = player.health.MaxHealth;
-            player.health.OnHealthChange += SetHealthUI;
-            SetHealthUI(player.health.HealthAmount);
+            healthBar.maxValue = player.Health.MaxHealth;
+            player.Health.OnHealthChange += SetHealthUI;
+            SetHealthUI(player.Health.HealthAmount);
 
-            playerMovement = player.GetComponent<PlayerMovementRB>();
-            if (playerMovement)
+            _playerRbMovement = player.GetComponent<PlayerRBMovement>();
+            if (_playerRbMovement)
             {
-                staminaBar.maxValue = playerMovement.MaxStamina;
-                SetStaminaUI(playerMovement.Stamina);
+                staminaBar.maxValue = _playerRbMovement.MaxStamina;
+                SetStaminaUI(_playerRbMovement.Stamina);
 
-                playerMovement.OnStaminaUpdated += SetStaminaUI;
+                _playerRbMovement.OnStaminaUpdated += SetStaminaUI;
             }
         }
 
         private void OnDisable()
         {
-            if (playerMovement)
+            if (_playerRbMovement)
             {
-                playerMovement.OnStaminaUpdated -= SetStaminaUI;
+                _playerRbMovement.OnStaminaUpdated -= SetStaminaUI;
             }
 
-            player.health.OnHealthChange -= SetHealthUI;
+            player.Health.OnHealthChange -= SetHealthUI;
         }
 
         void SetStaminaUI(float stamina)

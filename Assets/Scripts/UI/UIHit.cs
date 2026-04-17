@@ -1,13 +1,12 @@
-﻿using MaiNull.Item;
-using System;
-using System.Collections;
+﻿using System.Collections;
+using MaiNull.Item;
 using MaiNull.Player;
 using UnityEngine;
 
-namespace MaiNull
+namespace MaiNull.UI
 {
     [RequireComponent(typeof(CanvasGroup), typeof(AudioSource))]
-    public class UI_Hit : MonoBehaviour
+    public class UIHit : MonoBehaviour
     {
         AudioSource hitSound;
         CanvasGroup canvasGroup;

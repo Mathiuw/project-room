@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace MaiNull.Item
 {
+    [Serializable]
     public class Weapon
     {
         public Weapon(WeaponData weaponData)
@@ -17,35 +18,39 @@ namespace MaiNull.Item
         public int CurrentAmmo
         {
             get => CurrentAmmo;
-            set => CurrentAmmo = Mathf.Max(value, 0); 
+            set
+            {
+                if (value < 0) throw new ArgumentOutOfRangeException(nameof(value));
+                CurrentAmmo = Mathf.Max(value, 0);
+            }
         }
 
-        protected RaycastHit hit;
-        protected float nextTimeToFire = 0;
+        private RaycastHit _hit;
+        private float _nextTimeToFire = 0;
 
         public event Action<Weapon, RaycastHit> OnWeaponShot;
 
 
         public virtual bool Shoot(Transform raycastStartPosition)
         {
-            if (CurrentAmmo == 0 || !(Time.time > nextTimeToFire)) return false;
+            if (CurrentAmmo == 0 || !(Time.time > _nextTimeToFire)) return false;
 
             // Firerate calculation
-            nextTimeToFire = Time.time + (1f / WeaponData.firerate);
+            _nextTimeToFire = Time.time + (1f / WeaponData.fireRate);
 
             CurrentAmmo -= 1;
 
-            if (Physics.Raycast(raycastStartPosition.position, raycastStartPosition.forward, out hit, 1000, WeaponData.shootMask))
+            if (Physics.Raycast(raycastStartPosition.position, raycastStartPosition.forward, out _hit, 1000, WeaponData.ShootMask))
             {
-                Debug.DrawLine(raycastStartPosition.position, hit.point, Color.green, 1f);
+                Debug.DrawLine(raycastStartPosition.position, _hit.point, Color.green, 1f);
 
-                IDamageable[] damageables = hit.transform.GetComponents<IDamageable>();
+                IDamageable[] damageables = _hit.transform.GetComponents<IDamageable>();
 
                 if (damageables.Length != 0)
                 {
                     foreach (IDamageable damageable in damageables)
                     {
-                        damageable.Damage(WeaponData.damage, new Knockback(WeaponData.knockbackForce, WeaponData.knockbackDuration, hit.transform.position - raycastStartPosition.transform.position), null);
+                        damageable.Damage(WeaponData.damage, new Knockback(WeaponData.knockbackForce, WeaponData.knockbackDuration, _hit.transform.position - raycastStartPosition.transform.position), null);
                     }
                 }
             }
@@ -54,7 +59,7 @@ namespace MaiNull.Item
                 Debug.DrawRay(raycastStartPosition.position, raycastStartPosition.forward, Color.red, 1f);
             }
 
-            OnWeaponShot?.Invoke(this, hit);
+            OnWeaponShot?.Invoke(this, _hit);
 
             return true;
         }

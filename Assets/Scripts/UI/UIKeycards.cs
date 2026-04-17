@@ -2,10 +2,10 @@ using MaiNull.Item;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace MaiNull
+namespace MaiNull.UI
 {
     [RequireComponent(typeof(CanvasGroup))]
-    public class UI_Keycards : MonoBehaviour
+    public class UIKeycards : MonoBehaviour
     {
         [field: SerializeField] public float spriteOfset { get; private set; } = 10f;
         Inventory inventory;

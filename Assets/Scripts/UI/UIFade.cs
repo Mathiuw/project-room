@@ -2,14 +2,14 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace MaiNull
+namespace MaiNull.UI
 {
     public enum EFadeType
     {
         FadeIn, FadeOut
     }
 
-    public class UI_Fade : MonoBehaviour
+    public class UIFade : MonoBehaviour
     {
         [SerializeField] bool activateOnStart = false;
         [field: SerializeField] EFadeType EFadeType { get; set; } = EFadeType.FadeIn;

@@ -33,7 +33,7 @@ namespace MaiNull
 
         void SetShootFirerateTime()
         {
-            animator.SetFloat("Time", weapon.WeaponData.firerate);
+            animator.SetFloat("Time", weapon.WeaponData.fireRate);
         }
 
         public void PlayShootAnimation()

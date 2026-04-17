@@ -4,18 +4,18 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace MaiNull
+namespace MaiNull.UI
 {
-    public class UI_Settings : MonoBehaviour
+    public class UISettings : MonoBehaviour
     {
-        const string playerPrefVolume = "Volume";
-        const string playerPrefSensibility = "sensibility";
+        private const string PlayerPrefVolume = "Volume";
+        private const string PlayerPrefSensibility = "sensibility";
 
-        [SerializeField] Slider volumeSlider;
-        [SerializeField] Slider sensibilitySlider;
+        [SerializeField] private Slider volumeSlider;
+        [SerializeField] private Slider sensibilitySlider;
 
-        [SerializeField] TMP_Dropdown resolutionDropdown;
-        Resolution[] resolutions;
+        [SerializeField] private TMP_Dropdown resolutionDropdown;
+        private Resolution[] _resolutions;
 
         private void Awake()
         {
@@ -24,21 +24,21 @@ namespace MaiNull
 
             volumeSlider.minValue = 0;
             volumeSlider.maxValue = 1;
-            volumeSlider.value = PlayerPrefs.GetFloat(playerPrefVolume, 0.25f);
+            volumeSlider.value = PlayerPrefs.GetFloat(PlayerPrefVolume, 0.25f);
 
-            SetVolume(PlayerPrefs.GetFloat(playerPrefVolume, 0.25f));
+            SetVolume(PlayerPrefs.GetFloat(PlayerPrefVolume, 0.25f));
 
             // Sensibility
             sensibilitySlider.onValueChanged.AddListener(SetSensibility);
 
             sensibilitySlider.minValue = 1;
             sensibilitySlider.maxValue = 100;
-            sensibilitySlider.value = PlayerPrefs.GetFloat(playerPrefSensibility, 40);
+            sensibilitySlider.value = PlayerPrefs.GetFloat(PlayerPrefSensibility, 40);
 
-            SetSensibility(PlayerPrefs.GetFloat(playerPrefSensibility, 40));
+            SetSensibility(PlayerPrefs.GetFloat(PlayerPrefSensibility, 40));
 
             // Resolution
-            resolutions = Screen.resolutions;
+            _resolutions = Screen.resolutions;
 
             resolutionDropdown.ClearOptions();
 
@@ -46,11 +46,11 @@ namespace MaiNull
 
             int curentResolutionindex = 0;
 
-            for (int i = 0; i < resolutions.Length; i++)
+            for (int i = 0; i < _resolutions.Length; i++)
             {
-                string resolution = resolutions[i].width + " x " + resolutions[i].height;
+                string resolution = _resolutions[i].width + " x " + _resolutions[i].height;
 
-                if (resolutions[i].width == Screen.currentResolution.width && resolutions[i].height == Screen.currentResolution.height)
+                if (_resolutions[i].width == Screen.currentResolution.width && _resolutions[i].height == Screen.currentResolution.height)
                 {
                     curentResolutionindex = i;
                 }
@@ -68,13 +68,13 @@ namespace MaiNull
         public void SetVolume(float value)
         {
             AudioListener.volume = value;
-            PlayerPrefs.SetFloat(playerPrefVolume, value);
+            PlayerPrefs.SetFloat(PlayerPrefVolume, value);
             PlayerPrefs.Save();
         }
 
         public void SetSensibility(float value)
         {
-            PlayerPrefs.SetFloat(playerPrefSensibility, value);
+            PlayerPrefs.SetFloat(PlayerPrefSensibility, value);
             PlayerPrefs.Save();
 
             CameraMovement cameraMovement = FindAnyObjectByType<CameraMovement>();
@@ -87,7 +87,7 @@ namespace MaiNull
 
         public void SetResolution(int index)
         {
-            Resolution resolution = resolutions[index];
+            Resolution resolution = _resolutions[index];
             Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
         }
 

@@ -1,13 +1,12 @@
-﻿using MaiNull;
-using MaiNull.Item;
+﻿using MaiNull.Item;
 using MaiNull.Player;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace MaiNull
+namespace MaiNull.UI
 {
-    public class UI_Ammo : MonoBehaviour
+    public class UIAmmo : MonoBehaviour
     {
         [SerializeField] TextMeshProUGUI ammoUI;
         [SerializeField] Image ammoSprite;

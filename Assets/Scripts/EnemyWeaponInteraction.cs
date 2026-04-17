@@ -35,7 +35,7 @@ namespace MaiNull
             CurrentWeapon.CurrentAmmo += CurrentWeapon.WeaponData.maxAmmo;
         }
 
-        public override void DropWeapon()
+        protected override void DropWeapon()
         {
             //CurrentWeapon.SetHoldState(false, null);
             base.DropWeapon();

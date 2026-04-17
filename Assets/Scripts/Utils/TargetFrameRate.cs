@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-namespace MaiNull
+namespace MaiNull.Utils
 {
-	public class ApllicationTargetFrameRate : MonoBehaviour
+	public class TargetFrameRate : MonoBehaviour
 	{
         [SerializeField] private int targetFrameRate = 60;
 

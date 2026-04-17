@@ -1,4 +1,5 @@
 using System.Collections;
+using MaiNull.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,7 +9,7 @@ namespace MaiNull.Singleton
     {
         public static GameManager Instance { get; private set; }
 
-        [SerializeField] UI_Fade fade;
+        [SerializeField] UIFade fade;
 
         private void Awake()
         {
@@ -25,7 +26,7 @@ namespace MaiNull.Singleton
         private void Start()
         {
             // Start fade out
-            UI_Fade fade = Instantiate(this.fade, Vector3.zero, Quaternion.identity);
+            UIFade fade = Instantiate(this.fade, Vector3.zero, Quaternion.identity);
             fade.FadeOut();
 
             // Restart level when player die
@@ -33,7 +34,7 @@ namespace MaiNull.Singleton
 
             if (player)
             {
-                player.health.OnDie += RestartLevelTransition;
+                player.Health.OnDie += RestartLevelTransition;
             }
         }
 
@@ -49,7 +50,7 @@ namespace MaiNull.Singleton
 
         private IEnumerator SceneTransitionCoroutine(int sceneIndex)
         {
-            UI_Fade fade = Instantiate(this.fade, Vector3.zero, Quaternion.identity);
+            UIFade fade = Instantiate(this.fade, Vector3.zero, Quaternion.identity);
             fade.FadeIn();
 
             while (fade.alpha < 1)

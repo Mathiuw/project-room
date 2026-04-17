@@ -1,24 +1,23 @@
-﻿using MaiNull;
-using UnityEngine;
-
+﻿using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace MaiNull.Item
 {
     public enum EShootType { Single, Automatic, Burst }
 
-    [CreateAssetMenu(fileName = "WeaponData", menuName = "WeaponData")]
+    [CreateAssetMenu(fileName = "WeaponData", menuName = "Weapon Data")]
     public class WeaponData : ItemBaseData
     {
-        [Header("Weapon")]
+        [Header("Weapon Stats")]
         public int damage;
         public float knockbackForce;
         public float knockbackDuration;
         public int maxAmmo;
-        public float firerate;
-        public bool waitToShoot;
+        [FormerlySerializedAs("firerate")] public float fireRate;
+        [FormerlySerializedAs("waitToShoot")] public bool shootCooldown;
         public EShootType shootType = EShootType.Single;
         public EAmmoType ammoType;
-        public LayerMask shootMask;
+        public static LayerMask ShootMask;
 
         [Header("Crosshair")]
         public Sprite crosshair;
@@ -31,7 +30,7 @@ namespace MaiNull.Item
         public AnimatorOverrideController animatorOverride;
 
         [Header("Reload")]
-        public float reloadTime;
+        [FormerlySerializedAs("reloadTime")] public float reloadCooldown;
 
         [Header("UI")]
         public Sprite ammoSprite;

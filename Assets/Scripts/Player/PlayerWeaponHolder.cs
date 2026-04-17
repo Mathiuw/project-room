@@ -127,7 +127,7 @@ namespace MaiNull.Player
             //OnReloadStart?.Invoke();
 
             IsReloading = true;
-            yield return new WaitForSeconds(CurrentWeapon.WeaponData.reloadTime);
+            yield return new WaitForSeconds(CurrentWeapon.WeaponData.reloadCooldown);
 
             EAmmoType ammoType = CurrentWeapon.WeaponData.ammoType;
             int amountToReload = 0;
@@ -155,8 +155,8 @@ namespace MaiNull.Player
         {
             DropWeapon();
         }
-        
-        public override void DropWeapon()
+
+        protected override void DropWeapon()
         {
             if (CurrentWeapon == null) return;
             if (IsReloading) return;

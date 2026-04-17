@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using MaiNull.Item;
 using UnityEngine;
 
@@ -6,32 +7,55 @@ namespace MaiNull
 {
     public class WeaponHolder : MonoBehaviour
     {
-        [Header("Weapon settings")]
-        [SerializeField] private Weapon currentWeapon;
-
+        [Header("Weapon Inventory Settings")]
+        [SerializeField] private int inventorySize = 1;
+        [SerializeField] private List<Weapon> weapons = new List<Weapon>();
+        private int _inventoryIndex = 0;
+        
         public event Action<Weapon> OnWeaponPickup;
         public event Action OnWeaponReload;
         public event Action OnWeaponDrop;
+        public event Action OnWeaponChange;
 
-        public Weapon CurrentWeapon { get; private set; }
+        public Weapon CurrentWeapon
+        {
+            get => weapons[_inventoryIndex];
+            private set => weapons[_inventoryIndex] = value;
+        }
 
+        public void IncreaseIndex() => _inventoryIndex++;
+        
+        public  void DecreaseIndex() => _inventoryIndex--;
+        
         public virtual void PickUpWeapon(Weapon newWeapon)
         {
-            currentWeapon = newWeapon;
+            if (inventorySize > weapons.Count + 1)
+            {
+                ChangeWeapon(newWeapon);
+                return;
+            }
+            
+            weapons.Add(newWeapon);
             OnWeaponPickup?.Invoke(newWeapon);
             Debug.Log($"{transform.name} picked weapon");
         }
 
+        private void ChangeWeapon(Weapon newWeapon)
+        {
+            CurrentWeapon = newWeapon;
+            OnWeaponChange?.Invoke();
+        }
+
         public virtual void ReloadWeapon()
         {
-            currentWeapon.CurrentAmmo = currentWeapon.WeaponData.maxAmmo;
+            CurrentWeapon.CurrentAmmo = CurrentWeapon.WeaponData.maxAmmo;
             OnWeaponReload?.Invoke();
             Debug.Log($"{transform.name} reloaded weapon");
         }
 
-        public virtual void DropWeapon()
+        protected virtual void DropWeapon()
         {
-            currentWeapon = null;
+            weapons.RemoveAt(_inventoryIndex);
             OnWeaponDrop?.Invoke();
             Debug.Log($"{transform.name} dropped weapon");
         }
