@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace MaiNull.Player
+namespace MaiNull
 {
     public struct Knockback
     {

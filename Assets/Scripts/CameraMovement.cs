@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace MaiNull.Player
+namespace MaiNull
 {
     public class CameraMovement : MonoBehaviour
     {

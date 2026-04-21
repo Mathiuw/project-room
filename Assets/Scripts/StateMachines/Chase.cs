@@ -1,6 +1,6 @@
 using UnityEngine.AI;
 
-namespace MaiNull.StateMachine
+namespace MaiNull.StateMachines
 {
     public class Chase : IState
     {

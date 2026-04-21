@@ -1,6 +1,4 @@
-﻿
- using MaiNull.Player;
- using UnityEngine;
+﻿using UnityEngine;
 
 namespace MaiNull
 {

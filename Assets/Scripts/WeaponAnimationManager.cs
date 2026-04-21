@@ -5,53 +5,36 @@ namespace MaiNull
 {
     public class WeaponAnimationManager : MonoBehaviour
     {
+        private static readonly int Time = Animator.StringToHash("Time");
+
         [Header("Weapon Sway")]
-        [SerializeField] float smooth = 8;
-        [SerializeField] float swayMultiplier = 4;
+        [SerializeField] private float smooth = 8;
+        [SerializeField] private float swayMultiplier = 4;
+        private Animator _animator;
+        private Weapon _weapon;
 
-        Animator animator;
-        Weapon weapon;
-
-        void Awake()
+        private void Awake()
         {
-            animator = GetComponentInChildren<Animator>();
-            animator.enabled = true;
+            _animator = GetComponentInChildren<Animator>();
+            _animator.enabled = true;
         }
 
         private void OnEnable()
         {
-            weapon = GetComponent<Weapon>();
+            _weapon = GetComponent<Weapon>();
             //weapon.onShoot += ShootWeaponAnimation;
 
-            SetShootFirerateTime();
+            SetShootFireRateTime();
         }
 
-        private void OnDisable()
+        private void SetShootFireRateTime()
         {
-            //weapon.onShoot -= ShootWeaponAnimation;
-        }
-
-        void SetShootFirerateTime()
-        {
-            animator.SetFloat("Time", weapon.WeaponData.fireRate);
+            _animator.SetFloat(Time, _weapon.WeaponData.fireRate);
         }
 
         public void PlayShootAnimation()
         {
-            animator.Play("Shoot", -1, 0f);
-        }
-
-        void SwayWeapon(float swayMultiplier)
-        {
-            float mouseX = Input.GetAxisRaw("Mouse X") * swayMultiplier;
-            float mouseY = Input.GetAxisRaw("Mouse Y") * swayMultiplier;
-
-            Quaternion rotationX = Quaternion.AngleAxis(-mouseY, Vector3.right);
-            Quaternion rotationY = Quaternion.AngleAxis(mouseX, Vector3.up);
-
-            Quaternion targetRotation = rotationX * rotationY;
-
-            //CurrentWeapon.transform.localRotation = Quaternion.Slerp(CurrentWeapon.transform.localRotation, targetRotation, smooth * Time.deltaTime);
+            _animator.Play("Shoot", -1, 0f);
         }
     }
 }

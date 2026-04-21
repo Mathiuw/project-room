@@ -10,7 +10,7 @@ namespace MaiNull
         [Header("Weapon Inventory Settings")]
         [SerializeField] private int inventorySize = 1;
         [SerializeField] private List<Weapon> weapons = new List<Weapon>();
-        private int _inventoryIndex = 0;
+        private int _inventoryIndex;
         
         public event Action<Weapon> OnWeaponPickup;
         public event Action OnWeaponReload;
@@ -46,6 +46,11 @@ namespace MaiNull
             OnWeaponChange?.Invoke();
         }
 
+        public void ShootWeapon(Transform shootOrientation)
+        {
+            CurrentWeapon?.Shoot(shootOrientation);
+        }
+        
         public virtual void ReloadWeapon()
         {
             CurrentWeapon.CurrentAmmo = CurrentWeapon.WeaponData.maxAmmo;

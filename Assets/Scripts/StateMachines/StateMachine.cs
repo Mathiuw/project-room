@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace MaiNull.StateMachine
+namespace MaiNull.StateMachines
 {
     public class StateMachine
     {

@@ -1,32 +1,31 @@
 ﻿using System.Collections;
 using MaiNull.Item;
-using MaiNull.Player;
 using UnityEngine;
 
 namespace MaiNull.UI
 {
-    [RequireComponent(typeof(CanvasGroup), typeof(AudioSource))]
+    [RequireComponent(typeof(CanvasGroup))]
     public class UIHit : MonoBehaviour
     {
-        AudioSource hitSound;
-        CanvasGroup canvasGroup;
-        PlayerWeaponHolder playerWeaponInteraction;
+        private AudioSource _hitSound;
+        private CanvasGroup _canvasGroup;
+        private WeaponHolder _playerWeaponInteraction;
 
-        void Awake()
+        private void Awake()
         {
-            canvasGroup = GetComponent<CanvasGroup>();
-            canvasGroup.alpha = 0;
+            _canvasGroup = GetComponent<CanvasGroup>();
+            _canvasGroup.alpha = 0;
 
-            hitSound = GetComponent<AudioSource>();
+            _hitSound = GetComponent<AudioSource>();
         }
 
-        void Start()
+        private void Start()
         {
-            playerWeaponInteraction = FindFirstObjectByType<Player.Player>().GetComponent<PlayerWeaponHolder>();
+            _playerWeaponInteraction = FindFirstObjectByType<Player>()?.GetComponent<WeaponHolder>();
 
-            if (playerWeaponInteraction)
+            if (_playerWeaponInteraction)
             {
-                playerWeaponInteraction.OnWeaponPickup += OnWeaponPickup;
+                _playerWeaponInteraction.OnWeaponPickup += OnWeaponPickup;
             }
         }
 
@@ -45,12 +44,12 @@ namespace MaiNull.UI
 
         private IEnumerator HitmarkerCoroutine()
         {
-            canvasGroup.alpha = 1;
-            hitSound.Play();
+            _canvasGroup.alpha = 1;
+            _hitSound.Play();
 
-            yield return new WaitForSeconds(hitSound.clip.length);
+            yield return new WaitForSeconds(_hitSound.clip.length);
 
-            canvasGroup.alpha = 0;
+            _canvasGroup.alpha = 0;
             yield break;
         }
     }

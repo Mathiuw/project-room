@@ -1,5 +1,4 @@
 ﻿using System;
-using MaiNull.Player;
 using UnityEngine;
 
 namespace MaiNull.Item

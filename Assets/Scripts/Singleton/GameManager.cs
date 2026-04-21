@@ -30,7 +30,7 @@ namespace MaiNull.Singleton
             fade.FadeOut();
 
             // Restart level when player die
-            Player.Player player = FindFirstObjectByType<Player.Player>();
+            Player player = FindFirstObjectByType<Player>();
 
             if (player)
             {

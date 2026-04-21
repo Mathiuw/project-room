@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace MaiNull.Player
+namespace MaiNull
 {
     public class MoveAndSlide : MonoBehaviour
     {

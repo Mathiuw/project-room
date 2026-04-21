@@ -1,5 +1,4 @@
-﻿using MaiNull.Player;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 namespace MaiNull.UI
@@ -9,12 +8,12 @@ namespace MaiNull.UI
         [SerializeField] Slider healthBar;
         [SerializeField] Slider staminaBar;
 
-        Player.Player player;
+        Player player;
         PlayerRBMovement _playerRbMovement;
 
         void Start()
         {
-            player = FindFirstObjectByType<Player.Player>();
+            player = FindFirstObjectByType<Player>();
 
             if (!player)
             {

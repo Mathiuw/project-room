@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace MaiNull.StateMachine
+namespace MaiNull.StateMachines
 {
     public class Patrolling : IState
     {
@@ -67,7 +67,7 @@ namespace MaiNull.StateMachine
                 Vector3 directionToTarget = (target.position - enemyTransform.position).normalized;
                 float distanceToTarget = Vector3.Distance(enemyTransform.position, target.position);
 
-                if (Vector3.Angle(enemyTransform.forward, directionToTarget) < +_enemyAi._angle / 2)
+                if (Vector3.Angle(enemyTransform.forward, directionToTarget) < +_enemyAi.angle / 2)
                 {
                     if (!Physics.Raycast(enemyTransform.position, directionToTarget, distanceToTarget, _enemyAi.ObstructionMask))
                     {

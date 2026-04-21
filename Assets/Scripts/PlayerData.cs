@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace MaiNull.Player
+namespace MaiNull
 {
     [CreateAssetMenu(fileName = "Player_Data", menuName = "Player Data")]
     public class PlayerData : ScriptableObject
@@ -10,5 +10,9 @@ namespace MaiNull.Player
         public InputActionReference moveInputAction;
         public InputActionReference jumpInputAction;
         public InputActionReference sprintInputAction;
+        public InputActionReference interactInputAction;
+        public InputActionReference attackWeaponInputAction;
+        public InputActionReference reloadWeaponInputAction;
+        public InputActionReference dropWeaponInputAction;
     }
 }

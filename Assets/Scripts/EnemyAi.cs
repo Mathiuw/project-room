@@ -1,44 +1,43 @@
 ﻿using System;
-using System.Collections;
-using MaiNull.StateMachine;
+using MaiNull.StateMachines;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Serialization;
 
 namespace MaiNull
 {
-    [RequireComponent(typeof(EnemyWeaponInteraction), typeof(NavMeshAgent))]
+    [RequireComponent(typeof(NavMeshAgent))]
     public class EnemyAi : MonoBehaviour
     {
         [Header("AI settings")]
-        [SerializeField] private float _baseSpeed = 6;
-        [SerializeField] private float _runningSpeedMultiplier = 1.4f;
-
-        [field: Header("Attack")]
-        [field: SerializeField] private Transform _shootRaycastTransform;
+        [SerializeField] private float baseSpeed = 6;
+        [SerializeField] private float runningSpeedMultiplier = 1.4f;
+        
+        [Header("Attack")]
+        [SerializeField] private Transform shootRaycastTransform;
         [SerializeField] private float attackRange = 10f;
-        [SerializeField] private int _burstCount = 3;
-        [SerializeField] private float _burstInterval = 1f;
+        [SerializeField] private int burstCount = 3;
+        [SerializeField] private float burstInterval = 1f;
 
-        [Header("Patroling")]
-        [SerializeField] Path _path;
-
+        [FormerlySerializedAs("_path")]
+        [Header("Patrolling")]
+        [SerializeField] private Path path;
         [Header("Field of view")]
-        [Range(0, 360)] public float _angle = 160;
+        [Range(0, 360)] public float angle = 160;
         public float Radius { get; } = 20;
         [field: SerializeField] public LayerMask TargetMask { get; private set; }
         [field: SerializeField] public LayerMask ObstructionMask { get; private set; }
 
         public Transform Target { get; set; }
 
-        EnemyWeaponInteraction _enemyWeaponInteraction;
-        NavMeshAgent _navMeshAgent;
-        StateMachine.StateMachine _stateMachine;
+        private NavMeshAgent _navMeshAgent;
+        private StateMachine _stateMachine;
 
-        void OnDestroy() => StopAllCoroutines();
+        private void OnDestroy() => StopAllCoroutines();
 
-        void Awake()
+        private void Awake()
         {
-            if (!_path)
+            if (!path)
             {
                 Debug.LogError("Enemy doesnt have path");
                 enabled = false;
@@ -46,16 +45,14 @@ namespace MaiNull
             }
 
             _navMeshAgent = GetComponent<NavMeshAgent>();
-            _navMeshAgent.speed = _baseSpeed;
-
-            _enemyWeaponInteraction = GetComponent<EnemyWeaponInteraction>();
+            _navMeshAgent.speed = baseSpeed;
         }
 
         private void Start()
         {
-            _stateMachine = new StateMachine.StateMachine();
+            _stateMachine = new StateMachine();
 
-            Patrolling patrolling = new(this, _path, _navMeshAgent);
+            Patrolling patrolling = new(this, path, _navMeshAgent);
             Chase chase = new (this, _navMeshAgent);
             Attack attack = new (this, _navMeshAgent);
 
@@ -64,6 +61,7 @@ namespace MaiNull
             At(attack, chase, IsNotInTargetReach());
 
             _stateMachine.SetState(patrolling);
+            return;
 
             void At(IState to, IState from, Func<bool> condition) => _stateMachine.AddTransition(to, from, condition);
 
@@ -80,7 +78,7 @@ namespace MaiNull
             }
         }
 
-        void Update()
+        private void Update()
         {
             _stateMachine?.Tick();
         }
@@ -89,70 +87,32 @@ namespace MaiNull
         {
             if (value)
             {
-                _navMeshAgent.speed = _baseSpeed * _runningSpeedMultiplier;
+                _navMeshAgent.speed = baseSpeed * runningSpeedMultiplier;
             }
-            else _navMeshAgent.speed = _baseSpeed;
+            else _navMeshAgent.speed = baseSpeed;
         }
 
+        public void StartShooting()
+        {
+            
+        }
+        
+        public void StopShooting()
+        {
+            
+        }
+        
         public bool CanSeeTarget()
         {
             Vector3 directionToTarget = (Target.position - transform.position).normalized;
             float distanceToTarget = Vector3.Distance(transform.position, Target.position);
 
-            if (!Physics.Raycast(transform.position, directionToTarget, distanceToTarget, ObstructionMask))
-            {
-                return true;
-            }
-            else return false;
+            return !Physics.Raycast(transform.position, directionToTarget, distanceToTarget, ObstructionMask);
         }
 
         public void LookToTarget()
         {
             transform.LookAt(Target);
-        }
-
-        public void StartShooting()
-        {
-            StartCoroutine(ShootWeapon());
-            Debug.Log("Start Attacking");
-        }
-
-        public void StopShooting()
-        {
-            StopCoroutine(ShootWeapon());
-            Debug.Log("Stopped Attacking");
-        }
-
-        public IEnumerator ShootWeapon()
-        {
-            if (_enemyWeaponInteraction.CurrentWeapon == null) 
-            {
-                Debug.Log("Enemy doesnt have weapon");
-                yield break;
-            } 
-
-            while (true)
-            {
-                for (int i = 0; i < _burstCount; i++)
-                {
-                    // Shoot Weapon
-                    _enemyWeaponInteraction.CurrentWeapon.Shoot(_shootRaycastTransform);
-                    Debug.Log("Enemy shot weapon");
-
-                    // Reload if ammo is over
-                    if (_enemyWeaponInteraction.CurrentWeapon.CurrentAmmo == 0)
-                    {
-                        _enemyWeaponInteraction.ReloadWeapon();
-                        Debug.Log("Enemy reloaded weapon");
-                    }
-
-                    yield return new WaitForSeconds(1f / _enemyWeaponInteraction.CurrentWeapon.WeaponData.fireRate);
-
-                    yield return null;
-                }
-
-                yield return new WaitForSeconds(_burstInterval);
-            }
         }
 
         public void Dead()

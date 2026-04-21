@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
-using UnityEngine.InputSystem;
 
-namespace MaiNull.Player
+namespace MaiNull
 {
 	[RequireComponent (typeof(CharacterController))]
 	public class KinematicCharacterController : MonoBehaviour

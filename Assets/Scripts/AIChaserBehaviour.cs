@@ -16,7 +16,7 @@ namespace MaiNull
 
         private void Start()
         {
-            target = FindFirstObjectByType<Player.Player>()?.transform;
+            target = FindFirstObjectByType<Player>()?.transform;
         }
 
         private void Update()

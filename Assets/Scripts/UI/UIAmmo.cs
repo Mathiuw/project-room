@@ -1,5 +1,4 @@
 ﻿using MaiNull.Item;
-using MaiNull.Player;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,48 +7,48 @@ namespace MaiNull.UI
 {
     public class UIAmmo : MonoBehaviour
     {
-        [SerializeField] TextMeshProUGUI ammoUI;
-        [SerializeField] Image ammoSprite;
-        PlayerWeaponHolder playerWeaponHolder;
-        Inventory playerInventory;
+        [SerializeField] private TextMeshProUGUI ammoUI;
+        [SerializeField] private Image ammoSprite;
+        private WeaponHolder _playerWeaponHolder;
+        private Inventory _playerInventory;
 
-        void Start()
+        private void Start()
         {
-            playerWeaponHolder = FindFirstObjectByType<PlayerWeaponHolder>();
+            _playerWeaponHolder = FindFirstObjectByType<WeaponHolder>();
 
-            if (playerWeaponHolder)
+            if (_playerWeaponHolder)
             {
-                playerWeaponHolder.OnWeaponPickup += ActivateUISprite;
-                if (playerWeaponHolder.CurrentWeapon != null)
+                _playerWeaponHolder.OnWeaponPickup += ActivateUISprite;
+                if (_playerWeaponHolder.CurrentWeapon != null)
                 {
-                    playerWeaponHolder.CurrentWeapon.OnWeaponShot += OnWeaponShot;
+                    _playerWeaponHolder.CurrentWeapon.OnWeaponShot += OnWeaponShot;
                 }
-                playerWeaponHolder.OnWeaponDrop += DisableUISprite;
-                playerWeaponHolder.OnWeaponReload += SetUIAmmoText;
+                _playerWeaponHolder.OnWeaponDrop += DisableUISprite;
+                _playerWeaponHolder.OnWeaponReload += SetUIAmmoText;
 
-                if (playerWeaponHolder.CurrentWeapon != null) ActivateUISprite();
+                if (_playerWeaponHolder.CurrentWeapon != null) ActivateUISprite();
                 else DisableUISprite();
             }
 
-            playerInventory = playerWeaponHolder.GetComponent<Inventory>();
+            _playerInventory = _playerWeaponHolder.GetComponent<Inventory>();
 
-            if (playerInventory)
+            if (_playerInventory)
             {
-                playerInventory.OnAmmoCountUpdate += SetUIAmmoText;
+                _playerInventory.OnAmmoCountUpdate += SetUIAmmoText;
             }
         }
 
         private void OnDisable()
         {
-            playerWeaponHolder.OnWeaponPickup -= ActivateUISprite;
-            playerWeaponHolder.OnWeaponDrop -= DisableUISprite;
-            if (playerWeaponHolder.CurrentWeapon != null)
+            _playerWeaponHolder.OnWeaponPickup -= ActivateUISprite;
+            _playerWeaponHolder.OnWeaponDrop -= DisableUISprite;
+            if (_playerWeaponHolder.CurrentWeapon != null)
             {
-                playerWeaponHolder.CurrentWeapon.OnWeaponShot -= OnWeaponShot;
+                _playerWeaponHolder.CurrentWeapon.OnWeaponShot -= OnWeaponShot;
             }
-            playerWeaponHolder.OnWeaponReload -= SetUIAmmoText;
+            _playerWeaponHolder.OnWeaponReload -= SetUIAmmoText;
 
-            playerInventory.OnAmmoCountUpdate -= SetUIAmmoText;
+            _playerInventory.OnAmmoCountUpdate -= SetUIAmmoText;
         }
 
         private void OnWeaponShot(Weapon weapon, RaycastHit hit)
@@ -57,29 +56,29 @@ namespace MaiNull.UI
             SetUIAmmoText();
         }
 
-        void ActivateUISprite(Weapon weapon = null)
+        private void ActivateUISprite(Weapon weapon = null)
         {
             ammoUI.enabled = true;
             ammoSprite.sprite = weapon.WeaponData.ammoSprite;
             SetUIAmmoText();
         }
 
-        void DisableUISprite()
+        private void DisableUISprite()
         {
             ammoUI.enabled = false;
             ammoSprite.enabled = false;
         }
 
-        void SetUIAmmoText()
+        private void SetUIAmmoText()
         {
-            if (playerWeaponHolder.CurrentWeapon == null)
+            if (_playerWeaponHolder.CurrentWeapon == null)
             {
                 ammoUI.SetText("");
                 return;
             }
 
-            int ammo = playerWeaponHolder.CurrentWeapon.CurrentAmmo;
-            int ammoStored = playerInventory.GetAmmoAmountByType(playerWeaponHolder.CurrentWeapon.WeaponData.ammoType);
+            int ammo = _playerWeaponHolder.CurrentWeapon.CurrentAmmo;
+            int ammoStored = _playerInventory.GetAmmoAmountByType(_playerWeaponHolder.CurrentWeapon.WeaponData.ammoType);
 
             ammoUI.SetText(ammo + "/" + ammoStored);
         }

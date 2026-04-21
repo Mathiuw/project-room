@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using MaiNull.Item;
-using MaiNull.Player;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,26 +7,26 @@ namespace MaiNull.UI
 {
     public class UICrosshair : MonoBehaviour
     {
-        Image crosshair;
-        [SerializeField] Sprite dotCrosshair;
-        [SerializeField] Image reloadCrosshair;
-        PlayerWeaponHolder playerWeaponInteraction;
+        [SerializeField] private Sprite dotCrosshair;
+        [SerializeField] private Image reloadCrosshair;
+        private WeaponHolder _playerWeaponInteraction;
+        private Image _crosshair;
 
-        void Awake()
+        private void Awake()
         {
-            crosshair = GetComponent<Image>();
+            _crosshair = GetComponent<Image>();
 
             reloadCrosshair.enabled = false;
         }
 
-        void Start()
+        private void Start()
         {
-            playerWeaponInteraction = FindFirstObjectByType<PlayerWeaponHolder>();
+            _playerWeaponInteraction = FindFirstObjectByType<WeaponHolder>();
 
-            if (playerWeaponInteraction)
+            if (_playerWeaponInteraction)
             {
-                playerWeaponInteraction.OnWeaponPickup += OnWeaponPickup;
-                playerWeaponInteraction.OnWeaponDrop += OnWeaponDrop;
+                _playerWeaponInteraction.OnWeaponPickup += OnWeaponPickup;
+                _playerWeaponInteraction.OnWeaponDrop += OnWeaponDrop;
                 //playerWeaponInteraction.OnReloadStart += OnReloadStart;
             }
 
@@ -36,8 +35,8 @@ namespace MaiNull.UI
 
         private void OnDisable()
         {
-            playerWeaponInteraction.OnWeaponPickup -= OnWeaponPickup;
-            playerWeaponInteraction.OnWeaponDrop -= OnWeaponDrop;
+            _playerWeaponInteraction.OnWeaponPickup -= OnWeaponPickup;
+            _playerWeaponInteraction.OnWeaponDrop -= OnWeaponDrop;
             //playerWeaponInteraction.OnReloadStart -= OnReloadStart;
         }
 
@@ -53,22 +52,22 @@ namespace MaiNull.UI
 
         private void OnReloadStart()
         {
-            float reloadDuration = playerWeaponInteraction.CurrentWeapon.WeaponData.reloadCooldown;
+            float reloadDuration = _playerWeaponInteraction.CurrentWeapon.WeaponData.reloadCooldown;
 
             StartCoroutine(ReloadLerp(reloadDuration));
         }
 
         private void SetCroshair(Sprite sprite)
         {
-            crosshair.sprite = sprite;
+            _crosshair.sprite = sprite;
 
             if (!sprite)
             {
-                crosshair.enabled = false;
+                _crosshair.enabled = false;
             }
             else
             {
-                crosshair.enabled = true;
+                _crosshair.enabled = true;
             }
         }
 
@@ -76,7 +75,7 @@ namespace MaiNull.UI
         {
             Image ring = reloadCrosshair.GetComponent<Image>();
 
-            crosshair.enabled = false;
+            _crosshair.enabled = false;
             reloadCrosshair.enabled = true;
 
             float timeElapsed = 0;
@@ -93,13 +92,13 @@ namespace MaiNull.UI
 
             reloadCrosshair.enabled = false;
 
-            if (!crosshair.sprite)
+            if (!_crosshair.sprite)
             {
-                crosshair.enabled = false;
+                _crosshair.enabled = false;
             }
             else
             {
-                crosshair.enabled = true;
+                _crosshair.enabled = true;
             }
 
             yield break;
