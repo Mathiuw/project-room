@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3050397581623131128}
   - component: {fileID: 7694520542219493588}
   - component: {fileID: 8116903156906862909}
-  - component: {fileID: 6206732554488545935}
+  - component: {fileID: 1147645660619197324}
   m_Layer: 10
   m_Name: PlayerController
   m_TagString: Player
@@ -76,6 +76,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a55878c144efd742be95fec5feb0508, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerData: {fileID: 0}
 --- !u!114 &3050397581623131128
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -88,8 +89,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e12fc4fb19a68da4d9b414645b481f17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveInputAction: {fileID: 4460534866953578828, guid: 5261bc7792e99e640a82546c0fc724ed, type: 3}
-  jumpInputAction: {fileID: 6340764210115487436, guid: 5261bc7792e99e640a82546c0fc724ed, type: 3}
   moveSpeed: 10
   jumpHeight: 2
   gravity: {x: 0, y: -9.81, z: 0}
@@ -105,7 +104,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffe3c01bcd426f948ab6ffafef0a8734, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactAction: {fileID: -1743499727768760397, guid: 5261bc7792e99e640a82546c0fc724ed, type: 3}
   interactiveMask:
     serializedVersion: 2
     m_Bits: 13057
@@ -125,7 +123,7 @@ MonoBehaviour:
   useItemAction: {fileID: -4986617523390565517, guid: 5261bc7792e99e640a82546c0fc724ed, type: 3}
   <Consumables>k__BackingField: []
   <Keycards>k__BackingField: []
---- !u!114 &6206732554488545935
+--- !u!114 &1147645660619197324
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -134,11 +132,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 4348192545665441576}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c866cb8066b415842bc6b16c1d7eb87f, type: 3}
+  m_Script: {fileID: 11500000, guid: 04df75a6f8af659428b3dae6cf8e1888, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
-  reloadAction: {fileID: 1345339998823099884, guid: 5261bc7792e99e640a82546c0fc724ed, type: 3}
-  dropAction: {fileID: 5101678467072235488, guid: 5261bc7792e99e640a82546c0fc724ed, type: 3}
+  m_EditorClassIdentifier: Assembly-CSharp::MaiNull.WeaponHolder
+  inventorySize: 1
+  weapons: []
 --- !u!1 &4731053806319821222
 GameObject:
   m_ObjectHideFlags: 0

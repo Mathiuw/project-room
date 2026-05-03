@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace MaiNull
@@ -6,6 +7,12 @@ namespace MaiNull
     {
         // Class to handle PlayerCamera pivot transform
 
-        public Transform attatchedCamera { get; set; }
+        public Transform AttachedCamera { get; set; }
+
+        private void Update()
+        {
+            if (!AttachedCamera) return;
+            transform.rotation = AttachedCamera.rotation;
+        }
     }
 }

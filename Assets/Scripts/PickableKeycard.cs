@@ -5,39 +5,18 @@ namespace MaiNull
 {
     public class PickableKeycard : PickableItem
     {
-        [SerializeField] private Material[] materials = new Material[4];
-
         private void Awake()
         {
-            if (PickableItemData is not KeycardData)
+            if (PickableItemData is not KeycardData keycardData)
             {
                 Debug.LogError("Pickable data is the wrong type");
                 return;
             }
 
-            KeycardData karcardData = (KeycardData)PickableItemData;
+            Material[] newMaterials = GetComponentInChildren<MeshRenderer>().materials;
+            newMaterials[0] = keycardData.GetColorMaterial();
 
-            Material[] materials = GetComponentInChildren<MeshRenderer>().materials;
-            switch (karcardData.keycardColor)
-            {
-                case EKeycardColor.Red:
-                    materials[0] = this.materials[0];
-                    break;
-                case EKeycardColor.Green:
-                    materials[0] = this.materials[1]; 
-                    break;
-                case EKeycardColor.Blue:
-                    materials[0] = this.materials[2];
-                    break;
-                case EKeycardColor.Yellow:
-                    materials[0] = this.materials[3];
-                    break;
-                default:
-                    Debug.LogError("Error setting keycard color");
-                    break;
-            }
-
-            GetComponentInChildren<MeshRenderer>().materials = materials;
+            GetComponentInChildren<MeshRenderer>().materials = newMaterials;
         }
 
     }

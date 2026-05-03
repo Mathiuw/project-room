@@ -6,7 +6,9 @@ namespace MaiNull
     [CreateAssetMenu(fileName = "Player_Data", menuName = "Player Data")]
     public class PlayerData : ScriptableObject
     {
+        [Header("Health")]
         public int maxHealth;
+        [Header("Input")]
         public InputActionReference moveInputAction;
         public InputActionReference jumpInputAction;
         public InputActionReference sprintInputAction;

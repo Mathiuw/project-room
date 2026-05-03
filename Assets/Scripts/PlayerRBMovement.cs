@@ -93,7 +93,7 @@ namespace MaiNull
             Move(moveInputVector.y, moveInputVector.x);
 
             // Rotate body According to attached camera view
-            transform.localRotation = Quaternion.Euler(0, cameraPivot.attatchedCamera.transform.eulerAngles.y, 0);
+            transform.localRotation = Quaternion.Euler(0, cameraPivot.AttachedCamera.transform.eulerAngles.y, 0);
         }
 
         private void OnMovementPerformed(InputAction.CallbackContext value)

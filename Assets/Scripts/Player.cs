@@ -15,9 +15,7 @@ namespace MaiNull
         private void Awake()
         {
             _cameraPivot = GetComponentInChildren<CameraPivot>();
-            
             _kinematicCharacterController = GetComponent<KinematicCharacterController>();
-            
             _interactor = GetComponent<Interactor>();
             
             if (playerData == null) return;

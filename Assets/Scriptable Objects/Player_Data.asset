@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6887b217df24ce3968ca9441cdcd703, type: 3}
+  m_Name: Player_Data
+  m_EditorClassIdentifier: Assembly-CSharp::MaiNull.PlayerData
+  maxHealth: 100
+  moveInputAction: {fileID: 4460534866953578828, guid: 5261bc7792e99e640a82546c0fc724ed, type: 3}
+  jumpInputAction: {fileID: 6340764210115487436, guid: 5261bc7792e99e640a82546c0fc724ed, type: 3}
+  sprintInputAction: {fileID: -5655079475063417323, guid: 5261bc7792e99e640a82546c0fc724ed, type: 3}
+  interactInputAction: {fileID: -1743499727768760397, guid: 5261bc7792e99e640a82546c0fc724ed, type: 3}
+  attackWeaponInputAction: {fileID: -2439129515061329589, guid: 5261bc7792e99e640a82546c0fc724ed, type: 3}
+  reloadWeaponInputAction: {fileID: 1345339998823099884, guid: 5261bc7792e99e640a82546c0fc724ed, type: 3}
+  dropWeaponInputAction: {fileID: 5101678467072235488, guid: 5261bc7792e99e640a82546c0fc724ed, type: 3}

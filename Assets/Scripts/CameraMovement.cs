@@ -1,17 +1,20 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 namespace MaiNull
 {
     public class CameraMovement : MonoBehaviour
     {
         [Header("Camera Movement")]
-        [field: SerializeField] public float Sensibility { get; set; } = 2.5f;
+        [FormerlySerializedAs("Sensibility")][SerializeField] private float sensibility = 2.5f;
         [SerializeField] private float multiplier = 1;
         private float _mouseX, _mouseY;
         private float _xRotation, _yRotation;
         private CameraPivot _cameraPivot;
         private  KinematicCharacterController _kinematicCharacterController;
+        
+        public float Sensibility { get => sensibility; set => sensibility = value; }
         
         [Header("Camera Roll")]
         [SerializeField] private bool cameraRoll = true;
@@ -32,7 +35,7 @@ namespace MaiNull
             if (cameraPivot)
             {
                 _cameraPivot = cameraPivot;
-                cameraPivot.attatchedCamera = transform;
+                cameraPivot.AttachedCamera = transform;
                 
                 _kinematicCharacterController =  cameraPivot.GetComponentInParent<KinematicCharacterController>();
             }
@@ -43,7 +46,7 @@ namespace MaiNull
         {
             // Follows the player camera position
             transform.position = _cameraPivot.transform.position;
-
+            
             // Move camera
             CameraMove();
         }
@@ -57,7 +60,6 @@ namespace MaiNull
 
             _yRotation += _mouseX;
             _xRotation -= _mouseY;
-
             _xRotation = Mathf.Clamp(_xRotation, -89, 89);
 
             // Camera rotation with roll

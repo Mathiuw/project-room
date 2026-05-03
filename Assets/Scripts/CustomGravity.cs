@@ -5,26 +5,26 @@ namespace MaiNull
     [RequireComponent(typeof(Rigidbody))]
     public class CustomGravity : MonoBehaviour
     {
-        [SerializeField] float gravityForce = -9.81f;
-        Rigidbody rb;
+        [SerializeField] private float gravityForce = -9.81f;
+        private Rigidbody _rb;
 
-        void Awake() 
+        private void Awake() 
         {
-            rb = GetComponent<Rigidbody>();
-            rb.useGravity = false;
+            _rb = GetComponent<Rigidbody>();
+            _rb.useGravity = false;
         }
 
-        void FixedUpdate() 
+        private void FixedUpdate() 
         {
             SetGravity(); 
         }
 
-        void SetGravity()          
+        private void SetGravity()          
         {
-            Vector3 desiredLinearVelocity = rb.linearVelocity;
+            Vector3 desiredLinearVelocity = _rb.linearVelocity;
             desiredLinearVelocity.y += gravityForce;
 
-            rb.linearVelocity = desiredLinearVelocity;
+            _rb.linearVelocity = desiredLinearVelocity;
         }
     }
 }

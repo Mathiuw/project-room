@@ -71,7 +71,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd674bae78d6ff04d986014c989e6893, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Sensibility>k__BackingField: 0.45
+  sensibility: 0.5
   multiplier: 1
   cameraRoll: 1
   angleLimit: 2
@@ -233,7 +233,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e998a9d22301d14799a943172849f5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxRotaion: {x: 2.5, y: 2.5, z: 2.5}
+  maxRotation: {x: 0, y: 0, z: 0}
   speed: 8
   growthIntensity: 1
   decayIntensity: 1

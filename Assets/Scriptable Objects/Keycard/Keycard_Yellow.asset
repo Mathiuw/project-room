@@ -18,3 +18,4 @@ MonoBehaviour:
   isStackable: 0
   maxStack: 0
   keycardColor: 3
+  colorData: {fileID: 11400000, guid: 7f8007f15179d2141b7b26e92877e2ce, type: 2}
