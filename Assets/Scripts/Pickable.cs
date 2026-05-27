@@ -1,7 +1,6 @@
-﻿using MaiNull.Interact;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace MaiNull.Item
+namespace MaiNull
 {
 	public class Pickable : MonoBehaviour, IInteractable, IUIName
     {

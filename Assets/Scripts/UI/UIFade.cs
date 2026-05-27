@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace MaiNull.UI
@@ -11,19 +13,21 @@ namespace MaiNull.UI
 
     public class UIFade : MonoBehaviour
     {
-        [SerializeField] bool activateOnStart = false;
-        [field: SerializeField] EFadeType EFadeType { get; set; } = EFadeType.FadeIn;
-        [SerializeField] float fadeTime = 1f;
-        [SerializeField] AnimationCurve curve;
-        Image image;
+        [SerializeField] private EFadeType eFadeType = EFadeType.FadeIn;
+        [SerializeField] private bool activateOnStart = false;
+        [SerializeField] private float fadeTime = 1f;
+        [SerializeField] private AnimationCurve curve;
+        private Image _image;
 
-        public float alpha { get; private set; }
+        public float Alpha { get; private set; }
 
+        public Action OnFadeFinish;
+        
         private void Start()
         {
             if (!activateOnStart) return;
 
-            switch (EFadeType)
+            switch (eFadeType)
             {
                 case EFadeType.FadeIn:
                     FadeIn();
@@ -32,22 +36,22 @@ namespace MaiNull.UI
                     FadeOut();
                     break;
                 default:
-                    break;
+                    throw new ArgumentOutOfRangeException();
             }
         }
 
-        void Awake() 
+        private void Awake() 
         {
-            image= GetComponentInChildren<Image>();
+            _image= GetComponentInChildren<Image>();
         }
 
         public void SetImageAlphaValue(float value) 
         {
-            Color color = image.color;
+            Color color = _image.color;
             color.a = value;
         
-            alpha = color.a;
-            image.color = color;
+            Alpha = color.a;
+            _image.color = color;
         }
 
         public void FadeIn() => StartCoroutine(FadeCoroutine(0, 1));
@@ -67,8 +71,8 @@ namespace MaiNull.UI
                 yield return null;
             }
             SetImageAlphaValue(final);
-
-            yield break;
+            
+            OnFadeFinish?.Invoke();
         }
     }
 }

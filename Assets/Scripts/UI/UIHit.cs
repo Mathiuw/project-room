@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using MaiNull.Item;
 using UnityEngine;
 
 namespace MaiNull.UI

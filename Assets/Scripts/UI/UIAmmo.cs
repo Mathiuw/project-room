@@ -1,5 +1,4 @@
-﻿using MaiNull.Item;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 

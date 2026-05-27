@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace MaiNull.Item
+namespace MaiNull
 {
     public class PickableWeaponPersistent : Pickable
     {

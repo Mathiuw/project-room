@@ -10,7 +10,7 @@ namespace MaiNull
         [SerializeField] private int maxBounces = 5;
         [SerializeField] private float skinWidth = 0.0015f;
         [SerializeField] private LayerMask layerMask;
-        Bounds bounds;
+        private Bounds _bounds;
 
         private void Awake()
         {
@@ -19,11 +19,11 @@ namespace MaiNull
 
         private void Update()
         {
-            Collider collider = GetComponent<Collider>();
-            if (!collider) return;
+            Collider col = GetComponent<Collider>();
+            if (!col) return;
 
-            bounds = collider.bounds;
-            bounds.Expand(-2 * skinWidth);
+            _bounds = col.bounds;
+            _bounds.Expand(-2 * skinWidth);
         }
 
         private void FixedUpdate()
@@ -48,7 +48,7 @@ namespace MaiNull
 
             RaycastHit hit;
 
-            if (Physics.SphereCast(pos, bounds.extents.x, vel.normalized, out hit, layerMask))
+            if (Physics.SphereCast(pos, _bounds.extents.x, vel.normalized, out hit, layerMask))
             {
                 Vector3 snapTosurface = vel.normalized * (hit.distance - skinWidth);
                 Vector3 leftover = vel - snapTosurface;

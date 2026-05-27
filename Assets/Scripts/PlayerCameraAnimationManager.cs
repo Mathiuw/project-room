@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using MaiNull.Item;
 using UnityEngine;
 
 namespace MaiNull
@@ -8,7 +7,7 @@ namespace MaiNull
     public class PlayerCameraAnimationManager : MonoBehaviour
     {
         private WeaponHolder _playerWeaponHolder;
-        private PlayerRBMovement _playerRbMovement;
+        private PlayerRbMovement _playerRbMovement;
         private Animator _animator;
         private Rigidbody _playerRb;
 
@@ -20,7 +19,7 @@ namespace MaiNull
         private void Start()
         {
             _playerWeaponHolder = FindFirstObjectByType<WeaponHolder>();
-            _playerRbMovement = FindAnyObjectByType<PlayerRBMovement>();
+            _playerRbMovement = FindAnyObjectByType<PlayerRbMovement>();
             _playerRb = _playerWeaponHolder?.GetComponent<Rigidbody>();
 
             if (_playerWeaponHolder)
@@ -78,7 +77,7 @@ namespace MaiNull
 
         private void OnDrop() => _animator.Rebind();
 
-        private static float WalkSpeed(PlayerRBMovement playerRbMovement)
+        private static float WalkSpeed(PlayerRbMovement playerRbMovement)
         {
             if (!playerRbMovement) return 1f;
 

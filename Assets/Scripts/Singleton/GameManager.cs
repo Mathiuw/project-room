@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using MaiNull.UI;
 using UnityEngine;
@@ -5,37 +6,23 @@ using UnityEngine.SceneManagement;
 
 namespace MaiNull.Singleton
 {
-    public class GameManager : MonoBehaviour
+    public class GameManager : Singleton<GameManager>
     {
-        public static GameManager Instance { get; private set; }
-
-        [SerializeField] UIFade fade;
-
-        private void Awake()
-        {
-            if (Instance != null && Instance != this)
-            {
-                Destroy(this);
-            }
-            else
-            {
-                Instance = this;
-            }
-        }
+        [SerializeField] private UIFade fade;
 
         private void Start()
         {
             // Start fade out
-            UIFade fade = Instantiate(this.fade, Vector3.zero, Quaternion.identity);
-            fade.FadeOut();
-
+            UIFade newFade = Instantiate(this.fade, Vector3.zero, Quaternion.identity);
+            newFade.FadeOut();
+            
             // Restart level when player die
-            Player player = FindFirstObjectByType<Player>();
+            Player.OnPlayerDie += RestartLevelTransition;
+        }
 
-            if (player)
-            {
-                player.Health.OnDie += RestartLevelTransition;
-            }
+        private void OnDisable()
+        {
+            Player.OnPlayerDie -= RestartLevelTransition;
         }
 
         public void RestartLevelTransition()
@@ -50,17 +37,12 @@ namespace MaiNull.Singleton
 
         private IEnumerator SceneTransitionCoroutine(int sceneIndex)
         {
-            UIFade fade = Instantiate(this.fade, Vector3.zero, Quaternion.identity);
-            fade.FadeIn();
+            UIFade transitionFade = Instantiate(this.fade, Vector3.zero, Quaternion.identity);
+            transitionFade.FadeIn();
 
-            while (fade.alpha < 1)
-            {
-                yield return null;
-            }
+            yield return transitionFade.OnFadeFinish;
 
             SceneManager.LoadScene(sceneIndex, LoadSceneMode.Single);
-
-            yield break;
         }
     }
 }

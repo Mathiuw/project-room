@@ -1,5 +1,4 @@
 ﻿using System;
-using MaiNull.Interact;
 using UnityEngine;
 
 namespace MaiNull

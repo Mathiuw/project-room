@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using MaiNull.Interact;
 using UnityEngine;
 
 namespace MaiNull
@@ -7,19 +6,20 @@ namespace MaiNull
     public class Door : MonoBehaviour, IInteractable, IUIName
     {
         [Header("Name")]
-        [SerializeField] string doorName = "Door";
+        [SerializeField] private string doorName = "Door";
     
         [Header("Rotation")]
-        [SerializeField] float duration = 0.4f;
-        [SerializeField] Transform[] doors;
-        [SerializeField] Vector3[] startRotation;
-        [SerializeField] Vector3[] desiredRotations;
-        private bool isMoving = false;
+        [SerializeField]
+        private float duration = 0.4f;
+        [SerializeField] private Transform[] doors;
+        [SerializeField] private Vector3[] startRotation;
+        [SerializeField] private Vector3[] desiredRotations;
+        private bool _isMoving = false;
 
         [Header("Destruction")]
         [SerializeField] bool isDestrucble = true;
 
-        public bool open { get; private set; } = false;
+        public bool Open { get; private set; } = false;
 
         public string readName => GetUIName();
 
@@ -33,7 +33,7 @@ namespace MaiNull
 
         public void Interact(Transform interactor)
         {
-            if (isMoving)
+            if (_isMoving)
             {
                 return;
             }
@@ -43,14 +43,14 @@ namespace MaiNull
 
         IEnumerator OpenCloseDoor() 
         {
-            isMoving = true;
+            _isMoving = true;
 
             float elapsedtime = 0f;
             float percentageComplete = 0f;
 
             while (elapsedtime < duration)
             {
-                if (!open) ArrayLerp(doors, startRotation, desiredRotations, percentageComplete);
+                if (!Open) ArrayLerp(doors, startRotation, desiredRotations, percentageComplete);
                 else ArrayLerp(doors, desiredRotations, startRotation, percentageComplete);
 
                 elapsedtime += Time.deltaTime;
@@ -60,13 +60,13 @@ namespace MaiNull
             }
             for (int i = 0; i < doors.Length; i++) 
             {
-                if (!open) doors[i].localRotation = Quaternion.Euler(desiredRotations[i]);
+                if (!Open) doors[i].localRotation = Quaternion.Euler(desiredRotations[i]);
                 else doors[i].localRotation = Quaternion.Euler(startRotation[i]);
             }
 
-            open = !open;
+            Open = !Open;
 
-            isMoving = false;
+            _isMoving = false;
             yield break;
         }
 
@@ -90,7 +90,7 @@ namespace MaiNull
 
             if (doorScript = GetComponent<Door>())
             {
-                if (doorScript.open) return;
+                if (doorScript.Open) return;
                 Destroy(doorScript);
             }
 
@@ -109,12 +109,12 @@ namespace MaiNull
 
         string GetUIName() 
         {
-            if (isMoving)
+            if (_isMoving)
             {
                 return "";
             }
 
-            if (open) return "Close " + doorName;
+            if (Open) return "Close " + doorName;
             else return "Open " + doorName;
         }
     }

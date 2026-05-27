@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace MaiNull.Item
+namespace MaiNull
 {
     [CreateAssetMenu(fileName = "ConsumableData", menuName = "ConsumableData")]
     public class HealingItemData : InventoryItemData

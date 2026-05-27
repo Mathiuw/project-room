@@ -5,16 +5,15 @@ namespace MaiNull
 	[RequireComponent (typeof(CharacterController))]
 	public class KinematicCharacterController : MonoBehaviour
 	{
+        public Transform orientationPivot;
         [SerializeField] private float moveSpeed = 50f;
         [SerializeField] private float jumpHeight = 100f;
-        [SerializeField] private Vector3 gravity = new Vector3(0, -9.81f, 0);
+        [SerializeField] private Vector3 gravity = new(0, -9.81f, 0);
         private CharacterController _characterController;
         private Vector3 _playerVelocity;
-        private bool _jumpThisFrame = false; 
+        private bool _jumpThisFrame; 
         
         public Vector2 InputMoveVector { get; set; } = Vector2.zero;
-
-        public Transform OrientationPivot { get; set; }
         
         private void Awake()
         {
@@ -45,7 +44,7 @@ namespace MaiNull
             // Jump
             if (_jumpThisFrame)
             {
-                Debug.Log("Jump");
+                print("Jump");
                 _playerVelocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity.y);
                 _jumpThisFrame = false;
             }
@@ -66,7 +65,7 @@ namespace MaiNull
         
         private void RotateBody()
         {
-            transform.localRotation = Quaternion.Euler(0, OrientationPivot.eulerAngles.y, 0);
+            transform.localRotation = Quaternion.Euler(0, orientationPivot.eulerAngles.y, 0);
         }
     }
 }

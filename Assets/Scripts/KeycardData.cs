@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace MaiNull.Item
+namespace MaiNull
 {
     [CreateAssetMenu(fileName = "KeycardData", menuName = "Keycard/Keycard Data")]
     public class KeycardData : InventoryItemData

@@ -3,23 +3,25 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 3
-  tags: []
+  tags:
+  - Orientation
+  - Gun
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Ragdoll
+  - Ground
   - Water
   - UI
-  - 
-  - 
-  - Ground
-  - Item
-  - Player
-  - Enemy
-  - Weapon
+  - Character
   - Interactable
-  - Post Processing
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
   - 
   - 
   - 

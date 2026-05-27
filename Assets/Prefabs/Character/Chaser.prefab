@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6671294632013256278}
   - component: {fileID: 7718766470292853810}
   - component: {fileID: 8270326703514718942}
-  m_Layer: 11
+  m_Layer: 6
   m_Name: Damage Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -81,7 +81,7 @@ GameObject:
   - component: {fileID: 8917383774939208097}
   - component: {fileID: 557233592307876903}
   - component: {fileID: 728203457213665692}
-  m_Layer: 11
+  m_Layer: 6
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -131,6 +131,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -152,9 +154,11 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &4305232947633487935
 GameObject:
@@ -168,13 +172,13 @@ GameObject:
   - component: {fileID: 9044781060507915744}
   - component: {fileID: 2389215748561244133}
   - component: {fileID: 6395241438735668006}
-  m_Layer: 11
+  m_Layer: 6
   m_Name: Chaser
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6193650137434883350
 Transform:
   m_ObjectHideFlags: 0

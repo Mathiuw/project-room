@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7694520542219493588}
   - component: {fileID: 8116903156906862909}
   - component: {fileID: 1147645660619197324}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: PlayerController
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -76,7 +76,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a55878c144efd742be95fec5feb0508, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerData: {fileID: 0}
+  playerData: {fileID: 11400000, guid: c953ca57af676434ba94ddbbd9056829, type: 2}
 --- !u!114 &3050397581623131128
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89,9 +89,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e12fc4fb19a68da4d9b414645b481f17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  orientationPivot: {fileID: 3702127401133823320}
   moveSpeed: 10
   jumpHeight: 2
-  gravity: {x: 0, y: -9.81, z: 0}
+  gravity: {x: 0, y: -20, z: 0}
 --- !u!114 &7694520542219493588
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -104,9 +105,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffe3c01bcd426f948ab6ffafef0a8734, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  orientationTransform: {fileID: 3702127401133823320}
   interactiveMask:
     serializedVersion: 2
-    m_Bits: 13057
+    m_Bits: 1
   rayLength: 5
 --- !u!114 &8116903156906862909
 MonoBehaviour:
@@ -135,8 +137,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04df75a6f8af659428b3dae6cf8e1888, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MaiNull.WeaponHolder
+  shootOrientation: {fileID: 0}
   inventorySize: 1
   weapons: []
+  shootMask:
+    serializedVersion: 2
+    m_Bits: 201
 --- !u!1 &4731053806319821222
 GameObject:
   m_ObjectHideFlags: 0
@@ -148,7 +154,7 @@ GameObject:
   - component: {fileID: 6573333653598370175}
   - component: {fileID: 383377020615207043}
   - component: {fileID: 7681834315549918641}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -236,10 +242,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3702127401133823320}
-  - component: {fileID: 2172136880373838152}
-  m_Layer: 10
-  m_Name: Camera_Pivot
-  m_TagString: Untagged
+  m_Layer: 6
+  m_Name: Orientation
+  m_TagString: Orientation
   m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -259,15 +264,3 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6724603544116450940}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2172136880373838152
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9086619700224524614}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f8844f14e20c73478ee1466109ae496, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

@@ -4,40 +4,38 @@ namespace MaiNull.Singleton
 {
     public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
     {
-        private static T instance;
+        private static T _instance;
 
         public static T Instance
         {
             get 
-            { 
-                if (instance == null) 
+            {
+                if (_instance != null) return _instance;
+                _instance = FindFirstObjectByType<T>();
+                
+                if (_instance != null) return _instance;
+                GameObject singletonObj = new GameObject
                 {
-                    instance = FindFirstObjectByType<T>();
-                    if (instance == null)
-                    {
-                        var singletonObj = new GameObject();
-                        singletonObj.name = typeof(T).ToString();
-                        instance = singletonObj.AddComponent<T>();
-                    }
-                }
-                return instance;
+                    name = typeof(T).ToString()
+                };
+                _instance = singletonObj.AddComponent<T>();
+                return _instance;
             } 
         }
 
-
         public virtual void Awake()
         {
-            if (instance != null)
+            if (_instance != null)
             {
                 Destroy(gameObject);
                 return;
             }
 
-            instance = GetComponent<T>();
+            _instance = GetComponent<T>();
 
             DontDestroyOnLoad(gameObject);
 
-            if (instance != null)
+            if (_instance != null)
                 return;
         }
     }

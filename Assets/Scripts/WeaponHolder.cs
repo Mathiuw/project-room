@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using MaiNull.Item;
 using UnityEngine;
 
 namespace MaiNull
@@ -8,8 +7,10 @@ namespace MaiNull
     public class WeaponHolder : MonoBehaviour
     {
         [Header("Weapon Inventory Settings")]
+        public Transform shootOrientation;
         [SerializeField] private int inventorySize = 1;
         [SerializeField] private List<Weapon> weapons = new List<Weapon>();
+        [SerializeField] private LayerMask shootMask;
         private int _inventoryIndex;
         
         public event Action<Weapon> OnWeaponPickup;
@@ -27,6 +28,15 @@ namespace MaiNull
         
         public  void DecreaseIndex() => _inventoryIndex--;
         
+        public void IncreaseInventorySize() => inventorySize += 1;
+
+        public void DecreaseInventorySize()
+        {
+            inventorySize -= 1;
+            inventorySize = Mathf.Max(inventorySize, 1);
+        } 
+
+        
         public virtual void PickUpWeapon(Weapon newWeapon)
         {
             if (inventorySize > weapons.Count + 1)
@@ -40,15 +50,20 @@ namespace MaiNull
             Debug.Log($"{transform.name} picked weapon");
         }
 
-        private void ChangeWeapon(Weapon newWeapon)
+        public void ChangeWeapon(Weapon newWeapon)
         {
             CurrentWeapon = newWeapon;
             OnWeaponChange?.Invoke();
         }
 
-        public void ShootWeapon(Transform shootOrientation)
+        public void ShootWeapon(Transform orientation)
         {
-            CurrentWeapon?.Shoot(shootOrientation);
+            CurrentWeapon?.Shoot(orientation, shootMask);
+        }
+        
+        public void ShootWeapon()
+        {
+            CurrentWeapon?.Shoot(shootOrientation, shootMask);
         }
         
         public virtual void ReloadWeapon()
@@ -58,7 +73,7 @@ namespace MaiNull
             Debug.Log($"{transform.name} reloaded weapon");
         }
 
-        protected virtual void DropWeapon()
+        public virtual void DropWeapon()
         {
             weapons.RemoveAt(_inventoryIndex);
             OnWeaponDrop?.Invoke();

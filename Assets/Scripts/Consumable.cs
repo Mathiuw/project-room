@@ -1,7 +1,6 @@
-﻿using MaiNull.Item;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace MaiNull.Item
+namespace MaiNull
 {
     public class Consumable : PickableItem
     {

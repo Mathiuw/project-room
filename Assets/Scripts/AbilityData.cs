@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace MaiNull.Item
+namespace MaiNull
 {
 	[CreateAssetMenu(fileName ="new_ability", menuName = "Abilities/Ability")]
 	public class AbilityData : ScriptableObject

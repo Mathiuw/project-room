@@ -1,5 +1,4 @@
-﻿using MaiNull.Item;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace MaiNull
 {

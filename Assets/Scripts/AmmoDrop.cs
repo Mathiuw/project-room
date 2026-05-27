@@ -1,8 +1,6 @@
-using MaiNull;
 using UnityEngine;
-using MaiNull.Interact;
 
-namespace MaiNull.Item
+namespace MaiNull
 {
     public class AmmoDrop : MonoBehaviour, IInteractable, IUIName
     {

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace MaiNull.Interact
+namespace MaiNull
 {
     public interface IInteractable
     {

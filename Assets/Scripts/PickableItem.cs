@@ -1,8 +1,6 @@
-﻿using MaiNull;
-using UnityEngine;
-using MaiNull.Interact;
+﻿using UnityEngine;
 
-namespace MaiNull.Item
+namespace MaiNull
 {
     public class PickableItem : Pickable
     {

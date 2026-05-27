@@ -22,10 +22,10 @@ namespace MaiNull
             Dead = false;
         }
 
-        public Health(int MaxHealth)
+        public Health(int maxHealth)
         {
-            this.MaxHealth = MaxHealth;
-            HealthAmount = MaxHealth;
+            this.MaxHealth = maxHealth;
+            HealthAmount = maxHealth;
             Dead = false;
         }
 

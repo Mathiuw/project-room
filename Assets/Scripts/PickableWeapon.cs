@@ -1,31 +1,29 @@
 ﻿using UnityEngine;
 
-namespace MaiNull.Item
+namespace MaiNull
 {
     public class PickableWeapon : Pickable
     {
         [SerializeField] private WeaponData weaponData;
-        private Weapon Weapon;
+        private Weapon _weapon;
 
         private void Awake()
         {
             if (weaponData)
             {
-                Weapon = new(weaponData);
+                _weapon = new Weapon(weaponData);
             }
         }
 
-        public override string readName => weaponData?.itemName;
+        public override string readName => weaponData? weaponData.itemName : "WeaponData not found";
 
         public override void Interact(Transform interactor)
         {
             interactor.TryGetComponent(out WeaponHolder weaponHolder);
-
-            if (weaponHolder)
-            {
-                weaponHolder.PickUpWeapon(Weapon);
-                Destroy(gameObject);
-            }
+            if (!weaponHolder) return;
+            
+            weaponHolder.PickUpWeapon(_weapon);
+            Destroy(gameObject);
         }
     }
 }
