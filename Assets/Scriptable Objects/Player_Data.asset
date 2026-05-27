@@ -18,5 +18,5 @@ MonoBehaviour:
   sprintInputAction: {fileID: -5655079475063417323, guid: 5261bc7792e99e640a82546c0fc724ed, type: 3}
   interactInputAction: {fileID: -1743499727768760397, guid: 5261bc7792e99e640a82546c0fc724ed, type: 3}
   attackInputAction: {fileID: -2439129515061329589, guid: 5261bc7792e99e640a82546c0fc724ed, type: 3}
-  reloadWeaponInputAction: {fileID: 1345339998823099884, guid: 5261bc7792e99e640a82546c0fc724ed, type: 3}
-  dropWeaponInputAction: {fileID: 5101678467072235488, guid: 5261bc7792e99e640a82546c0fc724ed, type: 3}
+  reloadInputAction: {fileID: 1345339998823099884, guid: 5261bc7792e99e640a82546c0fc724ed, type: 3}
+  dropInputAction: {fileID: 5101678467072235488, guid: 5261bc7792e99e640a82546c0fc724ed, type: 3}

@@ -14,7 +14,8 @@ namespace MaiNull
         public InputActionReference sprintInputAction;
         public InputActionReference interactInputAction;
         public InputActionReference attackInputAction;
-        public InputActionReference reloadWeaponInputAction;
-        public InputActionReference dropWeaponInputAction;
+        public InputActionReference reloadInputAction;
+        public InputActionReference dropInputAction;
+        public InputActionReference switchWeaponAction;
     }
 }

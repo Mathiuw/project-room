@@ -51,7 +51,7 @@ namespace MaiNull.UI
 
         private void OnReloadStart()
         {
-            float reloadDuration = _playerWeaponInteraction.CurrentWeapon.WeaponData.reloadCooldown;
+            float reloadDuration = _playerWeaponInteraction.CurrentWeapon.WeaponData.reloadDuration;
 
             StartCoroutine(ReloadLerp(reloadDuration));
         }

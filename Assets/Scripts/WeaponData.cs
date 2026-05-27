@@ -17,8 +17,8 @@ namespace MaiNull
         [FormerlySerializedAs("waitToShoot")] public bool shootCooldown;
         public EShootType shootType = EShootType.Single;
         public EAmmoType ammoType;
-        public static LayerMask ShootMask;
-
+        public bool canDrop = true;
+        
         [Header("Crosshair")]
         public Sprite crosshair;
 
@@ -26,12 +26,12 @@ namespace MaiNull
         public float intensity;
         public float speed;
 
-        [Header("Animation")]
-        public AnimatorOverrideController animatorOverride;
-
         [Header("Reload")]
-        [FormerlySerializedAs("reloadTime")] public float reloadCooldown;
+        [FormerlySerializedAs("reloadTime")] public float reloadDuration;
 
+        [Header("Drop")]
+        public GameObject dropPrefab;
+        
         [Header("UI")]
         public Sprite ammoSprite;
     }

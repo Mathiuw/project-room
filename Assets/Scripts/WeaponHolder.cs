@@ -8,9 +8,11 @@ namespace MaiNull
     {
         [Header("Weapon Inventory Settings")]
         public Transform shootOrientation;
-        [SerializeField] private int inventorySize = 1;
-        [SerializeField] private List<Weapon> weapons = new List<Weapon>();
+        [SerializeField] private int startInventorySize = 2;
+        [SerializeField] private int maxInventorySize = 5;
         [SerializeField] private LayerMask shootMask;
+        private readonly List<Weapon> _weapons = new();
+        private int _inventorySize = 1;
         private int _inventoryIndex;
         
         public event Action<Weapon> OnWeaponPickup;
@@ -20,32 +22,56 @@ namespace MaiNull
 
         public Weapon CurrentWeapon
         {
-            get => weapons[_inventoryIndex];
-            private set => weapons[_inventoryIndex] = value;
+            get => _weapons.Count <= 0 ? null : _weapons[_inventoryIndex];
+            private set => _weapons[_inventoryIndex] = value;
         }
 
-        public void IncreaseIndex() => _inventoryIndex++;
-        
-        public  void DecreaseIndex() => _inventoryIndex--;
-        
-        public void IncreaseInventorySize() => inventorySize += 1;
+        private void Awake()
+        {
+            _inventorySize = startInventorySize;
+        }
+
+        public void IncreaseIndex()
+        {
+            _inventoryIndex++;
+
+            if (_inventoryIndex >= _weapons.Count)
+            {
+                _inventoryIndex = 0;
+            }
+        } 
+
+        public void DecreaseIndex()
+        {
+            _inventoryIndex--;
+            if (_inventoryIndex <= 0 && _weapons.Count > 0)
+            {
+                _inventoryIndex = _weapons.Count - 1;
+            }
+            else _inventoryIndex = 0;
+        }
+
+        public void IncreaseInventorySize()
+        {
+            _inventorySize += 1;
+            _inventorySize = Mathf.Clamp(_inventorySize, startInventorySize, maxInventorySize);
+        } 
 
         public void DecreaseInventorySize()
         {
-            inventorySize -= 1;
-            inventorySize = Mathf.Max(inventorySize, 1);
+            _inventorySize -= 1;
+            _inventorySize = Mathf.Clamp(_inventorySize, startInventorySize, maxInventorySize);
         } 
-
         
         public virtual void PickUpWeapon(Weapon newWeapon)
         {
-            if (inventorySize > weapons.Count + 1)
+            if (_weapons.Count + 1 > _inventorySize)
             {
-                ChangeWeapon(newWeapon);
+                ChangeWeapon(newWeapon); 
                 return;
             }
             
-            weapons.Add(newWeapon);
+            _weapons.Add(newWeapon);
             OnWeaponPickup?.Invoke(newWeapon);
             Debug.Log($"{transform.name} picked weapon");
         }
@@ -54,6 +80,7 @@ namespace MaiNull
         {
             CurrentWeapon = newWeapon;
             OnWeaponChange?.Invoke();
+            print($"{transform.name} changed weapon to {newWeapon}");
         }
 
         public void ShootWeapon(Transform orientation)
@@ -66,18 +93,25 @@ namespace MaiNull
             CurrentWeapon?.Shoot(shootOrientation, shootMask);
         }
         
-        public virtual void ReloadWeapon()
+        public virtual void ReloadCurrentWeapon()
         {
+            if (CurrentWeapon == null) return;
+            
             CurrentWeapon.CurrentAmmo = CurrentWeapon.WeaponData.maxAmmo;
             OnWeaponReload?.Invoke();
-            Debug.Log($"{transform.name} reloaded weapon");
+            print($"{transform.name} reloaded weapon");
         }
 
-        public virtual void DropWeapon()
+        public virtual void DropCurrentWeapon()
         {
-            weapons.RemoveAt(_inventoryIndex);
+            if (CurrentWeapon == null || !CurrentWeapon.WeaponData.canDrop ||  _inventoryIndex >= _weapons.Count) return;
+
+            Instantiate(CurrentWeapon.WeaponData.dropPrefab, transform.position, Quaternion.identity);
+            
+            _weapons.RemoveAt(_inventoryIndex);
+            DecreaseInventorySize();
             OnWeaponDrop?.Invoke();
-            Debug.Log($"{transform.name} dropped weapon");
+            print($"{transform.name} dropped weapon");
         }
     }
 }

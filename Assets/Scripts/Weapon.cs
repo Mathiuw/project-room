@@ -41,7 +41,7 @@ namespace MaiNull
 
             if (Physics.Raycast(raycastStartPosition.position, raycastStartPosition.forward, out _hit, 1000, layerMask))
             {
-                Debug.DrawLine(raycastStartPosition.position, _hit.point, Color.green, 1f);
+                Debug.DrawLine(raycastStartPosition.position, _hit.point, Color.blue, 1f);
 
                 IDamageable[] damageables = _hit.transform.GetComponents<IDamageable>();
 

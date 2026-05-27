@@ -4,8 +4,12 @@ using UnityEngine;
 namespace MaiNull
 {
     [RequireComponent(typeof(Animator))]
-    public class PlayerCameraAnimationManager : MonoBehaviour
+    public class PlayerWeaponAnimationManager : MonoBehaviour
     {
+        private static readonly int WalkSpeedHash = Animator.StringToHash("Walk Speed");
+        private static readonly int RbVelocityHash = Animator.StringToHash("RbVelocity");
+        private static readonly int FireRateHash = Animator.StringToHash("firerate");
+
         private WeaponHolder _playerWeaponHolder;
         private PlayerRbMovement _playerRbMovement;
         private Animator _animator;
@@ -56,14 +60,14 @@ namespace MaiNull
         {
             if (!_playerRb) return;
 
-            _animator.SetFloat("Walk Speed", WalkSpeed(_playerRbMovement));
-            _animator.SetFloat("RbVelocity", _playerRb.linearVelocity.magnitude);
+            _animator.SetFloat(WalkSpeedHash, WalkSpeed(_playerRbMovement));
+            _animator.SetFloat(RbVelocityHash, _playerRb.linearVelocity.magnitude);
         }
 
         private void OnWeaponPickup(Weapon weapon)
         {
             SetShootFireRateTime(weapon);
-            _animator.runtimeAnimatorController = weapon.WeaponData.animatorOverride;
+            // _animator.runtimeAnimatorController = weapon.WeaponData.animatorOverride;
         }
 
         private void OnWeaponShot(Weapon weapon, RaycastHit hit)
@@ -86,7 +90,7 @@ namespace MaiNull
 
         private void SetShootFireRateTime(Weapon weapon)
         {
-            _animator.SetFloat("firerate", weapon.WeaponData.fireRate);
+            _animator.SetFloat(FireRateHash, weapon.WeaponData.fireRate);
         }
 
         private IEnumerator LerpWeaponCoroutine(float time, Transform weapon, Vector3 desiredPosition, Quaternion desiredRotation)

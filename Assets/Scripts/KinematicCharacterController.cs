@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace MaiNull
 {
@@ -6,12 +7,22 @@ namespace MaiNull
 	public class KinematicCharacterController : MonoBehaviour
 	{
         public Transform orientationPivot;
+        [Header("Move Settings")]
         [SerializeField] private float moveSpeed = 50f;
         [SerializeField] private float jumpHeight = 100f;
         [SerializeField] private Vector3 gravity = new(0, -9.81f, 0);
         private CharacterController _characterController;
         private Vector3 _playerVelocity;
-        private bool _jumpThisFrame; 
+        private bool _jumpThisFrame;
+        
+        [Header("Sprint Settings")]
+        [SerializeField] private float sprintMultiplier = 1.8f;
+        [SerializeField] private float maxStamina = 100f;
+        [SerializeField] private float staminaCostPerFrame = 3f;
+        private float _currentStamina;
+        public bool isSprinting = false;
+        
+        public float CurrentMultiplier => isSprinting ? sprintMultiplier : 1f;
         
         public Vector2 InputMoveVector { get; set; } = Vector2.zero;
         
@@ -22,6 +33,8 @@ namespace MaiNull
 
         private void Update()
         {
+            _currentStamina = isSprinting ? Mathf.Clamp(_currentStamina - Time.deltaTime, 0, maxStamina) : Mathf.Clamp(_currentStamina + Time.deltaTime, 0, maxStamina);
+            
             RotateBody();
             Move();
         }
@@ -53,7 +66,7 @@ namespace MaiNull
             _playerVelocity += gravity * Time.deltaTime;
 
             // Move
-            Vector3 finalMove = move * moveSpeed + Vector3.up * _playerVelocity.y;
+            Vector3 finalMove = move * (moveSpeed * CurrentMultiplier) + Vector3.up * _playerVelocity.y;
             _characterController.Move(finalMove * Time.deltaTime);
         }
 
@@ -61,6 +74,16 @@ namespace MaiNull
         {
             if (!_characterController.isGrounded) return;
             _jumpThisFrame = true;
+        }
+
+        public void StartSprint()
+        {
+            isSprinting = true;
+        }
+
+        public void StopSprint()
+        {
+            isSprinting = false;
         }
         
         private void RotateBody()

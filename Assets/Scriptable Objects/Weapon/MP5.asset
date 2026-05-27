@@ -14,18 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: MP5
   damage: 10
-  knockback: 2
+  knockbackForce: 0
+  knockbackDuration: 0
   maxAmmo: 21
-  firerate: 2
-  waitToShoot: 1
+  fireRate: 2
+  shootCooldown: 1
   shootType: 1
   ammoType: 1
-  shootMask:
-    serializedVersion: 2
-    m_Bits: 12032
   crosshair: {fileID: 21300000, guid: 964797e12ed3ccb4cbb7dc19d0d9d6fd, type: 3}
   intensity: 0
   speed: 0
-  animatorOverride: {fileID: 22100000, guid: a7aba980ea781344aa3c5e73982c883d, type: 2}
-  reloadTime: 3
+  reloadDuration: 3
+  dropPrefab: {fileID: 7285649367284991128, guid: f2022527f100d2a44af1ec975021b88b, type: 3}
   ammoSprite: {fileID: 21300000, guid: edd13380d32c5354d8bf572478e89fa1, type: 3}

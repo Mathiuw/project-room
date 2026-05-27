@@ -38,22 +38,49 @@ namespace MaiNull
         
         private void OnEnable()
         {
-            if (!playerData.moveInputAction) return;
-            playerData.moveInputAction.action.performed += OnMovementPerformed;
-            playerData.moveInputAction.action.canceled += OnMovementCanceled;
-            playerData.moveInputAction.action.Enable();
+            if (playerData.moveInputAction)
+            {
+                playerData.moveInputAction.action.performed += OnMovementPerformed;
+                playerData.moveInputAction.action.canceled += OnMovementCanceled;
+                playerData.moveInputAction.action.Enable();
+            }
 
-            if(!playerData.jumpInputAction) return;
-            playerData.jumpInputAction.action.started += OnJumpStarted;
-            playerData.jumpInputAction.action.Enable();
+            if (playerData.jumpInputAction)
+            {
+                playerData.jumpInputAction.action.started += OnJumpStarted;
+                playerData.jumpInputAction.action.Enable();
+            }
+
+            if (playerData.sprintInputAction)
+            {
+                playerData.jumpInputAction.action.started += OnSprintStart;
+                playerData.jumpInputAction.action.canceled += OnSprintCancelled;
+                playerData.jumpInputAction.action.Enable();
+            }
             
-            if (!playerData.interactInputAction) return;
-            playerData.interactInputAction.action.started += OnInteractStarted;
-            playerData.interactInputAction.action.Enable();
+            if (playerData.interactInputAction)
+            {
+                playerData.interactInputAction.action.started += OnInteractStarted;
+                playerData.interactInputAction.action.Enable();
+            }
             
-            if (!playerData.attackInputAction) return;
-            playerData.attackInputAction.action.started += OnAttackStarted;
-            playerData.attackInputAction.action.Enable();
+            if (playerData.attackInputAction)
+            {
+                playerData.attackInputAction.action.started += OnAttackStarted;
+                playerData.attackInputAction.action.Enable();
+            }
+            
+            if (playerData.reloadInputAction)
+            {
+                playerData.reloadInputAction.action.started += OnReloadStart;
+                playerData.reloadInputAction.action.Enable();
+            }
+            
+            if (playerData.dropInputAction)
+            {
+                playerData.dropInputAction.action.started += OnDropStarted;
+                playerData.dropInputAction.action.Enable();
+            }
         }
 
         private void OnDisable()
@@ -67,6 +94,13 @@ namespace MaiNull
             playerData.jumpInputAction.action.Disable();
             playerData.jumpInputAction.action.started -= OnJumpStarted;
             
+            if (playerData.sprintInputAction)
+            {
+                playerData.jumpInputAction.action.Disable();
+                playerData.jumpInputAction.action.started -= OnSprintStart;
+                playerData.jumpInputAction.action.canceled -= OnSprintCancelled;
+            }
+            
             if (!playerData.interactInputAction) return;
             playerData.interactInputAction.action.Disable();
             playerData.interactInputAction.action.started -= OnInteractStarted;
@@ -74,6 +108,14 @@ namespace MaiNull
             if (!playerData.attackInputAction) return;
             playerData.attackInputAction.action.Disable();
             playerData.attackInputAction.action.started -= OnAttackStarted;
+            
+            if (!playerData.reloadInputAction) return;
+            playerData.reloadInputAction.action.Disable();
+            playerData.reloadInputAction.action.started -= OnReloadStart;
+            
+            if (!playerData.dropInputAction) return;
+            playerData.dropInputAction.action.Disable();
+            playerData.dropInputAction.action.started -= OnDropStarted;
         }
 
         private void OnInteractStarted(InputAction.CallbackContext obj)
@@ -99,6 +141,26 @@ namespace MaiNull
         private void OnAttackStarted(InputAction.CallbackContext obj)
         {
             _weaponHolder.ShootWeapon();
+        }
+        
+        private void OnSprintCancelled(InputAction.CallbackContext obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void OnSprintStart(InputAction.CallbackContext obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void OnDropStarted(InputAction.CallbackContext obj)
+        {
+            _weaponHolder.DropCurrentWeapon();
+        }
+
+        private void OnReloadStart(InputAction.CallbackContext obj)
+        {
+            _weaponHolder.ReloadCurrentWeapon();
         }
         
         private void OnDead()
