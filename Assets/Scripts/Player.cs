@@ -145,12 +145,12 @@ namespace MaiNull
         
         private void OnSprintCancelled(InputAction.CallbackContext obj)
         {
-            throw new NotImplementedException();
+            
         }
 
         private void OnSprintStart(InputAction.CallbackContext obj)
         {
-            throw new NotImplementedException();
+            
         }
 
         private void OnDropStarted(InputAction.CallbackContext obj)

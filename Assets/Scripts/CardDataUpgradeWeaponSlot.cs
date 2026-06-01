@@ -3,9 +3,9 @@
 namespace MaiNull
 {
     [CreateAssetMenu(fileName = "Upgrade_Weapon_Slot", menuName = "Card/Upgrade/Weapon Slot")]
-    public class CardUpgradeWeaponSlot : Card
+    public class CardDataUpgradeWeaponSlot : CardData
     {
-        public override void ApplyCardEffect(Transform objectToApply)
+        public override void ApplyEffect(Transform objectToApply)
         {
             if (objectToApply.TryGetComponent(out WeaponHolder weaponHolder))
             {

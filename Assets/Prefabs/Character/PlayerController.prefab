@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 7694520542219493588}
   - component: {fileID: 8116903156906862909}
   - component: {fileID: 1147645660619197324}
+  - component: {fileID: 3722401838010563501}
   m_Layer: 6
   m_Name: PlayerController
   m_TagString: Player
@@ -93,6 +94,10 @@ MonoBehaviour:
   moveSpeed: 10
   jumpHeight: 2
   gravity: {x: 0, y: -20, z: 0}
+  sprintMultiplier: 1.8
+  maxStamina: 100
+  staminaCostPerFrame: 3
+  isSprinting: 0
 --- !u!114 &7694520542219493588
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -138,11 +143,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MaiNull.WeaponHolder
   shootOrientation: {fileID: 0}
-  inventorySize: 1
-  weapons: []
+  startInventorySize: 2
+  maxInventorySize: 5
   shootMask:
     serializedVersion: 2
     m_Bits: 201
+--- !u!114 &3722401838010563501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4348192545665441576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad54e870ae6f4f478bc5c49bbd045538, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MaiNull.EffectHolder
 --- !u!1 &4731053806319821222
 GameObject:
   m_ObjectHideFlags: 0
