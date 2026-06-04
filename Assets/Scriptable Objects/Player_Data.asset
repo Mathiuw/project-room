@@ -14,9 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MaiNull.PlayerData
   maxHealth: 100
   moveInputAction: {fileID: 4460534866953578828, guid: 5261bc7792e99e640a82546c0fc724ed, type: 3}
+  lookInputAction: {fileID: -2846333820906025580, guid: 5261bc7792e99e640a82546c0fc724ed, type: 3}
   jumpInputAction: {fileID: 6340764210115487436, guid: 5261bc7792e99e640a82546c0fc724ed, type: 3}
   sprintInputAction: {fileID: -5655079475063417323, guid: 5261bc7792e99e640a82546c0fc724ed, type: 3}
   interactInputAction: {fileID: -1743499727768760397, guid: 5261bc7792e99e640a82546c0fc724ed, type: 3}
-  attackInputAction: {fileID: -2439129515061329589, guid: 5261bc7792e99e640a82546c0fc724ed, type: 3}
-  reloadInputAction: {fileID: 1345339998823099884, guid: 5261bc7792e99e640a82546c0fc724ed, type: 3}
-  dropInputAction: {fileID: 5101678467072235488, guid: 5261bc7792e99e640a82546c0fc724ed, type: 3}
+  attackInputAction: {fileID: -398497020482657722, guid: 5261bc7792e99e640a82546c0fc724ed, type: 3}
+  reloadInputAction: {fileID: 9103853658888022634, guid: 5261bc7792e99e640a82546c0fc724ed, type: 3}
+  dropInputAction: {fileID: -1599961943637544487, guid: 5261bc7792e99e640a82546c0fc724ed, type: 3}
+  switchWeaponAction: {fileID: 3722157336878926169, guid: 5261bc7792e99e640a82546c0fc724ed, type: 3}
+  switchCardAction: {fileID: 8378803976583978403, guid: 5261bc7792e99e640a82546c0fc724ed, type: 3}

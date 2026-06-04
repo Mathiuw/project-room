@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace MaiNull
@@ -10,6 +11,7 @@ namespace MaiNull
         public int maxHealth;
         [Header("Input")]
         public InputActionReference moveInputAction;
+        public InputActionReference lookInputAction;
         public InputActionReference jumpInputAction;
         public InputActionReference sprintInputAction;
         public InputActionReference interactInputAction;
@@ -17,5 +19,6 @@ namespace MaiNull
         public InputActionReference reloadInputAction;
         public InputActionReference dropInputAction;
         public InputActionReference switchWeaponAction;
+        public InputActionReference switchCardAction;
     }
 }

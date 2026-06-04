@@ -25,12 +25,39 @@
                     "initialStateCheck": true
                 },
                 {
+                    "name": "Switch Weapon",
+                    "type": "Value",
+                    "id": "43fd84e8-4c8e-432f-b675-9eae5e15341f",
+                    "expectedControlType": "Delta",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Switch Card",
+                    "type": "Button",
+                    "id": "42639260-dbe8-4c7a-b92b-d42799e4c14d",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Attack",
+                    "type": "Button",
+                    "id": "939db8b9-3e19-4828-989b-02f6844c01ae",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Interact",
                     "type": "Button",
                     "id": "5aa4b2fb-3739-476b-b602-b4237e73375e",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "Hold",
+                    "interactions": "",
                     "initialStateCheck": false
                 },
                 {
@@ -52,9 +79,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "UseItem",
+                    "name": "Drop",
                     "type": "Button",
-                    "id": "29afab99-899c-407c-bc30-ce6510e137cd",
+                    "id": "39736980-90e2-42a9-b06b-a1a758f6d762",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Reload",
+                    "type": "Button",
+                    "id": "efdb3ae3-8b48-4124-9bda-c67ed7b6787c",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -208,7 +244,7 @@
                 {
                     "name": "",
                     "id": "55d3a346-2bf5-4e34-aa14-7607a43fa528",
-                    "path": "<Keyboard>/e",
+                    "path": "<Keyboard>/f",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
@@ -233,7 +269,7 @@
                     "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Keyboard&Mouse",
                     "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -244,80 +280,25 @@
                     "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Gamepad",
                     "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "93f97a3c-42b8-40a7-9237-f2b0f13d3ee5",
-                    "path": "<Keyboard>/f",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "UseItem",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "Weapon",
-            "id": "6cd51d9a-f0c6-4328-a4a9-a90d594b8c3c",
-            "actions": [
-                {
-                    "name": "Shoot",
-                    "type": "Button",
-                    "id": "c7320751-6bbc-46ea-8999-e9e5e6901b80",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Reload",
-                    "type": "Button",
-                    "id": "24b18ff0-fbbe-459d-9114-ee4195e36759",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Drop",
-                    "type": "Button",
-                    "id": "752f5bb3-4e9a-473a-a672-8cd67ea776c0",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Switch",
-                    "type": "Button",
-                    "id": "f2a8529a-0fd8-4d8f-a521-f21186666f6c",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                }
-            ],
-            "bindings": [
-                {
-                    "name": "",
-                    "id": "74b82a03-1406-42f2-ad9c-bce527f57c3d",
-                    "path": "<Mouse>/leftButton",
+                    "id": "e20f2cdb-3370-4cbf-9c57-35078cb33692",
+                    "path": "<Keyboard>/g",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "Shoot",
+                    "action": "Drop",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "1a024fe3-b770-454a-b52e-25af0f6e17f5",
+                    "id": "259096be-3860-43dc-8c1c-b92ca70d4633",
                     "path": "<Keyboard>/r",
                     "interactions": "",
                     "processors": "",
@@ -328,45 +309,56 @@
                 },
                 {
                     "name": "",
-                    "id": "5fda43cf-d081-4ff6-9047-8cff61c8b9dd",
-                    "path": "<Keyboard>/g",
+                    "id": "1f786ffe-0c04-4dd0-bc77-a8e723ed2f89",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "Drop",
+                    "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fb33c904-ed7c-42f4-abe7-adca49b5628a",
+                    "path": "<Mouse>/scroll",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Switch Weapon",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "1D Axis",
-                    "id": "d6849ec3-db29-44e6-bf20-c1f3106e9258",
+                    "id": "aba768d0-cef4-49a4-bf43-036016bd2ba2",
                     "path": "1DAxis",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Switch",
+                    "action": "Switch Card",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "negative",
-                    "id": "33e889e2-1ce1-456d-8073-6c811528e5d6",
-                    "path": "<Mouse>/scroll/up",
+                    "id": "58a40e34-7f58-4d16-9727-ef3d77735240",
+                    "path": "<Keyboard>/q",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "Switch",
+                    "groups": "",
+                    "action": "Switch Card",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
                     "name": "positive",
-                    "id": "724252e0-ca2f-490f-90f3-0372785ff31a",
-                    "path": "<Mouse>/scroll/down",
+                    "id": "c336ca55-69e5-4b5d-8d3d-8297a9fa03ad",
+                    "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "Switch",
+                    "groups": "",
+                    "action": "Switch Card",
                     "isComposite": false,
                     "isPartOfComposite": true
                 }
@@ -883,6 +875,34 @@
                     "processors": "",
                     "groups": "XR",
                     "action": "TrackedDeviceOrientation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Debug",
+            "id": "1c481f5c-d462-479a-a7e2-6096019cba35",
+            "actions": [
+                {
+                    "name": "Toggle Console",
+                    "type": "Button",
+                    "id": "42741654-5151-4124-94f3-a69fabf01d2a",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "db728263-ff44-45bb-a0c9-b7184faca3c6",
+                    "path": "<Keyboard>/backquote",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Toggle Console",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

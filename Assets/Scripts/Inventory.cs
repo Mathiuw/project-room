@@ -16,8 +16,6 @@ namespace MaiNull
 
     public class Inventory : MonoBehaviour
     {
-        [SerializeField] private InputActionReference useItemAction;
-    
         [field: SerializeField] public List<Consumable> Consumables { get; private set; } = new List<Consumable>();
         [field: SerializeField] public List<PickableKeycard> Keycards { get; private set; } = new List<PickableKeycard>();
         public int ConsumableIndex { get; set; } = 0;
@@ -34,11 +32,6 @@ namespace MaiNull
         public event Action<PickableKeycard> OnKeycardAdd;
 
         public event Action OnAmmoCountUpdate;
-
-        private void OnEnable()
-        {
-            useItemAction.action.started += UseSelectedConsumable;
-        }
 
         private void Update()
         {

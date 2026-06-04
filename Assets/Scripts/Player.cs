@@ -6,17 +6,23 @@ namespace MaiNull
 {
 	public class Player : MonoBehaviour, IDamageable
 	{
+        public static Action OnPlayerDie; 
+        
         [SerializeField] private PlayerData playerData;
         
-        public Health Health { get; private set; } = new();
+        public Health Health { get; private set; }
+
+        public FPSCamera FPSCamera { get => _fpsCamera; set => _fpsCamera = value; }
+        
         private KinematicCharacterController _kinematicCharacterController;
         private Interactor _interactor;
         private WeaponHolder _weaponHolder;
-        
-        public static Action OnPlayerDie; 
+        private FPSCamera _fpsCamera;
         
         private void Awake()
         {
+            Health = new Health(playerData.maxHealth);
+            
             _kinematicCharacterController = GetComponent<KinematicCharacterController>();
             _interactor = GetComponent<Interactor>();
             _weaponHolder = GetComponent<WeaponHolder>();
@@ -35,125 +41,154 @@ namespace MaiNull
             _interactor.orientationTransform = orientation;
             _weaponHolder.shootOrientation = orientation;
         }
-        
+
         private void OnEnable()
         {
             if (playerData.moveInputAction)
             {
-                playerData.moveInputAction.action.performed += OnMovementPerformed;
-                playerData.moveInputAction.action.canceled += OnMovementCanceled;
-                playerData.moveInputAction.action.Enable();
+                playerData.moveInputAction.action.performed += OnMovementPerform;
+                playerData.moveInputAction.action.canceled += OnMovementCancel;
             }
 
+            if (playerData.lookInputAction)
+            {
+                playerData.lookInputAction.action.started += OnLookStart;
+                playerData.lookInputAction.action.canceled += OnLookCancel;
+            }
+            
             if (playerData.jumpInputAction)
             {
-                playerData.jumpInputAction.action.started += OnJumpStarted;
+                playerData.jumpInputAction.action.started += OnJumpStart;
                 playerData.jumpInputAction.action.Enable();
             }
 
             if (playerData.sprintInputAction)
             {
-                playerData.jumpInputAction.action.started += OnSprintStart;
-                playerData.jumpInputAction.action.canceled += OnSprintCancelled;
-                playerData.jumpInputAction.action.Enable();
+                playerData.sprintInputAction.action.started += OnSprintStart;
+                playerData.sprintInputAction.action.canceled += OnSprintCancel;
             }
             
             if (playerData.interactInputAction)
             {
-                playerData.interactInputAction.action.started += OnInteractStarted;
-                playerData.interactInputAction.action.Enable();
+                playerData.interactInputAction.action.started += OnInteractStart;
             }
             
             if (playerData.attackInputAction)
             {
-                playerData.attackInputAction.action.started += OnAttackStarted;
-                playerData.attackInputAction.action.Enable();
+                playerData.attackInputAction.action.started += OnAttackStart;
             }
             
             if (playerData.reloadInputAction)
             {
                 playerData.reloadInputAction.action.started += OnReloadStart;
-                playerData.reloadInputAction.action.Enable();
             }
             
             if (playerData.dropInputAction)
             {
-                playerData.dropInputAction.action.started += OnDropStarted;
-                playerData.dropInputAction.action.Enable();
+                playerData.dropInputAction.action.started += OnDropStart;
             }
+
+            if (playerData.switchWeaponAction) 
+            {
+                playerData.switchWeaponAction.action.started += OnWeaponSwitchStart;
+            }
+
+            if (playerData.switchCardAction) 
+            {
+                playerData.switchCardAction.action.started += OnCardSwitchStart;
+            }
+            
+            InputSystem.actions.FindActionMap("Player").Enable();
         }
+
 
         private void OnDisable()
         {
-            if (!playerData.moveInputAction) return;
-            playerData.moveInputAction.action.Disable();
-            playerData.moveInputAction.action.performed -= OnMovementPerformed;
-            playerData.moveInputAction.action.canceled -= OnMovementCanceled;
+            if (playerData.moveInputAction) {
+                playerData.moveInputAction.action.performed -= OnMovementPerform;
+                playerData.moveInputAction.action.canceled -= OnMovementCancel;
+            }
 
             if (!playerData.jumpInputAction) return;
-            playerData.jumpInputAction.action.Disable();
-            playerData.jumpInputAction.action.started -= OnJumpStarted;
+            playerData.jumpInputAction.action.started -= OnJumpStart;
             
             if (playerData.sprintInputAction)
             {
-                playerData.jumpInputAction.action.Disable();
-                playerData.jumpInputAction.action.started -= OnSprintStart;
-                playerData.jumpInputAction.action.canceled -= OnSprintCancelled;
+                playerData.sprintInputAction.action.started -= OnSprintStart;
+                playerData.sprintInputAction.action.canceled -= OnSprintCancel;
             }
             
             if (!playerData.interactInputAction) return;
-            playerData.interactInputAction.action.Disable();
-            playerData.interactInputAction.action.started -= OnInteractStarted;
+            playerData.interactInputAction.action.started -= OnInteractStart;
             
             if (!playerData.attackInputAction) return;
-            playerData.attackInputAction.action.Disable();
-            playerData.attackInputAction.action.started -= OnAttackStarted;
+            playerData.attackInputAction.action.started -= OnAttackStart;
             
             if (!playerData.reloadInputAction) return;
-            playerData.reloadInputAction.action.Disable();
             playerData.reloadInputAction.action.started -= OnReloadStart;
             
             if (!playerData.dropInputAction) return;
-            playerData.dropInputAction.action.Disable();
-            playerData.dropInputAction.action.started -= OnDropStarted;
+            playerData.dropInputAction.action.started -= OnDropStart;
+            
+            InputSystem.actions.FindActionMap("Player").Disable();
         }
 
-        private void OnInteractStarted(InputAction.CallbackContext obj)
+        #region Input
+
+        private void OnInteractStart(InputAction.CallbackContext obj)
         {
             _interactor.TryInteract();
         }
 
-        private void OnMovementPerformed(InputAction.CallbackContext context)
+        private void OnMovementPerform(InputAction.CallbackContext context)
         {
-            _kinematicCharacterController.InputMoveVector = context.ReadValue<Vector2>();
+            Vector2 value =  context.ReadValue<Vector2>();
+            _kinematicCharacterController.InputMoveVector = value;
+            if (FPSCamera) {
+                FPSCamera.AngleValue = value.x;
+            }
         }
 
-        private void OnMovementCanceled(InputAction.CallbackContext value)
+        private void OnMovementCancel(InputAction.CallbackContext value)
         {
             _kinematicCharacterController.InputMoveVector = Vector2.zero;
         }
+
+        private void OnLookStart (InputAction.CallbackContext obj)
+        {
+            if (FPSCamera) {
+                FPSCamera.MoveVector = obj.ReadValue<Vector2>();
+            }
+        }
         
-        private void OnJumpStarted(InputAction.CallbackContext obj)
+        private void OnLookCancel (InputAction.CallbackContext obj)
+        {
+            if (FPSCamera) {
+                FPSCamera.MoveVector = Vector2.zero;
+            }
+        }
+        
+        private void OnJumpStart(InputAction.CallbackContext obj)
         {
             _kinematicCharacterController.StartJump();
         }
         
-        private void OnAttackStarted(InputAction.CallbackContext obj)
+        private void OnAttackStart(InputAction.CallbackContext obj)
         {
             _weaponHolder.ShootWeapon();
         }
         
-        private void OnSprintCancelled(InputAction.CallbackContext obj)
-        {
-            
-        }
-
         private void OnSprintStart(InputAction.CallbackContext obj)
         {
-            
+            _kinematicCharacterController.StartSprint();
+        }
+        
+        private void OnSprintCancel(InputAction.CallbackContext obj)
+        {
+            _kinematicCharacterController.StopSprint();
         }
 
-        private void OnDropStarted(InputAction.CallbackContext obj)
+        private void OnDropStart(InputAction.CallbackContext obj)
         {
             _weaponHolder.DropCurrentWeapon();
         }
@@ -162,12 +197,33 @@ namespace MaiNull
         {
             _weaponHolder.ReloadCurrentWeapon();
         }
+
+        private void OnWeaponSwitchStart (InputAction.CallbackContext obj)
+        {
+            Vector2 scrollValue = obj.ReadValue<Vector2>();
+            
+            if (scrollValue == Vector2.zero) return;
+
+            if (scrollValue.y > 0) {
+                _weaponHolder.IncreaseIndex();
+            } 
+            else {
+                _weaponHolder.DecreaseIndex();
+            }
+        }
+        
+        private void OnCardSwitchStart (InputAction.CallbackContext obj)
+        {
+            print($"Switch Card Value: {obj.ReadValue<float>()}");
+        }
+        
+        #endregion
         
         private void OnDead()
         {
             OnDisable();
             OnPlayerDie?.Invoke();
-            Debug.Log("Player is dead!!");
+            Debug.Log("Player Died!!");
         }
         
         public void Damage(float damageValue, Knockback knockback, Transform damageInstigator)

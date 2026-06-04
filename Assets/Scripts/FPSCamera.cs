@@ -5,7 +5,7 @@ using UnityEngine.Serialization;
 
 namespace MaiNull
 {
-    public class CameraMovement : MonoBehaviour
+    public class FPSCamera : MonoBehaviour
     {
         [SerializeField] private Transform orientation;
         [SerializeField] private  KinematicCharacterController kinematicCharacterController;
@@ -13,10 +13,11 @@ namespace MaiNull
         [Header("Camera Movement")]
         [FormerlySerializedAs("Sensibility")][SerializeField] private float sensibility = 2.5f;
         [SerializeField] private float multiplier = 1;
-        private float _mouseX, _mouseY;
         private float _xRotation, _yRotation;
         
         public float Sensibility { get => sensibility; set => sensibility = value; }
+        public Vector2 MoveVector { get; set; }
+        public float AngleValue { get; set; }
         
         [Header("Camera Roll")]
         [SerializeField] private bool canRoll = true;
@@ -35,15 +36,15 @@ namespace MaiNull
             
             orientation = GameObject.FindGameObjectWithTag("Orientation")?.transform;
             
-            if (orientation)
-            { 
-                if (kinematicCharacterController) return;
+            if (orientation) {
+                Player player = orientation.GetComponentInParent<Player>();
+                if (player) player.FPSCamera = this;
                 
+                if (kinematicCharacterController) return;
                 kinematicCharacterController =  orientation.GetComponentInParent<KinematicCharacterController>();
             }
 
-            if (!orientation || !kinematicCharacterController)
-            {
+            if (!orientation || !kinematicCharacterController) {
                 Debug.LogError("Error finding components");
             }
         }
@@ -64,13 +65,10 @@ namespace MaiNull
 
         private void CameraMove()
         {
-            _mouseX = Mouse.current.delta.ReadValue().x * Sensibility * multiplier;
-            _mouseY = Mouse.current.delta.ReadValue().y * Sensibility * multiplier;
-
-            //Vector3 rot = transform.rotation.eulerAngles;
-            _xRotation -= _mouseY;
+            _xRotation -= MoveVector.y * Sensibility * multiplier;
             _xRotation = Mathf.Clamp(_xRotation, -89, 89);
-            _yRotation += _mouseX;
+            
+            _yRotation += MoveVector.x * Sensibility * multiplier;
 
             // Camera rotation with roll
             transform.rotation = canRoll ? Quaternion.Euler(_xRotation, _yRotation, CameraRollVector()) :
@@ -80,12 +78,11 @@ namespace MaiNull
 
         private float CameraRollVector()
         {
-            Vector2 moveVector = kinematicCharacterController?.InputMoveVector ?? Vector2.zero;
-            
-            _angle -= moveVector.x * smooth * Time.deltaTime;
+            // _angle -= moveVector.x * smooth * Time.deltaTime;
+            _angle -= AngleValue * smooth * Time.deltaTime;
             _angle = Mathf.Clamp(_angle, -angleLimit, angleLimit);
 
-            if (moveVector.x != 0) return _angle;
+            if (AngleValue != 0) return _angle;
 
             switch (_angle)
             {

@@ -76,11 +76,11 @@ namespace MaiNull.UI
             PlayerPrefs.SetFloat(PlayerPrefSensibility, value);
             PlayerPrefs.Save();
 
-            CameraMovement cameraMovement = FindAnyObjectByType<CameraMovement>();
+            FPSCamera fpsCamera = FindAnyObjectByType<FPSCamera>();
 
-            if (cameraMovement)
+            if (fpsCamera)
             {
-                cameraMovement.Sensibility = value;
+                fpsCamera.Sensibility = value;
             }
         }
 

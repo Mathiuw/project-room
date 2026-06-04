@@ -11,14 +11,14 @@ namespace MaiNull
         [SerializeField] private int startInventorySize = 2;
         [SerializeField] private int maxInventorySize = 5;
         [SerializeField] private LayerMask shootMask;
-        private readonly List<Weapon> _weapons = new();
+        private readonly List<Weapon> _weapons = new List<Weapon>();
         private int _inventorySize = 1;
         private int _inventoryIndex;
         
         public event Action<Weapon> OnWeaponPickup;
         public event Action OnWeaponReload;
         public event Action OnWeaponDrop;
-        public event Action OnWeaponChange;
+        public event Action<Weapon> OnWeaponChange;
 
         public Weapon CurrentWeapon
         {
@@ -39,6 +39,8 @@ namespace MaiNull
             {
                 _inventoryIndex = 0;
             }
+            
+            OnWeaponChange?.Invoke(CurrentWeapon);
         } 
 
         public void DecreaseIndex()
@@ -49,6 +51,8 @@ namespace MaiNull
                 _inventoryIndex = _weapons.Count - 1;
             }
             else _inventoryIndex = 0;
+            
+            OnWeaponChange?.Invoke(CurrentWeapon);
         }
 
         public void IncreaseInventorySize()
@@ -73,13 +77,13 @@ namespace MaiNull
             
             _weapons.Add(newWeapon);
             OnWeaponPickup?.Invoke(newWeapon);
-            Debug.Log($"{transform.name} picked weapon");
+            print($"{transform.name} picked weapon");
         }
 
         public void ChangeWeapon(Weapon newWeapon)
         {
             CurrentWeapon = newWeapon;
-            OnWeaponChange?.Invoke();
+            OnWeaponChange?.Invoke(CurrentWeapon);
             print($"{transform.name} changed weapon to {newWeapon}");
         }
 
