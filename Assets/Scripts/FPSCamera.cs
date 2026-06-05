@@ -8,7 +8,6 @@ namespace MaiNull
     public class FPSCamera : MonoBehaviour
     {
         [SerializeField] private Transform orientation;
-        [SerializeField] private  KinematicCharacterController kinematicCharacterController;
         
         [Header("Camera Movement")]
         [FormerlySerializedAs("Sensibility")][SerializeField] private float sensibility = 2.5f;
@@ -18,7 +17,8 @@ namespace MaiNull
         public float Sensibility { get => sensibility; set => sensibility = value; }
         public Vector2 MoveVector { get; set; }
         public float AngleValue { get; set; }
-        
+        public Transform Orientation { get => orientation; set => orientation = value; }
+
         [Header("Camera Roll")]
         [SerializeField] private bool canRoll = true;
         [Range(1, 5)]
@@ -32,19 +32,16 @@ namespace MaiNull
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
 
-            if (orientation) return;
+            if (Orientation) return;
             
-            orientation = GameObject.FindGameObjectWithTag("Orientation")?.transform;
+            Orientation = GameObject.FindGameObjectWithTag("Orientation")?.transform;
             
-            if (orientation) {
-                Player player = orientation.GetComponentInParent<Player>();
+            if (Orientation) {
+                Player player = Orientation.GetComponentInParent<Player>();
                 if (player) player.FPSCamera = this;
-                
-                if (kinematicCharacterController) return;
-                kinematicCharacterController =  orientation.GetComponentInParent<KinematicCharacterController>();
             }
 
-            if (!orientation || !kinematicCharacterController) {
+            if (!Orientation) {
                 Debug.LogError("Error finding components");
             }
         }
@@ -54,13 +51,13 @@ namespace MaiNull
             // Move camera
             CameraMove();
             
-            orientation.rotation = transform.rotation;
+            Orientation.rotation = transform.rotation;
         }
 
         private void LateUpdate()
         {
             // Follows the player camera position
-            transform.position = orientation.position;
+            transform.position = Orientation.position;
         }
 
         private void CameraMove()

@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace MaiNull
 {
@@ -10,7 +9,7 @@ namespace MaiNull
         [Header("Move Settings")]
         [SerializeField] private float moveSpeed = 50f;
         [SerializeField] private float jumpHeight = 100f;
-        [SerializeField] private Vector3 gravity = new(0, -9.81f, 0);
+        [SerializeField] private Vector3 gravity = new Vector3(0, -9.81f, 0);
         private CharacterController _characterController;
         private Vector3 _playerVelocity;
         private bool _jumpThisFrame;
@@ -78,6 +77,8 @@ namespace MaiNull
 
         public void StartSprint()
         {
+            if (!_characterController.isGrounded) return;
+            
             isSprinting = true;
         }
 
