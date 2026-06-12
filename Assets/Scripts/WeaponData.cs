@@ -3,22 +3,22 @@ using UnityEngine.Serialization;
 
 namespace MaiNull
 {
-    public enum EShootType { Single, Automatic, Burst }
-
     [CreateAssetMenu(fileName = "WeaponData", menuName = "Weapon Data")]
     public class WeaponData : ItemBaseData
     {
         [Header("Weapon Stats")]
         public int damage;
+        public int maxAmmo;
+        [Tooltip("Higher is faster!")] public float fireRate;
         public float knockbackForce;
         public float knockbackDuration;
-        public int maxAmmo;
-        [FormerlySerializedAs("firerate")] public float fireRate;
-        [FormerlySerializedAs("waitToShoot")] public bool shootCooldown;
-        public EShootType shootType = EShootType.Single;
+        public EShootType shootType;
         public EAmmoType ammoType;
         public bool canDrop = true;
         
+        [Header("Input")]
+        public EWeaponInputType inputType;
+            
         [Header("Crosshair")]
         public Sprite crosshair;
 

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6671294632013256278}
   - component: {fileID: 7718766470292853810}
   - component: {fileID: 8270326703514718942}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: Damage Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -171,6 +171,7 @@ GameObject:
   - component: {fileID: 6193650137434883350}
   - component: {fileID: 9044781060507915744}
   - component: {fileID: 2389215748561244133}
+  - component: {fileID: 6039135252130704609}
   - component: {fileID: 6395241438735668006}
   m_Layer: 6
   m_Name: Chaser
@@ -241,6 +242,19 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6039135252130704609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4305232947633487935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a32341abda14154934dcea3a4554539, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MaiNull.Chaser
+  maxHealth: 60
 --- !u!114 &6395241438735668006
 MonoBehaviour:
   m_ObjectHideFlags: 0

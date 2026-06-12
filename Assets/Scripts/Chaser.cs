@@ -1,5 +1,5 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
+
 namespace MaiNull
 {
 	public class Chaser : MonoBehaviour, IDamageable
@@ -11,6 +11,12 @@ namespace MaiNull
 		private void Awake()
 		{
 			Health = new Health(maxHealth);
+			Health.OnDie += OnDie;
+		}
+		
+		private void OnDie()
+		{
+			Destroy(gameObject);
 		}
 	}
 }

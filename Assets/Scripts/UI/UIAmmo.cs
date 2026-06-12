@@ -9,7 +9,7 @@ namespace MaiNull.UI
         [SerializeField] private TextMeshProUGUI ammoUI;
         [SerializeField] private Image ammoSprite;
         private WeaponHolder _playerWeaponHolder;
-        private Inventory _playerInventory;
+        // private Inventory _playerInventory;
 
         private void Start()
         {
@@ -29,12 +29,12 @@ namespace MaiNull.UI
                 else DisableUISprite();
             }
 
-            _playerInventory = _playerWeaponHolder.GetComponent<Inventory>();
-
-            if (_playerInventory)
-            {
-                _playerInventory.OnAmmoCountUpdate += SetUIAmmoText;
-            }
+            // _playerInventory = _playerWeaponHolder.GetComponent<Inventory>();
+            //
+            // if (_playerInventory)
+            // {
+            //     _playerInventory.OnAmmoCountUpdate += SetUIAmmoText;
+            // }
         }
 
         private void OnDisable()
@@ -46,8 +46,6 @@ namespace MaiNull.UI
                 _playerWeaponHolder.CurrentWeapon.OnWeaponShot -= OnWeaponShot;
             }
             _playerWeaponHolder.OnWeaponReload -= SetUIAmmoText;
-
-            _playerInventory.OnAmmoCountUpdate -= SetUIAmmoText;
         }
 
         private void OnWeaponShot(Weapon weapon, RaycastHit hit)
@@ -77,9 +75,9 @@ namespace MaiNull.UI
             }
 
             int ammo = _playerWeaponHolder.CurrentWeapon.CurrentAmmo;
-            int ammoStored = _playerInventory.GetAmmoAmountByType(_playerWeaponHolder.CurrentWeapon.WeaponData.ammoType);
+            // int ammoStored = _playerInventory.GetAmmoAmountByType(_playerWeaponHolder.CurrentWeapon.WeaponData.ammoType);
 
-            ammoUI.SetText(ammo + "/" + ammoStored);
+            // ammoUI.SetText(ammo + "/" + ammoStored);
         }
     }
 }

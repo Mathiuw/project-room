@@ -89,12 +89,12 @@ namespace MaiNull
 
         public void ShootWeapon(Transform orientation)
         {
-            CurrentWeapon?.Shoot(orientation, shootMask);
+            CurrentWeapon?.Shoot(orientation, shootMask, transform);
         }
         
         public void ShootWeapon()
         {
-            CurrentWeapon?.Shoot(shootOrientation, shootMask);
+            CurrentWeapon?.Shoot(shootOrientation, shootMask, transform);
         }
         
         public virtual void ReloadCurrentWeapon()

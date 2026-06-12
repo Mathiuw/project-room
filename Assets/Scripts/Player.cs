@@ -9,15 +9,13 @@ namespace MaiNull
         public static Action OnPlayerDie; 
         
         [SerializeField] private PlayerData playerData;
-        
-        public Health Health { get; private set; }
-
-        public FPSCamera FPSCamera { get => _fpsCamera; set => _fpsCamera = value; }
-        
         private KinematicCharacterController _kinematicCharacterController;
         private Interactor _interactor;
         private WeaponHolder _weaponHolder;
         private FPSCamera _fpsCamera;
+        
+        public Health Health { get; private set; }
+        public FPSCamera FPSCamera { get => _fpsCamera; set => _fpsCamera = value; }
         
         private void Awake()
         {
@@ -26,12 +24,12 @@ namespace MaiNull
             _kinematicCharacterController = GetComponent<KinematicCharacterController>();
             _interactor = GetComponent<Interactor>();
             _weaponHolder = GetComponent<WeaponHolder>();
-            
+ 
             if (playerData == null) return;
             Health = new Health(playerData.maxHealth);
             Health.OnDie += OnDead;
         }
-        
+
         private void Start()
         {
             Transform orientation = GameObject.FindGameObjectWithTag("Orientation").transform;
@@ -73,11 +71,6 @@ namespace MaiNull
                 playerData.interactInputAction.action.started += OnInteractStart;
             }
             
-            if (playerData.attackInputAction)
-            {
-                playerData.attackInputAction.action.started += OnAttackStart;
-            }
-            
             if (playerData.reloadInputAction)
             {
                 playerData.reloadInputAction.action.started += OnReloadStart;
@@ -101,40 +94,44 @@ namespace MaiNull
             InputSystem.actions.FindActionMap("Player").Enable();
         }
 
-
         private void OnDisable()
         {
-            if (playerData.moveInputAction) {
+            if (playerData.moveInputAction) 
+            {
                 playerData.moveInputAction.action.performed -= OnMovementPerform;
                 playerData.moveInputAction.action.canceled -= OnMovementCancel;
             }
 
-            if (!playerData.jumpInputAction) return;
-            playerData.jumpInputAction.action.started -= OnJumpStart;
+            if (!playerData.jumpInputAction) 
+            {
+                playerData.jumpInputAction.action.started -= OnJumpStart;
+            }
             
             if (playerData.sprintInputAction)
             {
                 playerData.sprintInputAction.action.started -= OnSprintStart;
                 playerData.sprintInputAction.action.canceled -= OnSprintCancel;
             }
-            
-            if (!playerData.interactInputAction) return;
-            playerData.interactInputAction.action.started -= OnInteractStart;
-            
-            if (!playerData.attackInputAction) return;
-            playerData.attackInputAction.action.started -= OnAttackStart;
-            
-            if (!playerData.reloadInputAction) return;
-            playerData.reloadInputAction.action.started -= OnReloadStart;
-            
-            if (!playerData.dropInputAction) return;
-            playerData.dropInputAction.action.started -= OnDropStart;
+
+            if (!playerData.interactInputAction) 
+            {
+                playerData.interactInputAction.action.started -= OnInteractStart;
+            }
+
+            if (!playerData.reloadInputAction) 
+            {
+                playerData.reloadInputAction.action.started -= OnReloadStart;
+            }
+
+            if (!playerData.dropInputAction) 
+            {
+                playerData.dropInputAction.action.started -= OnDropStart;
+            }
             
             InputSystem.actions.FindActionMap("Player").Disable();
         }
 
         #region Input
-
         private void OnInteractStart(InputAction.CallbackContext obj)
         {
             _interactor.TryInteract();
@@ -173,7 +170,7 @@ namespace MaiNull
             _kinematicCharacterController.StartJump();
         }
         
-        private void OnAttackStart(InputAction.CallbackContext obj)
+        private void OnAttack()
         {
             _weaponHolder.ShootWeapon();
         }
@@ -216,21 +213,34 @@ namespace MaiNull
         {
             print($"Switch Card Value: {obj.ReadValue<float>()}");
         }
-        
         #endregion
+
+        private void Update()
+        {
+            if (_weaponHolder.CurrentWeapon == null) return;
+            
+            switch (_weaponHolder.CurrentWeapon.WeaponData.inputType) {
+
+                case EWeaponInputType.Tap:
+                    if (playerData.attackInputAction.action.WasPressedThisFrame()) {
+                        OnAttack();
+                    }
+                    break;
+                case EWeaponInputType.Hold:
+                    if (playerData.attackInputAction.action.IsPressed()) {
+                        OnAttack();
+                    }
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
         
         private void OnDead()
         {
             OnDisable();
             OnPlayerDie?.Invoke();
             Debug.Log("Player Died!!");
-        }
-        
-        public void Damage(float damageValue, Knockback knockback, Transform damageInstigator)
-        {
-            Health.RemoveHealth((int)damageValue);
-
-            //Debug.Log("DAMAGE!");
         }
     }
 }

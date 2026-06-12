@@ -10,13 +10,13 @@ namespace MaiNull
 
         public override void Interact(Transform interactor)
         {
-            Inventory inventory;
-
-            if ((inventory = interactor.GetComponent<Inventory>()) && inventory.AddItem(GetComponent<PickableItem>()))
-            {
-                Debug.Log("Picked " + PickableItemData.name);
-                Destroy(gameObject);
-            }
+            // Inventory inventory;
+            //
+            // if ((inventory = interactor.GetComponent<Inventory>()) && inventory.AddItem(GetComponent<PickableItem>()))
+            // {
+            //     Debug.Log("Picked " + PickableItemData.name);
+            //     Destroy(gameObject);
+            // }
         }
     }
 }

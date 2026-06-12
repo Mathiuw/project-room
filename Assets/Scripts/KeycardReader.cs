@@ -21,14 +21,14 @@ namespace MaiNull
 
         public void Interact(Transform interactor)
         {
-            Inventory inventory = interactor.GetComponent<Inventory>();
-
-            if (inventory.HaveKeycard(keycardNeeded))
-            {
-                Used = true;
-                ChangeMeshMaterials();
-                OnAcceptKeycard?.Invoke();
-            }
+            // Inventory inventory = interactor.GetComponent<Inventory>();
+            //
+            // if (inventory.HaveKeycard(keycardNeeded))
+            // {
+            //     Used = true;
+            //     ChangeMeshMaterials();
+            //     OnAcceptKeycard?.Invoke();
+            // }
         }
 
         void ChangeMeshMaterials() 

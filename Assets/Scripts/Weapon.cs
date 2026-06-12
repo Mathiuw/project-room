@@ -9,10 +9,11 @@ namespace MaiNull
         private int _currentAmmo;
         private RaycastHit _hit;
         private float _nextTimeToFire = 0;
-
-        public event Action<Weapon, RaycastHit> OnWeaponShot;
+        private WeaponData _weaponData;
         
-        public WeaponData WeaponData { get; }
+        public event Action<Weapon, RaycastHit> OnWeaponShot;
+
+        public WeaponData WeaponData => _weaponData;
         
         public int CurrentAmmo
         {
@@ -26,16 +27,16 @@ namespace MaiNull
         
         public Weapon(WeaponData weaponData)
         {
-            WeaponData = weaponData;
+            _weaponData = weaponData;
             CurrentAmmo = weaponData.maxAmmo;
         }
 
-        public virtual bool Shoot(Transform raycastStartPosition, LayerMask layerMask)
+        public virtual bool Shoot(Transform raycastStartPosition, LayerMask layerMask, Transform instigator)
         {
             if (CurrentAmmo == 0 || !(Time.time > _nextTimeToFire)) return false;
 
             // FireRate calculation
-            _nextTimeToFire = Time.time + (1f / WeaponData.fireRate);
+            _nextTimeToFire = Time.time + 1f / _weaponData.fireRate;
 
             CurrentAmmo -= 1;
 
@@ -49,8 +50,11 @@ namespace MaiNull
                 {
                     foreach (IDamageable damageable in damageables)
                     {
-                        damageable.Damage(WeaponData.damage, 
-                            new Knockback(WeaponData.knockbackForce, WeaponData.knockbackDuration, _hit.transform.position - raycastStartPosition.transform.position), null);
+                        damageable.Damage(_weaponData.damage, 
+                            new Knockback(_weaponData.knockbackForce, 
+                                WeaponData.knockbackDuration, 
+                                _hit.transform.position - raycastStartPosition.transform.position), 
+                            instigator);
                     }
                 }
             }

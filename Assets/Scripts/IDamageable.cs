@@ -9,6 +9,7 @@ namespace MaiNull
         public void Damage (float damageValue, Knockback knockback, Transform damageInstigator)
         {
             Health.RemoveHealth((int)damageValue);
+            Debug.Log($"{damageInstigator.name} Damaged {damageValue} to {this.ToString()}, Remaining Health: {Health.HealthAmount}");
         }
     }
 }
