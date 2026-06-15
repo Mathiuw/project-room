@@ -11,7 +11,7 @@ namespace MaiNull
 
         public void TryInteract()
         {
-            print($"{name} tried to interact");
+            print($"{transform.name} tried to interact");
 
             if (Physics.Raycast(orientationTransform.transform.position, orientationTransform.transform.forward, out RaycastHit hit, rayLength, interactiveMask))
             {

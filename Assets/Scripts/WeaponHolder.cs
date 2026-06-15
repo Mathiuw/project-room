@@ -25,6 +25,24 @@ namespace MaiNull
             get => _weapons.Count <= 0 ? null : _weapons[_inventoryIndex];
             private set => _weapons[_inventoryIndex] = value;
         }
+        public int InventoryIndex {
+            get => _inventoryIndex;
+            set {
+                _inventoryIndex = value;
+                
+                if (_inventoryIndex >= _weapons.Count)
+                {
+                    _inventoryIndex = 0;
+                }
+                else if (_inventoryIndex <= 0 && _weapons.Count > 0)
+                {
+                    _inventoryIndex = _weapons.Count - 1;
+                }
+                else if (_weapons.Count == 0) {
+                    _inventoryIndex = 0;
+                }
+            } 
+        }
 
         private void Awake()
         {
@@ -33,6 +51,7 @@ namespace MaiNull
 
         public void IncreaseIndex()
         {
+            int beforeChangeIndex = _inventoryIndex;
             _inventoryIndex++;
 
             if (_inventoryIndex >= _weapons.Count)
@@ -40,19 +59,25 @@ namespace MaiNull
                 _inventoryIndex = 0;
             }
             
+            if (_inventoryIndex == beforeChangeIndex) return;
             OnWeaponChange?.Invoke(CurrentWeapon);
+            print($"Current Weapon: {CurrentWeapon.WeaponData.name}");
         } 
 
         public void DecreaseIndex()
         {
+            int beforeChangeIndex = _inventoryIndex;
+            
             _inventoryIndex--;
             if (_inventoryIndex <= 0 && _weapons.Count > 0)
             {
                 _inventoryIndex = _weapons.Count - 1;
             }
             else _inventoryIndex = 0;
-            
+
+            if (_inventoryIndex == beforeChangeIndex) return;
             OnWeaponChange?.Invoke(CurrentWeapon);
+            print($"Current Weapon: {CurrentWeapon.WeaponData.name}");
         }
 
         public void IncreaseInventorySize()
@@ -76,15 +101,17 @@ namespace MaiNull
             }
             
             _weapons.Add(newWeapon);
+            _inventoryIndex = _weapons.FindIndex(w => w == newWeapon);
             OnWeaponPickup?.Invoke(newWeapon);
             print($"{transform.name} picked weapon");
         }
 
         public void ChangeWeapon(Weapon newWeapon)
         {
-            CurrentWeapon = newWeapon;
+            DropCurrentWeapon();
+            PickUpWeapon(newWeapon);
             OnWeaponChange?.Invoke(CurrentWeapon);
-            print($"{transform.name} changed weapon to {newWeapon}");
+            print($"{transform.name} changed weapon to {newWeapon.WeaponData.itemName}");
         }
 
         public void ShootWeapon(Transform orientation)
@@ -100,6 +127,9 @@ namespace MaiNull
         public virtual void ReloadCurrentWeapon()
         {
             if (CurrentWeapon == null) return;
+            if (CurrentWeapon.CurrentAmmo == CurrentWeapon.WeaponData.maxAmmo) {
+                print($"{CurrentWeapon.WeaponData.itemName} ammo is full");
+            }
             
             CurrentWeapon.CurrentAmmo = CurrentWeapon.WeaponData.maxAmmo;
             OnWeaponReload?.Invoke();
@@ -110,10 +140,13 @@ namespace MaiNull
         {
             if (CurrentWeapon == null || !CurrentWeapon.WeaponData.canDrop ||  _inventoryIndex >= _weapons.Count) return;
 
-            Instantiate(CurrentWeapon.WeaponData.dropPrefab, transform.position, Quaternion.identity);
+            GameObject dropPrefab = Instantiate(CurrentWeapon.WeaponData.dropPrefab, transform.position, Quaternion.identity);
+            if (dropPrefab.TryGetComponent(out PickableWeapon pickableWeapon)) {
+                pickableWeapon.WeaponInstance = CurrentWeapon;
+            }
             
             _weapons.RemoveAt(_inventoryIndex);
-            DecreaseInventorySize();
+            DecreaseIndex();
             OnWeaponDrop?.Invoke();
             print($"{transform.name} dropped weapon");
         }

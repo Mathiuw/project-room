@@ -5,13 +5,13 @@ namespace MaiNull
     public class PickableWeapon : Pickable
     {
         [SerializeField] private WeaponData weaponData;
-        private Weapon _weapon;
+        public Weapon WeaponInstance { get; set; }
 
         private void Awake()
         {
             if (weaponData)
             {
-                _weapon = new Weapon(weaponData);
+                WeaponInstance = new Weapon(weaponData);
             }
         }
 
@@ -22,7 +22,7 @@ namespace MaiNull
             interactor.TryGetComponent(out WeaponHolder weaponHolder);
             if (!weaponHolder) return;
             
-            weaponHolder.PickUpWeapon(_weapon);
+            weaponHolder.PickUpWeapon(WeaponInstance);
             Destroy(gameObject);
         }
     }

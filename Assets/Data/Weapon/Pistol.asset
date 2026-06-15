@@ -14,18 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Pistol
   damage: 15
-  knockback: 3
   maxAmmo: 11
-  firerate: 5
-  waitToShoot: 1
+  fireRate: 7
+  knockbackForce: 0
+  knockbackDuration: 0
   shootType: 0
   ammoType: 0
-  shootMask:
-    serializedVersion: 2
-    m_Bits: 12032
+  canDrop: 1
+  inputType: 0
   crosshair: {fileID: 21300000, guid: 964797e12ed3ccb4cbb7dc19d0d9d6fd, type: 3}
   intensity: 0
   speed: 0
-  animatorOverride: {fileID: 22100000, guid: 4f547759e1dd5c041b6017e80dc64ee7, type: 2}
-  reloadTime: 4
+  reloadDuration: 5
+  dropPrefab: {fileID: 53250435727361313, guid: 3506d0d7280e5314e8368499a967254d, type: 3}
   ammoSprite: {fileID: 21300000, guid: d5f80fafda73c7a4c96e6ce196a12ede, type: 3}

@@ -329,7 +329,7 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 43
+    y: 0
     width: 2560
     height: 36
   m_SerializedDataModeController:
@@ -595,7 +595,7 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 553
+    y: 498
     width: 1400
     height: 793
   m_SerializedDataModeController:
@@ -698,7 +698,7 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 79
+    y: 24
     width: 1400
     height: 448
   m_SerializedDataModeController:
@@ -1367,7 +1367,7 @@ MonoBehaviour:
       m_Fade:
         m_Target: 0
         speed: 2
-        m_Value: 1
+        m_Value: 0
       m_Color: {r: 0.5, g: 0.5, b: 0.5, a: 0.4}
       m_Pivot: {x: 0, y: 0, z: 0}
       m_Size: {x: 1, y: 1}
@@ -1377,7 +1377,7 @@ MonoBehaviour:
   m_Rotation:
     m_Target: {x: -0.10386372, y: 0.457811, z: -0.05395329, w: -0.88131356}
     speed: 2
-    m_Value: {x: -0.10386356, y: 0.45781028, z: -0.053953208, w: -0.8813122}
+    m_Value: {x: -0.10386372, y: 0.45781097, z: -0.05395329, w: -0.8813135}
   m_Size:
     m_Target: 1.4114082
     speed: 2
@@ -1551,8 +1551,8 @@ MonoBehaviour:
     m_TextWithWhitespace: "Hierarchy\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 1401
-    y: 79
+    x: 1
+    y: 24
     width: 542
     height: 449
   m_SerializedDataModeController:
@@ -1625,8 +1625,8 @@ MonoBehaviour:
     m_TextWithWhitespace: "Project\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 1401
-    y: 554
+    x: 1
+    y: 499
     width: 542
     height: 792
   m_SerializedDataModeController:
@@ -1678,7 +1678,6 @@ MonoBehaviour:
     m_ExpandedIDs:
     - m_Data: 0
     - m_Data: 43066
-    - m_Data: 44434
     - m_Data: 44436
     - m_Data: 44438
     - m_Data: 44440
@@ -1687,7 +1686,7 @@ MonoBehaviour:
     - m_Data: 44446
     - m_Data: 44448
     - m_Data: 44450
-    - m_Data: 45346
+    - m_Data: 44452
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1721,7 +1720,6 @@ MonoBehaviour:
     m_ExpandedIDs:
     - m_Data: 0
     - m_Data: 43066
-    - m_Data: 44434
     - m_Data: 44436
     - m_Data: 44438
     - m_Data: 44440
@@ -1730,6 +1728,7 @@ MonoBehaviour:
     - m_Data: 44446
     - m_Data: 44448
     - m_Data: 44450
+    - m_Data: 44452
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1810,8 +1809,8 @@ MonoBehaviour:
     m_TextWithWhitespace: "Inspector\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 1945
-    y: 79
+    x: 1946
+    y: 24
     width: 614
     height: 1267
   m_SerializedDataModeController:

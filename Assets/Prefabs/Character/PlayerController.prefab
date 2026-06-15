@@ -112,7 +112,7 @@ MonoBehaviour:
   orientationTransform: {fileID: 3702127401133823320}
   interactiveMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 447
   rayLength: 5
 --- !u!114 &1147645660619197324
 MonoBehaviour:

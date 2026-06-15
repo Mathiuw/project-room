@@ -9,13 +9,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 53250435727361312}
-  - component: {fileID: 2796705434005797875}
-  - component: {fileID: 8360839775889383363}
-  - component: {fileID: 4056158318860744372}
-  m_Layer: 12
+  - component: {fileID: 363935280399191865}
+  - component: {fileID: 8022337704082253240}
+  m_Layer: 0
   m_Name: Pistol
   m_TagString: Untagged
-  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -37,34 +36,7 @@ Transform:
   - {fileID: 5024953459072633552}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &2796705434005797875
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 53250435727361313}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!114 &8360839775889383363
+--- !u!114 &363935280399191865
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -73,110 +45,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 53250435727361313}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f7c124549f987ce449fa088a7acf2fc3, type: 3}
+  m_Script: {fileID: 11500000, guid: d3b57fd368357524b8f92ff166ed9167, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
-  <WeaponData>k__BackingField: {fileID: 11400000, guid: ed656ae13e6643b4a868c56b4fad80bf, type: 2}
-  muzzleFlashTransform: {fileID: 5024953459072633552}
-  muzzleFlash: {fileID: 8993078229490907916, guid: be85a34377cf8d241a2ac441893a7ee6, type: 3}
-  blood: {fileID: 5750085299204580772, guid: 3a5dae8569d4f374e8c66e8fef3d1f31, type: 3}
---- !u!82 &4056158318860744372
-AudioSource:
+  m_EditorClassIdentifier: Assembly-CSharp::MaiNull.PickableWeapon
+  weaponData: {fileID: 11400000, guid: ed656ae13e6643b4a868c56b4fad80bf, type: 2}
+--- !u!65 &8022337704082253240
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 53250435727361313}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: -4675161092127226800, guid: 93a559875b335c84f86b2a42df5fb19c, type: 2}
-  m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: 039ad0fbe0f91294b80aa198a8d33e3e, type: 3}
-  m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
+  serializedVersion: 3
+  m_Size: {x: 0.1530906, y: 0.556949, z: 0.8409305}
+  m_Center: {x: 0, y: 0.043128848, z: 0.20735845}
 --- !u!1 &1850518660025693710
 GameObject:
   m_ObjectHideFlags: 0
@@ -186,7 +79,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1870566353949936233}
-  m_Layer: 12
+  m_Layer: 0
   m_Name: AimLocation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -217,7 +110,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5024953459072633552}
-  m_Layer: 12
+  m_Layer: 0
   m_Name: MuzzleFlashLocation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -250,9 +143,7 @@ GameObject:
   - component: {fileID: 5905111092407270191}
   - component: {fileID: 7376035088286905482}
   - component: {fileID: 4735543378303287360}
-  - component: {fileID: 9163997856955526819}
-  - component: {fileID: 5518719399833966416}
-  m_Layer: 12
+  m_Layer: 0
   m_Name: Mesh
   m_TagString: Gun
   m_Icon: {fileID: 0}
@@ -302,6 +193,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -324,49 +217,9 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &9163997856955526819
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6537251853994238357}
-  m_Material: {fileID: 13400000, guid: 26663a7541ced244aa65f04c6f41745d, type: 2}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.000528424, y: 0.0015562673, z: 0.00427881}
-  m_Center: {x: 0, y: -0.0003249994, z: 0.0011833538}
---- !u!65 &5518719399833966416
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6537251853994238357}
-  m_Material: {fileID: 13400000, guid: 26663a7541ced244aa65f04c6f41745d, type: 2}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.000828424, y: 0.00496445, z: 0.0018561385}
-  m_Center: {x: 0, y: -0.0035769136, z: 0.0024434153}

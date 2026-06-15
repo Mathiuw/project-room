@@ -32,12 +32,14 @@ namespace MaiNull
 
         private void Start()
         {
-            Transform orientation = GameObject.FindGameObjectWithTag("Orientation").transform;
-            if (!orientation) return;
-            
-            _kinematicCharacterController.orientationPivot = orientation;
-            _interactor.orientationTransform = orientation;
-            _weaponHolder.shootOrientation = orientation;
+            foreach (Transform child in transform) {
+                // Check If player has an orientation transform
+                if (!child.CompareTag("Orientation")) continue;
+                
+                _kinematicCharacterController.orientationPivot = child;
+                _interactor.orientationTransform = child;
+                _weaponHolder.shootOrientation = child;
+            }
         }
 
         private void OnEnable()
@@ -201,6 +203,7 @@ namespace MaiNull
             
             if (scrollValue == Vector2.zero) return;
 
+            // print(scrollValue.y);
             if (scrollValue.y > 0) {
                 _weaponHolder.IncreaseIndex();
             } 
@@ -238,9 +241,9 @@ namespace MaiNull
         
         private void OnDead()
         {
-            OnDisable();
+            Destroy(gameObject);
             OnPlayerDie?.Invoke();
-            Debug.Log("Player Died!!");
+            print("Player Died!!");
         }
     }
 }

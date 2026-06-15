@@ -17,14 +17,19 @@ namespace MaiNull.Singleton
             newFade.FadeOut();
             
             // Restart level when player die
-            Player.OnPlayerDie += RestartLevelTransition;
+            Player.OnPlayerDie += OnPlayerDie;
         }
 
         private void OnDisable()
         {
             Player.OnPlayerDie -= RestartLevelTransition;
         }
-
+        
+        private void OnPlayerDie()
+        {
+            print("Game Over!!!");
+        }
+        
         public void RestartLevelTransition()
         {
             SceneTransition(SceneManager.GetActiveScene().buildIndex);

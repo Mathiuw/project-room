@@ -51,12 +51,14 @@ namespace MaiNull
             // Move camera
             CameraMove();
             
+            if(!Orientation) return;
             Orientation.rotation = transform.rotation;
         }
 
         private void LateUpdate()
         {
             // Follows the player camera position
+            if(!Orientation) return;
             transform.position = Orientation.position;
         }
 

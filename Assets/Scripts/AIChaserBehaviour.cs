@@ -6,24 +6,24 @@ namespace MaiNull
     [RequireComponent(typeof(NavMeshAgent))]
     public class AIChaserBehaviour : MonoBehaviour
     {
-        NavMeshAgent agent;
-        Transform target;
+        private NavMeshAgent _agent;
+        private Transform _target;
 
         private void Awake()
         {
-            agent = GetComponent<NavMeshAgent>();
+            _agent = GetComponent<NavMeshAgent>();
         }
 
         private void Start()
         {
-            target = FindFirstObjectByType<Player>()?.transform;
+            _target = FindFirstObjectByType<Player>()?.transform;
         }
 
         private void Update()
         {
-            if (target)
+            if (_target)
             {
-                agent.SetDestination(target.position);
+                _agent.SetDestination(_target.position);
             }
         }
     }

@@ -14,18 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Double Barrel
   damage: 40
-  knockback: 15
   maxAmmo: 2
-  firerate: 7
-  waitToShoot: 0
+  fireRate: 3
+  knockbackForce: 0
+  knockbackDuration: 0
   shootType: 0
   ammoType: 2
-  shootMask:
-    serializedVersion: 2
-    m_Bits: 12032
+  canDrop: 1
+  inputType: 0
   crosshair: {fileID: 21300000, guid: 7d0fbc1f02f9c4a4b8c2986ea5de5e89, type: 3}
   intensity: 0
   speed: 0
-  animatorOverride: {fileID: 22100000, guid: 256889344a1820d4f9d9ad130e20a49a, type: 2}
-  reloadTime: 0
+  reloadDuration: 3
+  dropPrefab: {fileID: 3866563901672650579, guid: 91e426bf8db83cb4d84dfbcecf602fe2, type: 3}
   ammoSprite: {fileID: 21300000, guid: bb90bc28b6479c64a8fa4548034fac62, type: 3}
