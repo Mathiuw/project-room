@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7689158058597743514}
   - component: {fileID: 8961410997152367379}
   - component: {fileID: 4826480673667443063}
-  m_Layer: 12
+  m_Layer: 7
   m_Name: MP5_Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,7 +102,7 @@ GameObject:
   - component: {fileID: 329428437747104607}
   - component: {fileID: 4191850420898323853}
   - component: {fileID: 1141718329954416994}
-  m_Layer: 12
+  m_Layer: 7
   m_Name: Mag_Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -192,7 +192,7 @@ GameObject:
   - component: {fileID: 6294857939813162545}
   - component: {fileID: 7865518772081938462}
   - component: {fileID: 7589062041559164282}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: MP5
   m_TagString: Untagged
   m_Icon: {fileID: 0}

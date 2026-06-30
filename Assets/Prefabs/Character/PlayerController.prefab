@@ -92,10 +92,12 @@ MonoBehaviour:
   orientationPivot: {fileID: 3702127401133823320}
   moveSpeed: 10
   jumpHeight: 2
+  jumpCost: 15
   gravity: {x: 0, y: -20, z: 0}
   sprintMultiplier: 1.8
   maxStamina: 100
-  staminaCostPerFrame: 3
+  staminaCostPerFrame: 20
+  recoverAmount: 10
   isSprinting: 0
 --- !u!114 &7694520542219493588
 MonoBehaviour:

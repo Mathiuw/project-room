@@ -1,0 +1,17 @@
+:root {
+}
+
+.dot_crosshair {
+    background-color: rgb(255, 255, 255);
+    border-top-left-radius: 1026px;
+    border-top-right-radius: 1026px;
+    border-bottom-right-radius: 1026px;
+    border-bottom-left-radius: 1026px;
+    width: 5px;
+    height: 5px;
+}
+
+.container {
+    align-items: center;
+    justify-content: center;
+}

@@ -26150,14 +26150,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1117028712250758908, guid: f2022527f100d2a44af1ec975021b88b, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 4857540948515075044, guid: f2022527f100d2a44af1ec975021b88b, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
     - target: {fileID: 6294857939813162545, guid: f2022527f100d2a44af1ec975021b88b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -26201,10 +26193,6 @@ PrefabInstance:
     - target: {fileID: 7285649367284991128, guid: f2022527f100d2a44af1ec975021b88b, type: 3}
       propertyPath: m_Name
       value: MP5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7285649367284991128, guid: f2022527f100d2a44af1ec975021b88b, type: 3}
-      propertyPath: m_Layer
-      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

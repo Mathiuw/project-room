@@ -1,0 +1,6 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/crosshair.uss?fileID=7433441132597879392&amp;guid=19548b93d3e72b34a89c1358376af79c&amp;type=3#crosshair"/>
+    <ui:VisualElement name="Container" class="container" style="flex-grow: 1;">
+        <ui:VisualElement name="DotCrosshair" class="dot_crosshair"/>
+    </ui:VisualElement>
+</ui:UXML>

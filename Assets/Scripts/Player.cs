@@ -1,4 +1,5 @@
 ﻿using System;
+using Unity.Properties;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -16,6 +17,12 @@ namespace MaiNull
         
         public Health Health { get; private set; }
         public FPSCamera FPSCamera { get => _fpsCamera; set => _fpsCamera = value; }
+        
+        // UI Toolkit data bindings properties
+        [CreateProperty] public float CurrentHealth => Health.HealthAmount;
+        [CreateProperty] public float MaxHealth => Health.MaxHealth;
+        [CreateProperty] public float CurrentStamina => _kinematicCharacterController.CurrentStamina;
+        [CreateProperty] public float MaxStamina => _kinematicCharacterController.MaxStamina;
         
         private void Awake()
         {

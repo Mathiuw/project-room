@@ -1,0 +1,9 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/health_bar.uss?fileID=7433441132597879392&amp;guid=a3eee2674f3fbd14e904714069ca5857&amp;type=3#health_bar"/>
+    <ui:ProgressBar value="50" title="" name="HealthBar">
+        <Bindings>
+            <ui:DataBinding property="value" data-source-path="CurrentHealth" data-source-type="MaiNull.Player, Assembly-CSharp" binding-mode="ToTarget"/>
+            <ui:DataBinding property="highValue" data-source-path="MaxHealth" data-source-type="MaiNull.Player, Assembly-CSharp" binding-mode="ToTarget"/>
+        </Bindings>
+    </ui:ProgressBar>
+</ui:UXML>
