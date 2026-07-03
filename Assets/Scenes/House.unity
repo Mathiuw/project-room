@@ -10337,7 +10337,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 545270055337143121, guid: 19561f4ceb8d84642ae431580e524ba0, type: 3}
       propertyPath: m_Name
-      value: AmmoDrop_Small
+      value: Ammo_Small
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -17283,7 +17283,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6148441810737694698, guid: e8c16d8eb98e3c144ac469d5ae9b5719, type: 3}
       propertyPath: m_Name
-      value: AmmoDrop_Shell
+      value: Ammo_Shell
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -17696,7 +17696,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7705229488791342926, guid: e381d6a1140892e45ba75d9cae9935ce, type: 3}
       propertyPath: m_Name
-      value: AmmoDrop_Large
+      value: Ammo_Large
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7639593547022887449}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: AimLocation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 3866563901672650578}
   - component: {fileID: 5000223623914158864}
   - component: {fileID: 7617149037587623048}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: DoubleBarrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -110,7 +110,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2114742755824392261}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: MuzzleFlashLocation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -143,7 +143,7 @@ GameObject:
   - component: {fileID: 7803472367856641900}
   - component: {fileID: 6621517765836859593}
   - component: {fileID: 8935330890665696259}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}

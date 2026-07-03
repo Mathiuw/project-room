@@ -1,0 +1,14 @@
+:root {
+    align-items: center;
+    justify-content: center;
+    margin-top: 60px;
+}
+
+.unity-text-element {
+    font-size: 42px;
+    -unity-font-definition: url("project://database/Assets/Font/advanced_pixel-7.ttf?fileID=12800000&guid=cf2cb61c0b49a3a4193d9a470e3259a4&type=3#advanced_pixel-7");
+    -unity-text-align: upper-center;
+    -unity-font-style: normal;
+    color: rgb(255, 255, 255);
+    text-shadow: 2px 1px 1px rgba(0, 0, 0, 0.49);
+}

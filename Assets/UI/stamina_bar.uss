@@ -1,44 +1,27 @@
 :root {
+    flex-direction: row-reverse;
+    align-self: auto;
+    align-items: flex-end;
 }
 
-.container {
-    align-content: flex-end;
-    flex-direction: column-reverse;
-    height: auto;
-    width: auto;
-    max-height: none;
-    flex-grow: 1;
+
+
+.stamina-bar_container {
+    background-color: rgb(68, 142, 72);
+    height: 655px;
+    min-width: auto;
+    width: 25px;
+    margin-top: 90px;
+    margin-right: 45px;
+    margin-bottom: 90px;
+    margin-left: 90px;
+    align-items: auto;
+    justify-content: flex-end;
 }
 
-.unity-progress-bar {
-    margin-top: 0;
-    margin-right: 0;
-    margin-bottom: 0;
-    margin-left: 0;
-    scale: 1 0.3;
+.stamina-bar_fill {
+    background-color: rgb(102, 224, 109);
     transform-origin: bottom;
-}
-
-.unity-progress-bar__progress {
-    background-color: rgb(129, 194, 255);
-    margin-top: 0;
-    margin-right: 0;
-    margin-bottom: 0;
-    margin-left: 0;
-}
-
-.unity-progress-bar__background {
-    margin-top: 0;
-    margin-right: 0;
-    margin-bottom: 0;
-    margin-left: 0;
-    border-top-width: 0;
-    border-right-width: 0;
-    border-bottom-width: 0;
-    border-left-width: 0;
-    background-color: rgb(88, 136, 180);
-}
-
-.hidden {
-    display: none;
+    width: 100%;
+    max-height: 50%;
 }

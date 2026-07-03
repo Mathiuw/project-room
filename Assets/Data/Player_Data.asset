@@ -12,7 +12,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6887b217df24ce3968ca9441cdcd703, type: 3}
   m_Name: Player_Data
   m_EditorClassIdentifier: Assembly-CSharp::MaiNull.PlayerData
-  maxHealth: 100
+  startMaxHealth: 100
+  startLevel: 1
+  experienceProgressionCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 100
+      value: 50
+      inSlope: 0.4898431
+      outSlope: 0.4898431
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.05644539
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   moveInputAction: {fileID: 4460534866953578828, guid: 5261bc7792e99e640a82546c0fc724ed, type: 3}
   lookInputAction: {fileID: -2846333820906025580, guid: 5261bc7792e99e640a82546c0fc724ed, type: 3}
   jumpInputAction: {fileID: 6340764210115487436, guid: 5261bc7792e99e640a82546c0fc724ed, type: 3}

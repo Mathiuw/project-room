@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace MaiNull
@@ -8,7 +7,10 @@ namespace MaiNull
     public class PlayerData : ScriptableObject
     {
         [Header("Health")]
-        public int maxHealth;
+        public int startMaxHealth;
+        [Header("Progression")]
+        public uint startLevel;
+        public AnimationCurve experienceProgressionCurve;
         [Header("Input")]
         public InputActionReference moveInputAction;
         public InputActionReference lookInputAction;

@@ -14,9 +14,11 @@ namespace MaiNull
         private Interactor _interactor;
         private WeaponHolder _weaponHolder;
         private FPSCamera _fpsCamera;
+        private XpHolder _xpHolder;
         
         public Health Health { get; private set; }
         public FPSCamera FPSCamera { get => _fpsCamera; set => _fpsCamera = value; }
+        public float InteractMaxDistance => _interactor.InteractiveMaxLength;
         
         // UI Toolkit data bindings properties
         [CreateProperty] public float CurrentHealth => Health.HealthAmount;
@@ -26,15 +28,15 @@ namespace MaiNull
         
         private void Awake()
         {
-            Health = new Health(playerData.maxHealth);
-            
             _kinematicCharacterController = GetComponent<KinematicCharacterController>();
             _interactor = GetComponent<Interactor>();
             _weaponHolder = GetComponent<WeaponHolder>();
  
             if (playerData == null) return;
-            Health = new Health(playerData.maxHealth);
+            Health = new Health(playerData.startMaxHealth);
             Health.OnDie += OnDead;
+
+            _xpHolder = new XpHolder(playerData.experienceProgressionCurve, playerData.startLevel);
         }
 
         private void Start()

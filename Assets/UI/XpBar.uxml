@@ -1,0 +1,17 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/xp_bar.uss?fileID=7433441132597879392&amp;guid=944ee23d53c7f8846bc8844e712808a7&amp;type=3#xp_bar"/>
+    <ui:ProgressBar value="50" name="StaminaBar">
+        <Bindings>
+            <ui:DataBinding property="value" data-source-path="CurrentStamina" data-source-type="MaiNull.Player, Assembly-CSharp" binding-mode="ToTarget"/>
+            <ui:DataBinding property="highValue" data-source-path="MaxStamina" data-source-type="MaiNull.Player, Assembly-CSharp" binding-mode="ToTarget"/>
+        </Bindings>
+    </ui:ProgressBar>
+    <ui:VisualElement class="label-container" style="flex-grow: 1;">
+        <ui:VisualElement style="flex-grow: 1;">
+            <ui:Label text="Level 1"/>
+        </ui:VisualElement>
+        <ui:VisualElement style="flex-grow: 1; flex-direction: row-reverse; align-self: auto; align-items: flex-end;">
+            <ui:Label text="0/999"/>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

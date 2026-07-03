@@ -7,13 +7,15 @@ namespace MaiNull
         [Header("Interact Settings")] 
         public Transform orientationTransform;
         [SerializeField] private LayerMask interactiveMask;
-        [SerializeField] private float rayLength = 5;
+        [SerializeField] private float interactiveMaxLength = 5;
+        
+        public float InteractiveMaxLength => interactiveMaxLength;
 
         public void TryInteract()
         {
             print($"{transform.name} tried to interact");
 
-            if (Physics.Raycast(orientationTransform.transform.position, orientationTransform.transform.forward, out RaycastHit hit, rayLength, interactiveMask))
+            if (Physics.Raycast(orientationTransform.transform.position, orientationTransform.transform.forward, out RaycastHit hit, interactiveMaxLength, interactiveMask))
             {
                 IInteractable interactable = hit.transform.GetComponentInParent<IInteractable>();
 
@@ -23,7 +25,7 @@ namespace MaiNull
             }
             else
             {
-                Debug.DrawLine(orientationTransform.position, orientationTransform.position + orientationTransform.forward * rayLength, Color.red, 1f);
+                Debug.DrawLine(orientationTransform.position, orientationTransform.position + orientationTransform.forward * interactiveMaxLength, Color.red, 1f);
             }
         }
     }

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8319464298323784168}
   - component: {fileID: 4239282782755311905}
   - component: {fileID: 3152668476542118206}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Bullet(Model)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -61,6 +61,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -82,9 +84,11 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &545270055337143121
 GameObject:
@@ -95,9 +99,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 545270055337143118}
-  - component: {fileID: 443239683304165767}
-  m_Layer: 9
-  m_Name: AmmoDrop_Small
+  - component: {fileID: 4963074812002474166}
+  m_Layer: 7
+  m_Name: Ammo_Small
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -119,20 +123,27 @@ Transform:
   - {fileID: 1680933106443465620}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &443239683304165767
-MonoBehaviour:
+--- !u!65 &4963074812002474166
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 545270055337143121}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20ded7a1e5f382c459327953da7f1033, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ammoType: 0
-  ammoAmount: 21
+  serializedVersion: 3
+  m_Size: {x: 0.17724887, y: 0.06057824, z: 0.32469276}
+  m_Center: {x: 0.0064634383, y: 0.0019608904, z: 0.101162}
 --- !u!1 &6523785424760022634
 GameObject:
   m_ObjectHideFlags: 0
@@ -144,8 +155,7 @@ GameObject:
   - component: {fileID: 1680933106443465620}
   - component: {fileID: 4896730347616161027}
   - component: {fileID: 3389431114646170178}
-  - component: {fileID: 3435140517700308507}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: "Mag_P\xECstol(Model)"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -196,6 +206,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -217,28 +229,9 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &3435140517700308507
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6523785424760022634}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0014179265, y: 0.0034673712, z: 0.0072378293}
-  m_Center: {x: 0, y: -0.00016897915, z: 0.0023326925}

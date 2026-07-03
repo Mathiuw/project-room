@@ -1,0 +1,54 @@
+:root {
+    flex-direction: column-reverse;
+}
+
+.unity-progress-bar {
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    scale: 1 0.3;
+    transform-origin: bottom;
+}
+
+.unity-progress-bar__progress {
+    background-color: rgb(129, 194, 255);
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+}
+
+.unity-progress-bar__background {
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    background-color: rgb(88, 136, 180);
+}
+
+.hidden {
+    display: none;
+}
+
+.label-container {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-evenly;
+    align-content: auto;
+    align-self: auto;
+}
+
+.unity-text-element {
+    font-size: 42px;
+    -unity-font-definition: url("project://database/Assets/Font/advanced_pixel-7.ttf?fileID=12800000&guid=cf2cb61c0b49a3a4193d9a470e3259a4&type=3#advanced_pixel-7");
+    -unity-text-align: lower-left;
+    -unity-font-style: normal;
+    color: rgb(255, 255, 255);
+    text-shadow: 2px 1px 1px rgba(0, 0, 0, 0.49);
+    justify-content: flex-start;
+}

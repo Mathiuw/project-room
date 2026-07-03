@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 53250435727361312}
   - component: {fileID: 363935280399191865}
   - component: {fileID: 8022337704082253240}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Pistol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,7 +79,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1870566353949936233}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: AimLocation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -110,7 +110,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5024953459072633552}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: MuzzleFlashLocation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -143,7 +143,7 @@ GameObject:
   - component: {fileID: 5905111092407270191}
   - component: {fileID: 7376035088286905482}
   - component: {fileID: 4735543378303287360}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Mesh
   m_TagString: Gun
   m_Icon: {fileID: 0}
